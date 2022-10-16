@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:07 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/11 22:44:56 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/15 21:31:55 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ namespace func
 
 		void clear()
 		{
-			for (size_t = 0; i < _size; i++)
+			for (size_t i = 0; i < _size; i++)
 				_data[i].~T();
 
 			_size = 0;
@@ -86,14 +86,13 @@ namespace func
 			if (newCap < _size)
 				_size = newCap;
 
-			for (size_t  i = 0; i < _size; i++)
+			for (size_t i = 0; i < _size; i++)
 				newData[i] = _data[i];
 			
 			_capacity = newCap;
 			delete[] _data;
 			_data = newData;
 		}
-
 	};
 }
 
