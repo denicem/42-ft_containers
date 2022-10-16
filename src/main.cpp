@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/15 21:52:25 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/16 18:55:50 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,27 @@ int main()
 
 	// ft::vector<int> vect;
 	// ft::vector<std::string> vect;
-	ft::vector<int> vect(10, 42);
-	std::cout << "CAP: " << vect.capacity() << " SIZE: " << vect.size() << std::endl;
+	// ft::vector<int> vect(10, 42);
+	// std::cout << "CAP: " << vect.capacity() << " SIZE: " << vect.size() << std::endl;
 	// vect.push_back(42);
 	// vect.push_back(21);
 	// vect.push_back("hehe");
 	// vect.push_back("huhu");
-	std::cout << "CAP: " << vect.capacity() << " SIZE: " << vect.size() << std::endl;
-	for (int i = 0; i < vect.size(); i++)
-		std::cout << vect[i] << " ";
+	// std::cout << "CAP: " << vect.capacity() << " SIZE: " << vect.size() << std::endl;
+	// for (int i = 0; i < vect.size(); i++)
+	// 	std::cout << vect[i] << " ";
+	// std::cout << std::endl;
+
+	func::Vect<int> vect;
+	for (int i = 0; i < 14; i++)
+		vect.push_back(i + 42);
+	vect[0] = 21;
+
+	for (auto v: vect)
+		std::cout << v << " ";
+	std::cout << std::endl;
+	for (func::Vect<int>::iterator it = vect.begin(); it != vect.end(); it++)
+		std::cout << *it << " ";
 	std::cout << std::endl;
 
 	return (0);
