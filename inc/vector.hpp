@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/17 03:55:05 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/17 03:59:08 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ namespace ft
 		typedef typename allocator_type::const_pointer		const_pointer;
 		typedef typename allocator_type::reference			reference;
 		typedef typename allocator_type::const_reference	const_reference;
-		// typedef ft::Iterator<value_type>					iterator;
+		typedef ft::Iterator<value_type>					iterator;
 		// typedef ft::Iterator<const value_type>				const_iterator;
 		// reverse_iterator;
 		// const_reverse_iterator;
@@ -110,18 +110,18 @@ namespace ft
 	** ----------------------- ITERATORS -----------------------
 	*/
 	public:
-	// iterator begin() {}
-	// const_iterator begin() const {}
-	// iterator end() {}
-	// const_iterator end() const {}
-	// reverse_iterator rbegin() {}
-	// const_reverse_iterator rbegin() const {}
-	// reverse_iterator rend() {}
-	// const_reverse_iterator rend() const {}
-	// const_iterator cbegin() const noexcept {}
-	// const_iterator cend() const noexcept {}
-	// const_reverse_iterator crbegin() const noexcept {}
-	// const_reverse_iterator crend() const noexcept {}
+		iterator begin() { return (iterator(_data)); }
+		// const_iterator begin() const {}
+		iterator end() { return (iterator(_data + _size)); }
+		// const_iterator end() const {}
+		// reverse_iterator rbegin() {}
+		// const_reverse_iterator rbegin() const {}
+		// reverse_iterator rend() {}
+		// const_reverse_iterator rend() const {}
+		// const_iterator cbegin() const noexcept {}
+		// const_iterator cend() const noexcept {}
+		// const_reverse_iterator crbegin() const noexcept {}
+		// const_reverse_iterator crend() const noexcept {}
 
 	/*
 	** ----------------------- CAPACITY -----------------------

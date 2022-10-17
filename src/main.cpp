@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/16 18:55:50 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/17 03:54:31 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include <vector>
 #include "../inc/vect.hpp"
 #include "../inc/vector.hpp"
+
+struct vect3
+{
+	int x, y, z;
+};
 
 int main()
 {
@@ -64,17 +69,34 @@ int main()
 	// 	std::cout << vect[i] << " ";
 	// std::cout << std::endl;
 
-	func::Vect<int> vect;
+	// std::vector<int> og;
+	// std::vector<std::string> og_str;
+	// std::vector<vect3> vect3_vect;
+	ft::vector<int> vect;
 	for (int i = 0; i < 14; i++)
 		vect.push_back(i + 42);
 	vect[0] = 21;
-
-	for (auto v: vect)
-		std::cout << v << " ";
-	std::cout << std::endl;
-	for (func::Vect<int>::iterator it = vect.begin(); it != vect.end(); it++)
+	ft::vector<int>::iterator it = vect.begin();
+	std::cout << *it << std::endl;
+	++it;
+	++it;
+	++it;
+	--it;
+	*it = 56;
+	std::cout << *it << std::endl;
+	
+	// for (auto v: vect)
+	// 	std::cout << v << " ";
+	// std::cout << std::endl;
+	for (ft::vector<int>::iterator it = vect.begin(); it != vect.end(); ++it)
 		std::cout << *it << " ";
 	std::cout << std::endl;
+
+
+	// std::cout << og.max_size() << std::endl;
+	// std::cout << og_str.max_size() << std::endl;
+	// std::cout << vect3_vect.max_size() << std::endl;
+	// std::cout << vect3_vect.max_size() * 3 << std::endl;
 
 	return (0);
 }
