@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/17 03:54:31 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:04:47 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ int main()
 	for (int i = 0; i < 14; i++)
 		vect.push_back(i + 42);
 	vect[0] = 21;
-	ft::vector<int>::iterator it = vect.begin();
+	ft::vector<int>::const_iterator it = vect.begin();
 	std::cout << *it << std::endl;
 	++it;
 	++it;
 	++it;
 	--it;
-	*it = 56;
+	// *it = 56;
 	std::cout << *it << std::endl;
 	
 	// for (auto v: vect)

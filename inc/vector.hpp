@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/17 03:59:08 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/19 02:16:40 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ namespace ft
 		typedef typename allocator_type::const_pointer		const_pointer;
 		typedef typename allocator_type::reference			reference;
 		typedef typename allocator_type::const_reference	const_reference;
-		typedef ft::Iterator<value_type>					iterator;
-		// typedef ft::Iterator<const value_type>				const_iterator;
+		typedef Iterator<value_type>					iterator;
+		typedef Iterator<const value_type>				const_iterator;
 		// reverse_iterator;
 		// const_reverse_iterator;
 		
@@ -72,7 +72,8 @@ namespace ft
 		// default constructor
 		explicit vector(const allocator_type& alloc = allocator_type())
 		{
-			std::cout << "default constructor.\n";
+			(void) alloc;
+			// std::cout << "default constructor.\n";
 			this->_data = NULL;
 			this->_cap = 0;
 			this->_size = 0;
@@ -81,7 +82,8 @@ namespace ft
 		// fill constructor
 		explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
 		{
-			std::cout << "size constructor.\n";
+			(void) alloc;
+			// std::cout << "size constructor.\n";
 			this->_cap = n;
 			this->_realloc(n);
 
@@ -111,9 +113,9 @@ namespace ft
 	*/
 	public:
 		iterator begin() { return (iterator(_data)); }
-		// const_iterator begin() const {}
+		const_iterator begin() const { return (const_iterator(_data)); }
 		iterator end() { return (iterator(_data + _size)); }
-		// const_iterator end() const {}
+		const_iterator end() const { return (const_iterator(_data + _size)); }
 		// reverse_iterator rbegin() {}
 		// const_reverse_iterator rbegin() const {}
 		// reverse_iterator rend() {}
