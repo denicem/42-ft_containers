@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/19 02:16:40 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/23 00:16:18 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,30 @@ namespace ft
 		}
 
 		// range constructor
-		// template <class InputIterator>
-		// vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) {}
+		template <class InputIterator>
+		vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()): _data(NULL), _size(0), _cap(0)
+		{
+			(void) alloc;
+			size_type i = 0;
+			for (InputIterator it = first; it != last; ++it)
+				i++;
+			_realloc(i);
+			while (first != last)
+			{
+				push_back(*first);
+				first++;
+			}
+			_size = i;
+		}
 
 		// copy constructor
-		// vector(const vector& x) {}
+		vector(const vector& x): _data(NULL), _size(0), _cap(0)
+		{
+			_realloc(x._cap);
+			for (size_type i = 0; i < x._size; ++i)
+				push_back(x[i]);
+			
+		}
 
 		// destructor
 		~vector()
@@ -106,7 +125,17 @@ namespace ft
 		}
 
 		// assignment operator
-		// vector& operator=(const vector& x) {}
+		vector& operator=(const vector& x)
+		{
+			if (this->_size < x._size)
+				_realloc(x._size);
+			for (size_type i = 0; i < x._size; ++i)
+			{
+				this->_data[i] = x[i];
+			}
+			this->_size = x._size;
+			return (*this);
+		}
 
 	/*
 	** ----------------------- ITERATORS -----------------------
@@ -120,8 +149,8 @@ namespace ft
 		// const_reverse_iterator rbegin() const {}
 		// reverse_iterator rend() {}
 		// const_reverse_iterator rend() const {}
-		// const_iterator cbegin() const noexcept {}
-		// const_iterator cend() const noexcept {}
+		const_iterator cbegin() const { return (const_iterator(_data)); }
+		const_iterator cend() const { return (const_iterator(_data + _size)); }
 		// const_reverse_iterator crbegin() const noexcept {}
 		// const_reverse_iterator crend() const noexcept {}
 
@@ -145,10 +174,10 @@ namespace ft
 		const_reference operator[](size_type idx) const { return (this->_data[idx]); }
 		reference at(size_type idx) { return (this->_data[idx]); }
 		const_reference at(size_type idx) const { return (this->_data[idx]); }
-		// reference front() {}
-		// const_reference front() const {}
-		// reference back() {}
-		// const_reference back() const {}
+		reference front() { return (*(this->_data)); }
+		const_reference front() const { return (*(this->_data)); }
+		reference back() { return (*(this->_data + _size)); }
+		const_reference back() const { return (*(this->_data + _size)); }
 		// value_type* data() noexcept {}
 		// const value_type& data() const noexcept {}
 
