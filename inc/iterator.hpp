@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 17:43:36 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/22 23:44:15 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/25 17:37:23 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,37 +93,6 @@ namespace ft
 			return (old);
 		}
 
-		template< typename T1 >
-		bool operator==(const Iterator<T1>& other) const
-		{
-			return (_ptr == other.base());
-		}
-		template< typename T1 >
-		bool operator!=(const Iterator<T1>& other) const
-		{
-			return (_ptr != other.base());
-		}
-		template< typename T1 >
-		bool operator<(const Iterator<T1>& other) const
-		{
-			return (_ptr < other.base());
-		}
-		template< typename T1 >
-		bool operator<=(const Iterator<T1>& other) const
-		{
-			return (_ptr <= other.base());
-		}
-		template< typename T1 >
-		bool operator>(const Iterator<T1>& other) const
-		{
-			return (_ptr > other.base());
-		}
-		template< typename T1 >
-		bool operator>=(const Iterator<T1>& other) const
-		{
-			return (_ptr >= other.base());
-		}
-
 		Iterator& operator+=(const difference_type& n)
 		{
 			this->_ptr += n;
@@ -146,7 +115,83 @@ namespace ft
 			tmp -= n;
 			return (tmp);
 		}
+
+		// template< typename T1 >
+		// bool operator==(const Iterator<T1>& other) const
+		// {
+		// 	return (_ptr == other.base());
+		// }
+		// template< typename T1 >
+		// bool operator!=(const Iterator<T1>& other) const
+		// {
+		// 	return (_ptr != other.base());
+		// }
+		// template< typename T1 >
+		// bool operator<(const Iterator<T1>& other) const
+		// {
+		// 	return (_ptr < other.base());
+		// }
+		// template< typename T1 >
+		// bool operator<=(const Iterator<T1>& other) const
+		// {
+		// 	return (_ptr <= other.base());
+		// }
+		// template< typename T1 >
+		// bool operator>(const Iterator<T1>& other) const
+		// {
+		// 	return (_ptr > other.base());
+		// }
+		// template< typename T1 >
+		// bool operator>=(const Iterator<T1>& other) const
+		// {
+		// 	return (_ptr >= other.base());
+		// }
 	};
+
+	template< class Iter1, class Iter2 >
+	bool operator==(const Iterator<Iter1>& lhs, const Iterator<Iter2>& rhs)
+	{
+		return (lhs.base() == rhs.base());
+	}
+	template< class Iter1, class Iter2 >
+	bool operator!=(const Iterator<Iter1>& lhs, const Iterator<Iter2>& rhs)
+	{
+		return (lhs.base() != rhs.base());
+	}
+	template< class Iter1, class Iter2 >
+	bool operator<(const Iterator<Iter1>& lhs, const Iterator<Iter2>& rhs)
+	{
+		return (lhs.base() < rhs.base());
+	}
+	template< class Iter1, class Iter2 >
+	bool operator<=(const Iterator<Iter1>& lhs, const Iterator<Iter2>& rhs)
+	{
+		return (lhs.base() <= rhs.base());
+	}
+	template< class Iter1, class Iter2 >
+	bool operator>(const Iterator<Iter1>& lhs, const Iterator<Iter2>& rhs)
+	{
+		return (lhs.base() > rhs.base());
+	}
+	template< class Iter1, class Iter2 >
+	bool operator>=(const Iterator<Iter1>& lhs, const Iterator<Iter2>& rhs)
+	{
+		return (lhs.base() >= rhs.base());
+	}
+
+	template< class Iter>
+	Iterator<Iter> operator+(typename Iterator<Iter>::difference_type n, const Iterator<Iter>& it)
+	{
+			Iterator<Iter> tmp(it);
+			tmp += n;
+			return (tmp);
+	}
+
+	template< class Iter >
+	typename Iterator<Iter>::difference_type operator-(const Iterator<Iter>& lhs, const Iterator<Iter>& rhs)
+	{
+		return (lhs.base() - rhs.base());
+	}
 }
 
 #endif

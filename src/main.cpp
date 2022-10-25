@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/23 00:19:05 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/25 17:38:43 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,9 +160,9 @@ int main()
 	// 	std::cout << *it << " ";
 	// std::cout << std::endl;
 
-	std::vector<int> v1;
-	std::vector<int> v2;
-	std::vector<int> v3;
+	ft::vector<int> v1;
+	ft::vector<int> v2;
+	ft::vector<int> v3;
 
 	for (int i = 0 ; i < 8; ++i)
 		v3.push_back(i + 56);
@@ -177,11 +177,17 @@ int main()
 		std::cout << &v << " ";
 	std::cout << std::endl;
 
-	v1 = v3;
-	std::cout << std::endl << v1.capacity() << " " << v1.size() << std::endl;
-	for (auto v: v1)
+	v3 = v1;
+	std::cout << std::endl << v3.capacity() << " " << v3.size() << std::endl;
+	for (auto v: v3)
 		std::cout << &v << " ";
 	std::cout << std::endl;
 
+	std::cout << v2.empty() << " " << v1.empty() << std::endl;
+
+	ft::vector<int>::iterator it = v2.begin();
+	ft::vector<int>::iterator it2 = v2.end();
+	it2--;
+	std::cout << it2 - it << std::endl;
 	return (0);
 }
