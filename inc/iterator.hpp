@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 17:43:36 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/25 17:37:23 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/25 19:07:38 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ namespace ft
 	template < typename T >
 	class Iterator
 	{
-	// NOTE: 
-	/*
-	** ----------------------- MEMBER TYPES -----------------------
-	*/
 	public:
+		/*
+		** ----------------------- MEMBER TYPES -----------------------
+		*/
 		typedef random_access_iterator_tag	iterator_category;
 		typedef T								value_type;
 		typedef std::ptrdiff_t					difference_type;
@@ -34,15 +33,25 @@ namespace ft
 		typedef const value_type&				const_reference;
 
 	protected:
+		/*
+		** ----------------------- MEMBER VARIABLES -----------------------
+		*/
 		pointer _ptr;
 
 	public:
-		explicit Iterator(pointer ptr = NULL): _ptr(ptr) { }
-		// Iterator(const Iterator& other): _ptr(other._ptr) { } // NOTE: still in need?
+		/*
+		** ----------------------- CONSTRUCTORS & DESTRUCTOR -----------------------
+		*/
+		Iterator(pointer ptr = NULL): _ptr(ptr) { }
+		explicit Iterator(value_type x): _ptr(x) { } // NOTE: still in need?
 		template< typename T1 >
 		Iterator(const Iterator<T1>& other): _ptr(other.base()) { }
 		~Iterator() {}
 
+	public:
+		/*
+		** ---------------------------- MEMBER FUNCTIONS ---------------------------
+		*/
 		pointer base() const { return this->_ptr; }
 
 		Iterator& operator=(const Iterator& other)
@@ -64,10 +73,18 @@ namespace ft
 			return (*this);
 		}
 
+	public:
+		/*
+		** ---------------------------- ACCESS OPERATORS ---------------------------
+		*/
 		pointer operator->() { return (_ptr); }
 		reference operator*() { return (*_ptr); }
 		reference operator[](int idx) { return (*(_ptr + idx)); }
 
+	public:
+		/*
+		** ---------------------------- INC/DEC OPERATORS ---------------------------
+		*/
 		Iterator& operator++()
 		{
 			_ptr++;
@@ -115,39 +132,14 @@ namespace ft
 			tmp -= n;
 			return (tmp);
 		}
-
-		// template< typename T1 >
-		// bool operator==(const Iterator<T1>& other) const
-		// {
-		// 	return (_ptr == other.base());
-		// }
-		// template< typename T1 >
-		// bool operator!=(const Iterator<T1>& other) const
-		// {
-		// 	return (_ptr != other.base());
-		// }
-		// template< typename T1 >
-		// bool operator<(const Iterator<T1>& other) const
-		// {
-		// 	return (_ptr < other.base());
-		// }
-		// template< typename T1 >
-		// bool operator<=(const Iterator<T1>& other) const
-		// {
-		// 	return (_ptr <= other.base());
-		// }
-		// template< typename T1 >
-		// bool operator>(const Iterator<T1>& other) const
-		// {
-		// 	return (_ptr > other.base());
-		// }
-		// template< typename T1 >
-		// bool operator>=(const Iterator<T1>& other) const
-		// {
-		// 	return (_ptr >= other.base());
-		// }
 	};
 
+	/*
+	** ---------------------------- NON-MEMBER FUNCTIONS ---------------------------
+	** ---------------------------- NON-MEMBER OPERATORS ---------------------------
+	*/
+
+	// ---------------------------- RELATIONAL OPERATORS ---------------------------
 	template< class Iter1, class Iter2 >
 	bool operator==(const Iterator<Iter1>& lhs, const Iterator<Iter2>& rhs)
 	{
@@ -179,6 +171,7 @@ namespace ft
 		return (lhs.base() >= rhs.base());
 	}
 
+	// ---------------------------- ARITHMETIC OPERATORS ---------------------------
 	template< class Iter>
 	Iterator<Iter> operator+(typename Iterator<Iter>::difference_type n, const Iterator<Iter>& it)
 	{
