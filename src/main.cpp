@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/25 17:38:43 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/25 22:11:47 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,18 +170,18 @@ int main()
 		v2.push_back(i + 42);
 	std::cout << "v2: ";
 	for (auto v: v2)
-		std::cout << &v << " ";
+		std::cout << v << " ";
 	std::cout << std::endl;
 	std::cout << "v3: ";
 	for (auto v: v3)
-		std::cout << &v << " ";
+		std::cout << v << " ";
 	std::cout << std::endl;
 
-	v3 = v1;
-	std::cout << std::endl << v3.capacity() << " " << v3.size() << std::endl;
-	for (auto v: v3)
-		std::cout << &v << " ";
-	std::cout << std::endl;
+	// v3 = v1;
+	// std::cout << std::endl << v3.capacity() << " " << v3.size() << std::endl;
+	// for (auto v: v3)
+	// 	std::cout << &v << " ";
+	// std::cout << std::endl;
 
 	std::cout << v2.empty() << " " << v1.empty() << std::endl;
 
@@ -189,5 +189,17 @@ int main()
 	ft::vector<int>::iterator it2 = v2.end();
 	it2--;
 	std::cout << it2 - it << std::endl;
+
+	// v2.assign(2, 302);
+	v2.assign(v3.begin(), v3.end());
+	for (auto v: v2)
+		std::cout << v << " ";
+	std::cout << std::endl;
+
+	// std::vector<int> og_vec;
+	// ft::vector<int> ft_vec;
+
+	// std::cout << "OG_VEC: " << og_vec.max_size() << std::endl;
+	// std::cout << "FT_VEC: " << ft_vec.max_size() << std::endl;
 	return (0);
 }

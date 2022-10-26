@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/23 00:16:18 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/25 22:10:56 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ namespace ft
 		// size_type max_size() const {}
 		// void resize (size_type n, value_type val = value_type()) {}
 		size_type capacity() const { return (this->_cap); }
-		// bool empty() const {}
+		bool empty() const { return (!this->_size); }
 		// void reserve(size_type n) {}
 		// void shrink_to_fit();
 
@@ -186,10 +186,19 @@ namespace ft
 	*/
 	public:
 		// range assign
-		// template <class InputIterator>
-		// void assign (InputIterator first, InputIterator last) {}
+		template <class InputIterator>
+		void assign (InputIterator first, InputIterator last)
+		{
+			for (typename ft::vector<value_type>::iterator it = this->begin(); first != last && it != this->end(); it++, first++)
+				*it = *first;
+		}
+
 		// fill assign
-		// void assign(size_type n, const value_type& val) {}
+		void assign(size_type n, const value_type& val)
+		{
+			for (size_type i = 0; i < this->_size, i < n; i++)
+				this->_data[i] = val;
+		}
 
 		//void push_back(const value_type& val)
 		void push_back(const_reference value)
