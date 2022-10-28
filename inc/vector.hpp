@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/25 22:10:56 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/28 19:52:55 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,11 +160,33 @@ namespace ft
 	public:
 		size_type size() const { return (this->_size); }
 		// size_type max_size() const {}
-		// void resize (size_type n, value_type val = value_type()) {}
+
+		void resize (size_type n, value_type val = value_type())
+		{
+			if (n < this->_size)
+			{
+				this->_realloc(n);
+				return ;
+			}
+			else if (n > this->_size)
+			{
+				size_type i = 0;
+				for (; i < _size; ++i);
+				for (; i < n; ++i)
+					this->push_back(val);
+			}
+		}
+
 		size_type capacity() const { return (this->_cap); }
 		bool empty() const { return (!this->_size); }
-		// void reserve(size_type n) {}
-		// void shrink_to_fit();
+
+		void reserve(size_type n)
+		{
+			if (n > this->_cap)
+				this->_realloc(n);
+		}
+
+		void shrink_to_fit() { this->_realloc(this->_size); }
 
 	/*
 	** ----------------------- ELEMENT ACCESS -----------------------
@@ -178,8 +200,8 @@ namespace ft
 		const_reference front() const { return (*(this->_data)); }
 		reference back() { return (*(this->_data + _size)); }
 		const_reference back() const { return (*(this->_data + _size)); }
-		// value_type* data() noexcept {}
-		// const value_type& data() const noexcept {}
+		pointer data() { return (this->_data); }
+		const value_type& data() const { return (this->_data); }
 
 	/*
 	** ----------------------- MODIFIERS -----------------------
@@ -206,7 +228,7 @@ namespace ft
 			if (this->_cap == 0)
 				this->_realloc(2);
 			else if (this->_size >= this->_cap)
-				this->_realloc(this->_cap * 1.5);
+				this->_realloc(this->_cap * 2); // NOTE: still not sure how much the right amount is to reserve after cap is full
 			this->_data[this->_size] = value;
 			this->_size++;
 		}
@@ -220,13 +242,75 @@ namespace ft
 			}
 		}
 
+	private: // helper func for insert & erase methods
+		bool isOutOfBounds(iterator pos)
+		{
+			difference_type diff = pos - begin();
+			if (diff < 0 || static_cast<size_type>(diff) > this->_size)
+				return (true);
+			return (false);
+		}
+	public:
 		// insert single element
-		// iterator insert(iterator pos, const value_type& val) {}
+		iterator insert(iterator pos, const value_type& val)
+		{
+			// if (isOutOfBounds(pos))
+			// 	throw std::out_of_range("Iterator out of bounds.");
+			
+			size_type curr = static_cast<size_type>(pos - begin());
+			if (this->_size >= this->_cap)
+				this->_realloc(this->_cap * 2); // NOTE: still not sure how much the right amount is to reserve after cap is full
+			for (size_type i = this->_size; i > curr; --i)
+				this->_data[i] = this->_data[i - 1];
+			this->_data[curr] = val;
+			++this->_size;
+			return iterator(this->_data + curr);
+		}
 		// insert fill
-		// void insert(iterator pos, size_type n, const value_type& val) {}
+		void insert(iterator pos, size_type n, const value_type& val)
+		{
+			if (isOutOfBounds(pos))
+				throw std::out_of_range("Iterator out of bounds.");
+			difference_type curr = pos - begin();
+			if (this->_size + n >= this->_cap)
+				_realloc(this->_cap + n);
+			size_type i = curr + n;
+			for (size_type j = curr; j < this->_size; ++j)
+			{
+				this->_data[i] = this->_data[j];
+				++i;
+			}
+			for (size_type i = 0; i < n; ++i, ++curr)
+			{
+				this->_data[curr] = val;
+			}
+			this->_size += n;
+			
+		}
 		// insert range
-		// template <class InputIterator>
-		// void insert(iterator pos, InputIterator first, InputIterator last) {}
+		template <class InputIterator>
+		void insert(iterator pos, InputIterator first, InputIterator last)
+		{
+			if (isOutOfBounds(pos))
+				throw std::out_of_range("Iterator out of bounds.");
+			difference_type curr = pos - begin();
+			size_type n = 0;
+			for (InputIterator it = first; it != last; ++it, ++n);
+			std::cout << "n = " << n << std::endl;
+			if (this->_size + n >= this->_cap)
+				_realloc(this->_cap + n);
+			size_type i = curr + n;
+			for (size_type j = curr; j < this->_size; ++j)
+			{
+				this->_data[i] = this->_data[j];
+				++i;
+			}
+			for (size_type i = 0; i < n && first != last; ++i, ++curr, ++first)
+			{
+				this->_data[curr] = *first;
+			}
+			this->_size += n;
+		}
 
 		// iterator erase(iterator pos) {}
 		// iterator erase(iterator first, iterator last) {}

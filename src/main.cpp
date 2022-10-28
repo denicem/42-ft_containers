@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/25 22:11:47 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/28 19:58:24 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,19 @@ struct vect3
 	vect3() {}
 	vect3(int x, int y, int z): x(x), y(y), z(z) {}
 
-	friend std::ostream& operator<<(std::ostream& stream, vect3& v3);
+	friend std::ostream& operator<<(std::ostream& stream, vect3& v3)
+	{
+		stream << v3.x << " " << v3.y << " " << v3.z;
+		return (stream);
+	}
 };
 
-std::ostream& operator<<(std::ostream& stream, vect3& v3)
+void pointer_func(const int* p, std::size_t size) // test func for data() method.
 {
-	stream << v3.x << " " << v3.y << " " << v3.z;
-	return (stream);
+    std::cout << "data = ";
+    for (std::size_t i = 0; i < size; ++i)
+        std::cout << p[i] << ' ';
+    std::cout << '\n';
 }
 
 int main()
@@ -177,29 +183,47 @@ int main()
 		std::cout << v << " ";
 	std::cout << std::endl;
 
+	v2.push_back(53);
 	// v3 = v1;
-	// std::cout << std::endl << v3.capacity() << " " << v3.size() << std::endl;
-	// for (auto v: v3)
-	// 	std::cout << &v << " ";
-	// std::cout << std::endl;
-
-	std::cout << v2.empty() << " " << v1.empty() << std::endl;
-
-	ft::vector<int>::iterator it = v2.begin();
-	ft::vector<int>::iterator it2 = v2.end();
-	it2--;
-	std::cout << it2 - it << std::endl;
-
-	// v2.assign(2, 302);
-	v2.assign(v3.begin(), v3.end());
+	// v2.shrink_to_fit();
+	// v2.resize(10);
+	std::cout << std::endl << v2.capacity() << " " << v2.size() << std::endl;
 	for (auto v: v2)
 		std::cout << v << " ";
 	std::cout << std::endl;
+
+	// std::cout << v2.empty() << " " << v1.empty() << std::endl;
+
+	ft::vector<int>::iterator it = v3.begin();
+	ft::vector<int>::iterator it2 = v3.end();
+	it2--;
+	it2--;
+	ft::vector<int>::difference_type res = it2 - it;
+	std::cout << res << std::endl;
+	std::cout << v3.size() << " " << v3.capacity() << std::endl;
+	// v3.insert (v3.begin() + 1, 11, 782);
+	v3.insert(it2 + 2, v2.begin(), v2.end());
+	// v3.insert(it2 + 15, 5420);
+	// v3.insert(it2 + 15, 5420); // NOTE: what happening here?
+	for (auto v: v3)
+		std::cout << v << " ";
+	std::cout << std::endl;
+	std::cout << v3.size() << " " << v3.capacity() << std::endl;
+
+	// v2.assign(2, 302);
+	// v2.assign(v3.begin(), v3.end());
+	// for (auto v: v2)
+	// 	std::cout << v << " ";
+	// std::cout << std::endl;
 
 	// std::vector<int> og_vec;
 	// ft::vector<int> ft_vec;
 
 	// std::cout << "OG_VEC: " << og_vec.max_size() << std::endl;
 	// std::cout << "FT_VEC: " << ft_vec.max_size() << std::endl;
+
+	std::cout << "- - - - - - - - -\n";
+	// pointer_func(v3.data(), v3.size());
+	// std::vector<int> vec;
 	return (0);
 }
