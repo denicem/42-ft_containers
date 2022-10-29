@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/28 19:52:55 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/28 23:06:58 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,13 +267,13 @@ namespace ft
 			return iterator(this->_data + curr);
 		}
 		// insert fill
-		void insert(iterator pos, size_type n, const value_type& val)
+		void insert(iterator pos, size_type n, const value_type& val) // TODO: return type: iterator
 		{
 			if (isOutOfBounds(pos))
 				throw std::out_of_range("Iterator out of bounds.");
 			difference_type curr = pos - begin();
 			if (this->_size + n >= this->_cap)
-				_realloc(this->_cap + n);
+				_realloc(this->_cap + n); 
 			size_type i = curr + n;
 			for (size_type j = curr; j < this->_size; ++j)
 			{
@@ -289,7 +289,7 @@ namespace ft
 		}
 		// insert range
 		template <class InputIterator>
-		void insert(iterator pos, InputIterator first, InputIterator last)
+		void insert(iterator pos, InputIterator first, InputIterator last) // TODO: return type: iterator
 		{
 			if (isOutOfBounds(pos))
 				throw std::out_of_range("Iterator out of bounds.");
@@ -312,7 +312,18 @@ namespace ft
 			this->_size += n;
 		}
 
-		// iterator erase(iterator pos) {}
+		void erase(iterator pos) // TODO: return type: iterator
+		{
+			// if (isOutOfBounds(pos))
+			// 	throw std::out_of_range("Iterator out of bounds.");
+			for (; pos != end(); ++pos)
+			{
+				if (pos + 1 != end())
+					*pos = *(pos + 1);
+			}
+			--this->_size;
+		}
+
 		// iterator erase(iterator first, iterator last) {}
 		// void swap(vector& x) {}
 

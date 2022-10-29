@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/28 19:58:24 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/10/28 22:30:56 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,13 +202,18 @@ int main()
 	std::cout << res << std::endl;
 	std::cout << v3.size() << " " << v3.capacity() << std::endl;
 	// v3.insert (v3.begin() + 1, 11, 782);
-	v3.insert(it2 + 2, v2.begin(), v2.end());
+	v3.insert(it2, v2.begin(), v2.end());
 	// v3.insert(it2 + 15, 5420);
 	// v3.insert(it2 + 15, 5420); // NOTE: what happening here?
 	for (auto v: v3)
-		std::cout << v << " ";
+		std::cout << &v << " " << v << ", ";
 	std::cout << std::endl;
 	std::cout << v3.size() << " " << v3.capacity() << std::endl;
+	std::cout << it2.base() << " " << *it2 << std::endl;
+	v3.erase(v3.end() - 5);
+	for (auto v: v3)
+		std::cout << v << " ";
+	std::cout << std::endl;
 
 	// v2.assign(2, 302);
 	// v2.assign(v3.begin(), v3.end());
