@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/28 23:06:58 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/11/02 20:20:10 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ namespace ft
 		typedef typename allocator_type::const_pointer		const_pointer;
 		typedef typename allocator_type::reference			reference;
 		typedef typename allocator_type::const_reference	const_reference;
-		typedef Iterator<value_type>					iterator;
-		typedef Iterator<const value_type>				const_iterator;
+		typedef ft::Iterator<value_type>					iterator;
+		typedef ft::Iterator<const value_type>				const_iterator;
 		// reverse_iterator;
 		// const_reverse_iterator;
 		

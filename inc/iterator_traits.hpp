@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 22:01:44 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/18 22:21:56 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/11/02 21:35:06 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ namespace ft
 	typedef std::bidirectional_iterator_tag bidirectional_iterator_tag;
 	typedef std::random_access_iterator_tag random_access_iterator_tag;
 
-	template < class Iterator >
+	template < class Iter >
 	class iterator_traits
 	{
 	public:
-		typedef typename Iterator::value_type value_type;
-		typedef typename Iterator::difference_type difference_type;
-		typedef typename Iterator::pointer pointer;
-		typedef typename Iterator::reference reference;
-		typedef typename Iterator::iterator_category iterator_category;
+		typedef typename Iter::value_type value_type;
+		typedef typename Iter::difference_type difference_type;
+		typedef typename Iter::pointer pointer;
+		typedef typename Iter::reference reference;
+		typedef typename Iter::iterator_category iterator_category;
 	};
 
 	template < class T >

@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 17:43:36 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/25 19:07:38 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/11/02 21:20:07 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 namespace ft
 {
-	template < typename T >
+	template < typename Iter >
 	class Iterator
 	{
 	public:
@@ -25,12 +25,12 @@ namespace ft
 		** ----------------------- MEMBER TYPES -----------------------
 		*/
 		typedef random_access_iterator_tag	iterator_category;
-		typedef T								value_type;
+		typedef Iter							iter_type;
 		typedef std::ptrdiff_t					difference_type;
-		typedef value_type*						pointer;
-		typedef const value_type*				const_pointer;
-		typedef value_type&						reference;
-		typedef const value_type&				const_reference;
+		typedef iter_type*						pointer;
+		typedef const iter_type*				const_pointer;
+		typedef iter_type&						reference;
+		typedef const iter_type&				const_reference;
 
 	protected:
 		/*
@@ -43,7 +43,7 @@ namespace ft
 		** ----------------------- CONSTRUCTORS & DESTRUCTOR -----------------------
 		*/
 		Iterator(pointer ptr = NULL): _ptr(ptr) { }
-		explicit Iterator(value_type x): _ptr(x) { } // NOTE: still in need?
+		explicit Iterator(iter_type x): _ptr(x) { } // NOTE: still in need?
 		template< typename T1 >
 		Iterator(const Iterator<T1>& other): _ptr(other.base()) { }
 		~Iterator() {}
