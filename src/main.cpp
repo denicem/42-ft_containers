@@ -6,14 +6,14 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2022/10/28 22:30:56 by dmontema         ###   ########.fr       */
+/*   Updated: 2022/11/15 01:47:16 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <vector>
-#include "../inc/vect.hpp"
-#include "../inc/vector.hpp"
+#include "vect.hpp"
+#include "vector.hpp"
 
 struct vect3
 {
@@ -39,6 +39,7 @@ void pointer_func(const int* p, std::size_t size) // test func for data() method
 
 int main()
 {
+	std::cout << "Hello containers" << std::endl;
 	// // std::vector<int> vect;
 	// // vect.push_back(42);
 	// // vect.push_back(42);
@@ -166,54 +167,54 @@ int main()
 	// 	std::cout << *it << " ";
 	// std::cout << std::endl;
 
-	ft::vector<int> v1;
-	ft::vector<int> v2;
-	ft::vector<int> v3;
+	// ft::vector<int> v1;
+	// ft::vector<int> v2;
+	// ft::vector<int> v3;
 
-	for (int i = 0 ; i < 8; ++i)
-		v3.push_back(i + 56);
-	for (int i = 0 ; i < 4; ++i)
-		v2.push_back(i + 42);
-	std::cout << "v2: ";
-	for (auto v: v2)
-		std::cout << v << " ";
-	std::cout << std::endl;
-	std::cout << "v3: ";
-	for (auto v: v3)
-		std::cout << v << " ";
-	std::cout << std::endl;
+	// for (int i = 0 ; i < 8; ++i)
+	// 	v3.push_back(i + 56);
+	// for (int i = 0 ; i < 4; ++i)
+	// 	v2.push_back(i + 42);
+	// std::cout << "v2: ";
+	// for (auto v: v2)
+	// 	std::cout << v << " ";
+	// std::cout << std::endl;
+	// std::cout << "v3: ";
+	// for (auto v: v3)
+	// 	std::cout << v << " ";
+	// std::cout << std::endl;
 
-	v2.push_back(53);
+	// v2.push_back(53);
 	// v3 = v1;
 	// v2.shrink_to_fit();
 	// v2.resize(10);
-	std::cout << std::endl << v2.capacity() << " " << v2.size() << std::endl;
-	for (auto v: v2)
-		std::cout << v << " ";
-	std::cout << std::endl;
+	// std::cout << std::endl << v2.capacity() << " " << v2.size() << std::endl;
+	// for (auto v: v2)
+	// 	std::cout << v << " ";
+	// std::cout << std::endl;
 
 	// std::cout << v2.empty() << " " << v1.empty() << std::endl;
 
-	ft::vector<int>::iterator it = v3.begin();
-	ft::vector<int>::iterator it2 = v3.end();
-	it2--;
-	it2--;
-	ft::vector<int>::difference_type res = it2 - it;
-	std::cout << res << std::endl;
-	std::cout << v3.size() << " " << v3.capacity() << std::endl;
+	// ft::vector<int>::iterator it = v3.begin();
+	// ft::vector<int>::iterator it2 = v3.end();
+	// it2--;
+	// it2--;
+	// ft::vector<int>::difference_type res = it2 - it;
+	// std::cout << res << std::endl;
+	// std::cout << v3.size() << " " << v3.capacity() << std::endl;
 	// v3.insert (v3.begin() + 1, 11, 782);
-	v3.insert(it2, v2.begin(), v2.end());
+	// v3.insert(it2, v2.begin(), v2.end());
 	// v3.insert(it2 + 15, 5420);
 	// v3.insert(it2 + 15, 5420); // NOTE: what happening here?
-	for (auto v: v3)
-		std::cout << &v << " " << v << ", ";
-	std::cout << std::endl;
-	std::cout << v3.size() << " " << v3.capacity() << std::endl;
-	std::cout << it2.base() << " " << *it2 << std::endl;
-	v3.erase(v3.end() - 5);
-	for (auto v: v3)
-		std::cout << v << " ";
-	std::cout << std::endl;
+	// for (auto v: v3)
+	// 	std::cout << &v << " " << v << ", ";
+	// std::cout << std::endl;
+	// std::cout << v3.size() << " " << v3.capacity() << std::endl;
+	// std::cout << it2.base() << " " << *it2 << std::endl;
+	// v3.erase(v3.end() - 5);
+	// for (auto v: v3)
+	// 	std::cout << v << " ";
+	// std::cout << std::endl;
 
 	// v2.assign(2, 302);
 	// v2.assign(v3.begin(), v3.end());
@@ -227,7 +228,7 @@ int main()
 	// std::cout << "OG_VEC: " << og_vec.max_size() << std::endl;
 	// std::cout << "FT_VEC: " << ft_vec.max_size() << std::endl;
 
-	std::cout << "- - - - - - - - -\n";
+	// std::cout << "- - - - - - - - -\n";
 	// pointer_func(v3.data(), v3.size());
 	// std::vector<int> vec;
 	return (0);

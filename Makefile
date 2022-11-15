@@ -1,29 +1,30 @@
-NAME	=	container
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/11/15 01:48:13 by dmontema          #+#    #+#              #
+#    Updated: 2022/11/15 01:48:23 by dmontema         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-SRC_DIR	=	./src
-SRCS	=	$(shell find $(SRC_DIR) -name "*.cpp" -execdir echo {} ";")
+NAME	=	ft_containers
 
-OBJ_DIR	=	./obj
-OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
+CC			=	c++
 
-DEPS	=	$(OBJS:.o=.d)
+SRC_DIR	=		./src
+SRCS	=		$(shell find $(SRC_DIR) -name "*.cpp")
 
-CC		=	c++
-CFLAGS	=	-Wall -Wextra -Werror -std=c++98
+OBJ_DIR	=		./obj
+OBJS	=		$(patsubst $(SRC_DIR)%.cpp, $(OBJ_DIR)%.o, $(SRCS))
 
-# FORMATTING CODES
-BOLD	= \033[1m
-BLACK	= \033[30;1m
-RED		= \033[31;1m
-GREEN	= \033[32;1m
-YELLOW	= \033[33;1m
-BLUE	= \033[34;1m
-MAGENTA	= \033[35;1m
-CYAN	= \033[36;1m
-WHITE	= \033[37;1m
-RESET	= \033[0m
-SPACE	= \e[50C
+DEPS	=		$(OBJS:.o=.d)
 
+CFLAGS		=	-Wall -Wextra -Werror -std=c++98
+DEPS_FLAGS 	=	-MMD -MP
+INCLUDE		=	-I./inc/
 
 # **************************************************************************** #
 #	RULES																	   #
@@ -35,18 +36,19 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "$(BLUE)Linking objects to a binary file$(RESET)\r"
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) -o $(NAME)
 	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)"
 	@printf "\t\t$(GREEN)$(BOLD)COMPLETE!$(RESET)\n\n"
-	@printf "\t\t$(MAGENTA)Name of executable: $(NAME)$(RESET)\n\n"
+	@printf "\t\t$(MAGENTA)Name of executable: $(BOLD)$(MAGENTA_BG) $(NAME) $(RESET)\n\n"
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | prep
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(dir $@)
 	@printf "$(BLUE)$(BOLD)\rCompiling: $(CYAN)$(notdir $<)\r"
-	@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDE) $(DEPS_FLAGS) -c $< -o $@
 	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)"
 
-prep:
-	@mkdir -p $(OBJ_DIR)
+# prep:
+# 	@mkdir -p $(OBJ_DIR)
 
 clean:
 	@printf "$(MAGENTA)Removing object files...\r$(RESET)"
@@ -59,3 +61,41 @@ fclean: clean
 	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)\n"
 
 re: fclean all
+
+# **************************************************************************** #
+#	TEXT MODIFIERS / FORMATITING CODES										   #
+# **************************************************************************** #
+
+RED =				\e[31m
+GREEN =				\e[32m
+YELLOW =			\e[33m
+BLUE =				\e[34m
+MAGENTA =			\e[35m
+CYAN =				\e[36m
+LIGHTGRAY =			\e[37m
+DARKGRAY =			\e[90m
+LIGHTRED =			\e[91m
+LIGHTGREEN =		\e[92m
+LIGHTYELLOW =		\e[93m
+LIGHTBLUE =			\e[94m
+LIGHTMAGENTA =		\e[95m
+LIGHTCYAN =			\e[96m
+RED_BG =			\e[41m
+GREEN_BG =			\e[42m
+YELLOW_BG =			\e[43m
+BLUE_BG =			\e[44m
+MAGENTA_BG =		\e[45m
+CYAN_BG =			\e[46m
+LIGHTGRAY_BG =		\e[47m
+DARKGRAY_BG =		\e[100m
+LIGHTRED_BG =		\e[101m
+LIGHTGREEN_BG =		\e[102m
+LIGHTYELLOW_BG =	\e[103m
+LIGHTBLUE_BG =		\e[104m
+LIGHTMAGENTA_BG =	\e[105m
+LIGHTCYAN_BG =		\e[106m
+BOLD =				\e[1m
+ITALIC =			\e[3m
+UNDERLINED =		\e[4m
+RESET =				\e[0m
+SPACE =				\e[50C
