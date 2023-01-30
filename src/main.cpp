@@ -12,34 +12,35 @@
 
 #include <iostream>
 #include <vector>
-#include "vect.hpp"
 #include "vector.hpp"
+#include "vect.hpp"
 
-struct vect3
-{
-	int x, y, z;
+void vector_test_basic_std() {
+	std::vector<int> nbrs;
 
-	vect3() {}
-	vect3(int x, int y, int z): x(x), y(y), z(z) {}
+	nbrs.push_back(42);
 
-	friend std::ostream& operator<<(std::ostream& stream, vect3& v3)
-	{
-		stream << v3.x << " " << v3.y << " " << v3.z;
-		return (stream);
-	}
-};
-
-void pointer_func(const int* p, std::size_t size) // test func for data() method.
-{
-    std::cout << "data = ";
-    for (std::size_t i = 0; i < size; ++i)
-        std::cout << p[i] << ' ';
-    std::cout << '\n';
+	std::cout << nbrs[0] << std::endl;
 }
 
-int main()
-{
-	std::cout << "Hello containers" << std::endl;
+void vector_test_basic_ft() {
+	ft::vector<int> nbrs;
+
+	nbrs.push_back(42);
+
+	std::cout << nbrs[0] << std::endl;
+}
+
+int main() {
+	std::cout << "Hello ft_containers." << std::endl;
+
+	vector_test_basic_std();
+	vector_test_basic_ft();
+}
+
+// int main()
+// {
+// 	std::cout << "Hello containers" << std::endl;
 	// // std::vector<int> vect;
 	// // vect.push_back(42);
 	// // vect.push_back(42);
@@ -231,5 +232,5 @@ int main()
 	// std::cout << "- - - - - - - - -\n";
 	// pointer_func(v3.data(), v3.size());
 	// std::vector<int> vec;
-	return (0);
-}
+// 	return (0);
+// }
