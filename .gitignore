@@ -1,12 +1,30 @@
+# Ignore all
 *
-!/**/
+
+# Unignore all with extensions
 !*.*
 
+# Unignore all dirs
+!*/
+
+# Unignore Makefile
 !Makefile
-*.exe
-*.out
+
+# Object files
 *.o
-*.d
-*.txt
-.vscode
+
+# Library files
+*.a
+
+# Executables
+*.out
+*.exe
+
+# Debug files
+*.dSYM/
+
+# Mac folder files
 .DS_Store
+
+# VSCode files
+.vscode
