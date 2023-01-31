@@ -10,10 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
 #include <vector>
 #include "vector.hpp"
-#include "vect.hpp"
+
+#include <iostream>
+#include <ctime>
+
+void measureTime(void (*func_std)(), void (*func_ft)()) {
+
+	clock_t start_std = clock();
+	func_std();
+	clock_t end_std = clock();
+
+	clock_t start_ft = clock();
+	func_ft();
+	clock_t end_ft = clock();
+
+	double duration_std = static_cast<double>(end_std - start_std) / CLOCKS_PER_SEC;
+	double duration_ft = static_cast<double>(end_ft - start_ft) / CLOCKS_PER_SEC;
+
+	std::cout << "Duration std::vector: " << std::fixed << duration_std << " seconds." << std::endl;
+	std::cout << "Duration ft::vector: " << std::fixed << duration_ft << " seconds." << std::endl;
+	std::cout << std::endl;
+	std::cout << "Duration std::vector * 20: " << std::fixed << duration_std * 20 << " seconds." << std::endl;
+
+	if (duration_std * 20 > duration_ft) // NOTE: is that correct, if duration_ft can be 20x slower than duration_std
+		std::cout << "SUCCESS" << std::endl;
+	else
+		std::cout << "FAILURE" << std::endl;
+}
 
 void vector_test_basic_std() {
 	std::vector<int> nbrs;
@@ -31,11 +56,18 @@ void vector_test_basic_ft() {
 	std::cout << nbrs[0] << std::endl;
 }
 
+/* ********************************************************************************** */
+/* ********************************************************************************** */
+/* ********************************************************************************** */
+/* ********************************************************************************** */
+/* ********************************************************************************** */
+
 int main() {
 	std::cout << "Hello ft_containers." << std::endl;
 
-	vector_test_basic_std();
-	vector_test_basic_ft();
+	measureTime(&vector_test_basic_std, &vector_test_basic_ft);
+
+	return (0);
 }
 
 // int main()
