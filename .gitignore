@@ -13,6 +13,9 @@
 # Object files
 *.o
 
+# Dependecy files
+*.d
+
 # Library files
 *.a
 
@@ -28,3 +31,6 @@
 
 # VSCode files
 .vscode
+
+# specific files
+ft_containers-modular-tester.zip
