@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/01 22:12:09 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/02 00:18:56 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <memory>
 
 #include "iterator.hpp"
+#include "type_traits.hpp"
 
 namespace ft {
 
@@ -86,19 +87,21 @@ namespace ft {
 		}
 
 		// range constructor
-		// template <class InputIterator>
-		// vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()): _alloc(alloc), _cap(0), _size(0), _data(NULL) {
-		// 	std::cout << "range constructor" << std::endl;
+		template < class InputIterator >
+		vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if< !ft::is_integral< InputIterator >::value >::type* = NULL)
+		: _alloc(alloc), _cap(0), _size(0), _data(NULL)
+		{
+			std::cout << "range constructor" << std::endl;
 
-		// 	for (InputIterator it = first; it != last; ++it)
-		// 		++this->_cap;
-		// 	this->_data = (this->_alloc).allocate(this->_cap);
+			for (InputIterator it = first; it != last; ++it)
+				++this->_cap;
+			this->_data = (this->_alloc).allocate(this->_cap);
 
-		// 	for (size_type i = 0; first != last && i < this->_cap; ++i, ++first) {
-		// 		this->_data[i] = *first;
-		// 		++this->_size;
-		// 	}
-		// }
+			for (size_type i = 0; first != last && i < this->_cap; ++i, ++first) {
+				this->_data[i] = *first;
+				++this->_size;
+			}
+		}
 
 		// copy constructor
 		vector(const vector& x): _alloc(x._alloc), _cap(x._cap), _size(0), _data(NULL) {
@@ -354,6 +357,7 @@ namespace ft {
 
 // template <class T, class Alloc>
 // void swap(vector<T, Alloc>& x, vector<T, Alloc>& y) {}
-}
+
+} // END NAMESPACE FT
 
 #endif
