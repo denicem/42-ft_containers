@@ -1,6 +1,8 @@
 #ifndef VECT3_HPP
 #define VECT3_HPP
 
+#include <ostream>
+
 struct Vect3 {
 	int x, y, z;
 
