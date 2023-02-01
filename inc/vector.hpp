@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2022/11/02 20:20:10 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/01 03:38:14 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ namespace ft
 		}
 
 		// fill constructor
-		explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
+		explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): _data(NULL), _size(0), _cap(0)
 		{
 			(void) alloc;
 			// std::cout << "size constructor.\n";

@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/01 02:30:31 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/01 03:38:00 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "vector.hpp"
 
 #include <iostream>
+#include <cassert>
 
 #include "test_general.hpp"
 #include "test_vector.hpp"
@@ -21,7 +22,30 @@
 int main() {
 	std::cout << "Hello ft_containers." << std::endl;
 
-	measureTime(&vector_test_basic_std, &vector_test_basic_ft);
+	// measureTime(&vector_test_basic_std, &vector_test_basic_ft);
+
+	// NOTE: these are test cases for the comparison between std and ft version
+	// Test case 1: Constructors
+    std::vector<int> v1;
+    ft::vector<int> fv1;
+    assert(v1.empty() == fv1.empty());
+
+    std::vector<int> v2(5);
+    ft::vector<int> fv2(5);
+    assert(v2.size() == fv2.size());
+
+    // std::vector<int> v3(5, 10); // FIXME: range consstructor doesn't work.
+    // ft::vector<int> fv3(5, 10);
+    // assert(v3.size() == fv3.size());
+
+    // Test case 2: push_back() and size()
+    // std::vector<int> v4;
+    // ft::vector<int> fv4;
+    // for (int i = 0; i < 5; i++) {
+    //     v4.push_back(i);
+    //     fv4.push_back(i);
+    //     assert(v4.size() == fv4.size());
+    // }
 
 	return (0);
 }
