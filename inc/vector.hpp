@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/01 03:38:14 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/01 22:12:09 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
 
 #include "iterator.hpp"
 
-namespace ft
-{
+namespace ft {
+
 	template < class T, class Alloc = std::allocator<T> >
-	class vector
-	{
+	class vector {
 	/*
 	** ----------------------- MEMBER TYPES -----------------------
 	*/
@@ -44,9 +43,10 @@ namespace ft
 	** --------------------------- MEMBER VARIABLES ---------------------------
 	*/
 	private:
-		pointer		_data;
-		size_type	_size;
+		allocator_type	_alloc;
 		size_type	_cap;
+		size_type	_size;
+		pointer		_data;
 
 	/*
 	** ---------------------------- PRIVATE METHODS ----------------------------
@@ -70,52 +70,45 @@ namespace ft
 	*/
 	public:
 		// default constructor
-		explicit vector(const allocator_type& alloc = allocator_type())
-		{
-			(void) alloc;
-			// std::cout << "default constructor.\n";
-			this->_data = NULL;
-			this->_cap = 0;
-			this->_size = 0;
+		explicit vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _cap(0), _size(0), _data(NULL) {
+			std::cout << "default constructor." << std::endl;
 		}
 
 		// fill constructor
-		explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): _data(NULL), _size(0), _cap(0)
-		{
-			(void) alloc;
-			// std::cout << "size constructor.\n";
-			this->_cap = n;
-			this->_realloc(n);
+		explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): _alloc(alloc), _cap(n), _size(0), _data(NULL) {
+			std::cout << "fill constructor." << std::endl;
+			this->_data = (this->_alloc).allocate(this->_cap);
 
-			for (size_type i = 0; i < n; i++)
+			for (size_type i = 0; i < this->_cap; ++i) {
 				this->_data[i] = val;
-			this->_size = n;
+				++this->_size;
+			}
 		}
 
 		// range constructor
-		template <class InputIterator>
-		vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()): _data(NULL), _size(0), _cap(0)
-		{
-			(void) alloc;
-			size_type i = 0;
-			for (InputIterator it = first; it != last; ++it)
-				i++;
-			_realloc(i);
-			while (first != last)
-			{
-				push_back(*first);
-				first++;
-			}
-			_size = i;
-		}
+		// template <class InputIterator>
+		// vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()): _alloc(alloc), _cap(0), _size(0), _data(NULL) {
+		// 	std::cout << "range constructor" << std::endl;
+
+		// 	for (InputIterator it = first; it != last; ++it)
+		// 		++this->_cap;
+		// 	this->_data = (this->_alloc).allocate(this->_cap);
+
+		// 	for (size_type i = 0; first != last && i < this->_cap; ++i, ++first) {
+		// 		this->_data[i] = *first;
+		// 		++this->_size;
+		// 	}
+		// }
 
 		// copy constructor
-		vector(const vector& x): _data(NULL), _size(0), _cap(0)
-		{
-			_realloc(x._cap);
-			for (size_type i = 0; i < x._size; ++i)
-				push_back(x[i]);
-			
+		vector(const vector& x): _alloc(x._alloc), _cap(x._cap), _size(0), _data(NULL) {
+			std::cout << "copy constructor." << std::endl;
+			this->_data = (this->_alloc).allocate(this->_cap);
+
+			for (size_type i = 0; i < x._size; ++i) {
+				this->_data[i] = x[i];
+				++this->_size;
+			}
 		}
 
 		// destructor
