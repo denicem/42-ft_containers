@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/02 15:45:08 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/02 22:14:36 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int main() {
 
 	// NOTE: these are test cases for the comparison between std and ft version
 	// Test case 1: Constructors
-
 	// TEST default constructor
 	std::vector<int> v1;
 	ft::vector<int> fv1;
@@ -82,6 +81,21 @@ int main() {
 		std::cout << fv4[i] << " ";
 	std::cout << std::endl;
 
+	// TEST assign
+	// std::vector<int> nbrs(11, 42);
+
+	// for (size_t i = 0; i < nbrs.size(); ++i)
+	// 	std::cout << nbrs[i] << " ";
+	// std::cout << std::endl;
+	// std::cout << "Cap: " << nbrs.capacity() << "\nSize: " << nbrs.size() << std::endl;
+
+	// nbrs.assign(10, 21);
+	// std::cout << std::endl;
+	
+	// for (size_t i = 0; i < nbrs.size(); ++i)
+	// 	std::cout << nbrs[i] << " ";
+	// std::cout << std::endl;
+	// std::cout << "Cap: " << nbrs.capacity() << "\nSize: " << nbrs.size() << std::endl;
 
 	return (0);
 }
