@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/02 00:18:21 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:45:08 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,38 +28,60 @@ int main() {
 
 	// NOTE: these are test cases for the comparison between std and ft version
 	// Test case 1: Constructors
-    std::vector<int> v1;
-    ft::vector<int> fv1;
-    assert(v1.empty() == fv1.empty());
 
-    std::vector<int> v2(5);
-    ft::vector<int> fv2(5);
-    assert(v2.size() == fv2.size());
-	// for (size_t i = 0; i < v2.size() && i < fv2.size(); ++i)
-	// 	std::cout << v2[0] << " " << fv2[0] << std::endl;
+	// TEST default constructor
+	std::vector<int> v1;
+	ft::vector<int> fv1;
+	assert(v1.empty() == fv1.empty());
 
+	// TEST fill constructor
+	std::vector<int> v2(5);
+	ft::vector<int> fv2(5);
+	assert(v2.size() == fv2.size());
+	for (size_t i = 0; i < v2.size() && i < fv2.size(); ++i)
+		std::cout << v2[0] << " " << fv2[0] << std::endl;
+
+	// TEST fill copy constructor
 	std::vector<int> v2_cpy(v2);
 	ft::vector<int> fv2_cpy(fv2);
 	assert(v2_cpy.size() == fv2_cpy.size());
-	// for (size_t i = 0; i < v2_cpy.size() && i < fv2_cpy.size(); ++i)
-	// 	std::cout << v2_cpy[0] << " " << fv2_cpy[0] << std::endl;
+	for (size_t i = 0; i < v2_cpy.size() && i < fv2_cpy.size(); ++i)
+		std::cout << v2_cpy[0] << " " << fv2_cpy[0] << std::endl;
 
+	// TEST fill constructor with second argument
+	std::vector<int> v3(10, 5);
+	ft::vector<int> fv3(10, 5);
+	assert(v3.size() == fv3.size());
+	std::cout << "Size: " << v3.size() << " " << fv3.size() << std::endl;
+	for (size_t i = 0; i < v3.size() && i < fv3.size(); ++i)
+		std::cout << v3[0] << " " << fv3[0] << std::endl;
 
-    std::vector<int> v3(10, 5);
-    ft::vector<int> fv3(10, 5);
-    assert(v3.size() == fv3.size());
-	// std::cout << "Size: " << v3.size() << " " << fv3.size() << std::endl;
-	// for (size_t i = 0; i < v3.size() && i < fv3.size(); ++i)
-	// 	std::cout << v3[0] << " " << fv3[0] << std::endl;
+	// TEST range constructor
+	std::vector<int> v5(5, 42);
+	ft::vector<int> fv5(v5.begin(), v5.end());
+	assert(v5.size() == fv5.size());
+	v5.clear();
+	fv5.clear();
+	assert(v5.empty() == fv5.empty());
 
-    // Test case 2: push_back() and size()
-    std::vector<int> v4;
-    ft::vector<int> fv4;
-    for (int i = 0; i < 5; i++) {
-        v4.push_back(i);
-        fv4.push_back(i);
-        assert(v4.size() == fv4.size());
-    }
+	std::cout << "Capacity: " << v5.capacity() << " | " << fv5.capacity() << std::endl;
+	fv5.push_back(21);
+	for (ft::vector<int>::iterator it = fv5.begin(); it != fv5.end(); ++it)
+		std::cout << *it << " ";
+	std::cout << std::endl;
+
+	// Test case 2: push_back() and size()
+	std::vector<int> v4;
+	ft::vector<int> fv4;
+	for (int i = 0; i < 5; i++) {
+		v4.push_back(i);
+		fv4.push_back(i);
+		assert(v4.size() == fv4.size());
+	}
+	for (ft::vector<int>::size_type i = 0; i < fv4.size(); ++i)
+		std::cout << fv4[i] << " ";
+	std::cout << std::endl;
+
 
 	return (0);
 }

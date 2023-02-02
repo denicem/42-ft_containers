@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/02 00:18:56 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:43:10 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,24 @@ namespace ft {
 	** ---------------------------- PRIVATE METHODS ----------------------------
 	*/
 	private:
-		void _realloc(size_type newCap)
-		{
-			T* newData = new T[newCap];
-			if (newCap < this->_size)
-				this->_size = newCap;
+		void _realloc(size_type new_cap) {
+			size_type old_cap = this->_cap;
+
+			T* newData = (this->_alloc).allocate(new_cap);
+
+			if (new_cap < this->_size)
+				this->_size = new_cap;
 			for (size_type i = 0; i < this->_size; i++)
 				newData[i] = this->_data[i];
-			this->_cap = newCap;
-			delete[] this->_data;
+			this->_cap = new_cap;
+
+			iterator it = this->begin();
+			iterator ite = this->end();
+			for (; it != ite; ++it)
+				(this->_alloc).destroy(&(*it));
+			if (this->_data)
+				(this->_alloc).deallocate(this->_data, old_cap);
+
 			this->_data = newData;
 		}
 
@@ -88,8 +97,9 @@ namespace ft {
 
 		// range constructor
 		template < class InputIterator >
-		vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if< !ft::is_integral< InputIterator >::value >::type* = NULL)
-		: _alloc(alloc), _cap(0), _size(0), _data(NULL)
+		vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
+			typename ft::enable_if< !ft::is_integral< InputIterator >::value >::type* = NULL)
+			: _alloc(alloc), _cap(0), _size(0), _data(NULL)
 		{
 			std::cout << "range constructor" << std::endl;
 
@@ -117,7 +127,11 @@ namespace ft {
 		// destructor
 		~vector()
 		{
-			delete[] this->_data;
+			this->clear();
+			if (this->_data)
+				(this->_alloc).deallocate(this->_data, this->_cap);
+			this->_data = NULL;
+			this->_cap = 0;
 		}
 
 		// assignment operator
@@ -323,10 +337,11 @@ namespace ft {
 		// iterator erase(iterator first, iterator last) {}
 		// void swap(vector& x) {}
 
-		void clear()
-		{
-			for (size_type i = 0; i < this->_size; i++)
-				this->_data[i].~T();
+		void clear() {
+			iterator it = this->begin();
+			iterator ite = this->end();
+			for (; it != ite; ++it)
+				(this->_alloc).destroy(&(*it));
 			this->_size = 0;
 		}
 
