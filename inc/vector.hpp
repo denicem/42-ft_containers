@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/02 22:15:00 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/03 00:10:54 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 // TODO: implement reverse_iterator
 // TODO: understand iterator_traits
 
-// TODO: rewrite push_back()
-// TODO: rewrite assign()
+// TODO rewrite push_back()
+// TODO rewrite assign()
 // TODO: rewrite insert()
 
 namespace ft {
@@ -230,20 +230,26 @@ namespace ft {
 	public:
 		// range assign
 		template <class InputIterator>
-		void assign (InputIterator first, InputIterator last)
+		void assign (InputIterator first, InputIterator last, typename ft::enable_if< !ft::is_integral< InputIterator >::value >::type* = NULL)
 		{
-			for (typename ft::vector<value_type>::iterator it = this->begin(); first != last && it != this->end(); it++, first++)
-				*it = *first;
+			this->clear();
+			difference_type iter_size = last - first;
+			if ((size_type) iter_size > this->_cap)
+				this->reserve(iter_size);
+			for (; first != last; ++first)
+				this->push_back(*first);
 		}
 
 		// fill assign
 		void assign(size_type n, const value_type& val)
 		{
-			for (size_type i = 0; i < this->_size, i < n; i++)
-				this->_data[i] = val;
+			this->clear();
+			if (n > this->_cap)
+				this->reserve(n);
+			for (size_type i = 0; i < n; ++i)
+				this->push_back(val);
 		}
 
-		//void push_back(const value_type& val)
 		void push_back(const_reference value)
 		{
 			if (this->_size >= this->_cap)
