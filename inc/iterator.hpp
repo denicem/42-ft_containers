@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 17:43:36 by dmontema          #+#    #+#             */
-/*   Updated: 2022/11/02 21:20:07 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/02 22:19:17 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ namespace ft
 		** ----------------------- CONSTRUCTORS & DESTRUCTOR -----------------------
 		*/
 		Iterator(pointer ptr = NULL): _ptr(ptr) { }
-		explicit Iterator(iter_type x): _ptr(x) { } // NOTE: still in need?
 		template< typename T1 >
 		Iterator(const Iterator<T1>& other): _ptr(other.base()) { }
 		~Iterator() {}
