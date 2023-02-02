@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/02 15:43:10 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/02 22:15:00 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
 
 #include "iterator.hpp"
 #include "type_traits.hpp"
+
+// TODO: understand type_traits, enable_if and is_integral better
+// TODO rewrite realloc() - use std::allocator
+// TODO rewrite destructor - use std::allocator
+// TODO rewrite clear() - use destroy() from std::allocator
+
+// TODO: implement reverse_iterator
+// TODO: understand iterator_traits
+
+// TODO: rewrite push_back()
+// TODO: rewrite assign()
+// TODO: rewrite insert()
 
 namespace ft {
 
@@ -90,7 +102,7 @@ namespace ft {
 			this->_data = (this->_alloc).allocate(this->_cap);
 
 			for (size_type i = 0; i < this->_cap; ++i) {
-				this->_data[i] = val;
+				(this->_alloc).construct(this->_data + this->_size, val);
 				++this->_size;
 			}
 		}
@@ -108,7 +120,7 @@ namespace ft {
 			this->_data = (this->_alloc).allocate(this->_cap);
 
 			for (size_type i = 0; first != last && i < this->_cap; ++i, ++first) {
-				this->_data[i] = *first;
+				(this->_alloc).construct(this->_data + this->_size, *first);
 				++this->_size;
 			}
 		}
@@ -119,14 +131,13 @@ namespace ft {
 			this->_data = (this->_alloc).allocate(this->_cap);
 
 			for (size_type i = 0; i < x._size; ++i) {
-				this->_data[i] = x[i];
+				(this->_alloc).construct(this->_data + this->_size, x[i]);
 				++this->_size;
 			}
 		}
 
 		// destructor
-		~vector()
-		{
+		~vector() {
 			this->clear();
 			if (this->_data)
 				(this->_alloc).deallocate(this->_data, this->_cap);
@@ -235,12 +246,10 @@ namespace ft {
 		//void push_back(const value_type& val)
 		void push_back(const_reference value)
 		{
-			if (this->_cap == 0)
-				this->_realloc(2);
-			else if (this->_size >= this->_cap)
-				this->_realloc(this->_cap * 2); // NOTE: still not sure how much the right amount is to reserve after cap is full
-			this->_data[this->_size] = value;
-			this->_size++;
+			if (this->_size >= this->_cap)
+				this->reserve( this->capacity() ? this->_cap * 2 : 2 ); // NOTE: still not sure how much the optimal amount is to reserve after cap is full
+			(this->_alloc).construct(this->_data + this->_size, value);
+			++this->_size;
 		}
 
 		void pop_back()
