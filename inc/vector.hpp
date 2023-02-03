@@ -180,20 +180,17 @@ namespace ft {
 	*/
 	public:
 		size_type size() const { return (this->_size); }
-		// size_type max_size() const {}
+		size_type max_size() const { return ((this->_alloc).max_size());}
 
-		void resize (size_type n, value_type val = value_type())
-		{
-			if (n < this->_size)
-			{
-				this->_realloc(n);
-				return ;
+		void resize (size_type n, value_type val = value_type()) {
+			if (n < this->_size) {
+				while (this->_size > n)
+					this->pop_back();
 			}
-			else if (n > this->_size)
-			{
-				size_type i = 0;
-				for (; i < _size; ++i);
-				for (; i < n; ++i)
+			else if (n > this->_size) {
+				if (n > this->_cap)
+					this->_realloc(n);
+				while (this->_size < n)
 					this->push_back(val);
 			}
 		}
@@ -201,13 +198,14 @@ namespace ft {
 		size_type capacity() const { return (this->_cap); }
 		bool empty() const { return (!this->_size); }
 
-		void reserve(size_type n)
-		{
+		void reserve(size_type n) {
+			if (n > this->max_size())
+				throw std::length_error("ft::length_error");
 			if (n > this->_cap)
 				this->_realloc(n);
 		}
 
-		void shrink_to_fit() { this->_realloc(this->_size); }
+		void shrink_to_fit() { if (this->_cap > this->_size) this->_realloc(this->_size); }
 
 	/*
 	** ----------------------- ELEMENT ACCESS -----------------------
