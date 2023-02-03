@@ -73,7 +73,7 @@ namespace ft {
 			if (new_cap < this->_size)
 				this->_size = new_cap;
 			for (size_type i = 0; i < this->_size; i++)
-				newData[i] = this->_data[i];
+				(this->_alloc).construct(newData + i, this->_data[i]);
 			this->_cap = new_cap;
 
 			iterator it = this->begin();
@@ -93,12 +93,12 @@ namespace ft {
 	public:
 		// default constructor
 		explicit vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _cap(0), _size(0), _data(NULL) {
-			std::cout << "default constructor." << std::endl;
+			// std::cout << "default constructor." << std::endl;
 		}
 
 		// fill constructor
 		explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): _alloc(alloc), _cap(n), _size(0), _data(NULL) {
-			std::cout << "fill constructor." << std::endl;
+			// std::cout << "fill constructor." << std::endl;
 			this->_data = (this->_alloc).allocate(this->_cap);
 
 			for (size_type i = 0; i < this->_cap; ++i) {
@@ -113,7 +113,7 @@ namespace ft {
 			typename ft::enable_if< !ft::is_integral< InputIterator >::value >::type* = NULL)
 			: _alloc(alloc), _cap(0), _size(0), _data(NULL)
 		{
-			std::cout << "range constructor" << std::endl;
+			// std::cout << "range constructor" << std::endl;
 
 			for (InputIterator it = first; it != last; ++it)
 				++this->_cap;
@@ -127,7 +127,7 @@ namespace ft {
 
 		// copy constructor
 		vector(const vector& x): _alloc(x._alloc), _cap(x._cap), _size(0), _data(NULL) {
-			std::cout << "copy constructor." << std::endl;
+			// std::cout << "copy constructor." << std::endl;
 			this->_data = (this->_alloc).allocate(this->_cap);
 
 			for (size_type i = 0; i < x._size; ++i) {
