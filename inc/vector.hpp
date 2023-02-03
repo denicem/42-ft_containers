@@ -251,17 +251,15 @@ namespace ft {
 		void push_back(const_reference value)
 		{
 			if (this->_size >= this->_cap)
-				this->reserve( this->capacity() ? this->_cap * 2 : 2 ); // NOTE: still not sure how much the optimal amount is to reserve after cap is full
+				this->reserve( this->capacity() ? this->_cap * 2 : 2 ); // NOTE: whats the optimal amount?!?
 			(this->_alloc).construct(this->_data + this->_size, value);
 			++this->_size;
 		}
 
-		void pop_back()
-		{
-			if (this->_size > 0)
-			{
-				this->_size--;
-				this->_data[this->_size].~T();
+		void pop_back() {
+			if (this->_size > 0) {
+				--this->_size;
+				(this->_alloc).destroy(this->_data + this->_size);
 			}
 		}
 
