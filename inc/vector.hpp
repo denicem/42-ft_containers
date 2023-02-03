@@ -213,14 +213,14 @@ namespace ft {
 	public:
 		reference operator[](size_type idx) { return (this->_data[idx]); }
 		const_reference operator[](size_type idx) const { return (this->_data[idx]); }
-		reference at(size_type idx) { return (this->_data[idx]); }
-		const_reference at(size_type idx) const { return (this->_data[idx]); }
+		reference at(size_type idx) { if (idx >= this->_size)  throw std::out_of_range("ft::out_of_range"); return (this->_data[idx]); }
+		const_reference at(size_type idx) const { if (idx >= this->_size)  throw std::out_of_range("ft::out_of_range"); return (this->_data[idx]); }
 		reference front() { return (*(this->_data)); }
 		const_reference front() const { return (*(this->_data)); }
-		reference back() { return (*(this->_data + _size)); }
-		const_reference back() const { return (*(this->_data + _size)); }
+		reference back() { return (*(this->_data + _size - 1)); }
+		const_reference back() const { return (*(this->_data + _size) - 1); }
 		pointer data() { return (this->_data); }
-		const value_type& data() const { return (this->_data); }
+		const_pointer data() const { return (this->_data); }
 
 	/*
 	** ----------------------- MODIFIERS -----------------------
