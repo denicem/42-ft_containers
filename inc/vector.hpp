@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/03 00:10:54 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/03 22:34:55 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 
 // TODO rewrite push_back()
 // TODO rewrite assign()
-// TODO: rewrite insert()
+// TODO rewrite insert()
 
 namespace ft {
 
@@ -263,73 +263,45 @@ namespace ft {
 			}
 		}
 
-	private: // helper func for insert & erase methods
-		bool isOutOfBounds(iterator pos)
-		{
-			difference_type diff = pos - begin();
-			if (diff < 0 || static_cast<size_type>(diff) > this->_size)
-				return (true);
-			return (false);
+	private:
+		void _insert_construct_end(size_type curr, size_type n) {
+			for (size_type last_el = this->_size - 1; last_el >= curr; --last_el) {
+				size_type new_last_el = last_el + n;
+				(this->_alloc).construct(this->_data + new_last_el, this->_data[last_el]);
+				(this->_alloc).destroy(this->_data + last_el);
+				if (!last_el)
+					break ;
+			}
 		}
 	public:
 		// insert single element
-		iterator insert(iterator pos, const value_type& val)
-		{
-			// if (isOutOfBounds(pos))
-			// 	throw std::out_of_range("Iterator out of bounds.");
-			
-			size_type curr = static_cast<size_type>(pos - begin());
-			if (this->_size >= this->_cap)
-				this->_realloc(this->_cap * 2); // NOTE: still not sure how much the right amount is to reserve after cap is full
-			for (size_type i = this->_size; i > curr; --i)
-				this->_data[i] = this->_data[i - 1];
-			this->_data[curr] = val;
-			++this->_size;
-			return iterator(this->_data + curr);
+		iterator insert(iterator pos, const value_type& val) {
+			size_type res = pos - (this->begin());
+			this->insert(pos, 1, val);
+			return (iterator(this->_data + res));
 		}
 		// insert fill
-		void insert(iterator pos, size_type n, const value_type& val) // TODO: return type: iterator
-		{
-			if (isOutOfBounds(pos))
-				throw std::out_of_range("Iterator out of bounds.");
-			difference_type curr = pos - begin();
-			if (this->_size + n >= this->_cap)
-				_realloc(this->_cap + n); 
-			size_type i = curr + n;
-			for (size_type j = curr; j < this->_size; ++j)
-			{
-				this->_data[i] = this->_data[j];
-				++i;
-			}
+		void insert(iterator pos, size_type n, const value_type& val) {
+			size_type curr = pos - begin();
+			std::cout << curr << std::endl;
+			if (this->_size + n > this->_cap)
+				_realloc(this->_size + n);
+			this->_insert_construct_end(curr, n);
 			for (size_type i = 0; i < n; ++i, ++curr)
-			{
-				this->_data[curr] = val;
-			}
+				(this->_alloc).construct(this->_data + curr, val);
 			this->_size += n;
-			
 		}
 		// insert range
 		template <class InputIterator>
-		void insert(iterator pos, InputIterator first, InputIterator last) // TODO: return type: iterator
+		void insert(iterator pos, InputIterator first, InputIterator last, typename ft::enable_if< !ft::is_integral< InputIterator >::value >::type* = NULL)
 		{
-			if (isOutOfBounds(pos))
-				throw std::out_of_range("Iterator out of bounds.");
-			difference_type curr = pos - begin();
-			size_type n = 0;
-			for (InputIterator it = first; it != last; ++it, ++n);
-			std::cout << "n = " << n << std::endl;
+			size_type curr = pos - begin();
+			size_type n = last - first;
 			if (this->_size + n >= this->_cap)
 				_realloc(this->_cap + n);
-			size_type i = curr + n;
-			for (size_type j = curr; j < this->_size; ++j)
-			{
-				this->_data[i] = this->_data[j];
-				++i;
-			}
-			for (size_type i = 0; i < n && first != last; ++i, ++curr, ++first)
-			{
-				this->_data[curr] = *first;
-			}
+			this->_insert_construct_end(curr, n);
+			for (; first != last; ++curr, ++first)
+				(this->_alloc).construct(this->_data + curr, *first);
 			this->_size += n;
 		}
 
@@ -346,6 +318,7 @@ namespace ft {
 		}
 
 		// iterator erase(iterator first, iterator last) {}
+
 		// void swap(vector& x) {}
 
 		void clear() {
