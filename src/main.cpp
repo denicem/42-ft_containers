@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/04 18:25:19 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/04 18:48:20 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,13 @@ int main() {
 	std::cout << "Hello ft_containers." << std::endl << std::endl;
 
 	// measureTime(&vector_test_basic_std, &vector_test_basic_ft);
-	vectorTestConstructors();
-	vectorTestPushBack();
-	vectorTestAssign();
+	// vectorTestConstructors();
+	// vectorTestPushBack();
+	// vectorTestAssign();
+	vectorTestSwap();
 
 	// std::vector<int> nbrs(5, 42);
 	// ft::vector<int> fnbrs(5, 21);
-
-
-	// std::cout << "Before swap:" << std::endl;
-	// std::cout << nbrs.data() << ": ";
-	// print_container(nbrs);
-	// std::cout << fnbrs.data() << ": ";
-	// print_container(fnbrs);
-	// ft::swap(nbrs, fnbrs);
-	// std::cout << std::endl;
-	// std::cout << "After swap:" << std::endl;
-	// std::cout << nbrs.data() << ": ";
-	// print_container(nbrs);
-	// std::cout << fnbrs.data() << ": ";
-	// print_container(fnbrs);
 
 	// std::vector<int> hello(3, 56);
 

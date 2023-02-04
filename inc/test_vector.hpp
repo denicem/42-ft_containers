@@ -7,24 +7,6 @@
 #include <iostream>
 #include "test_general.hpp"
 
-
-// // TEST swap()
-// ft::vector<int> nbrs(5, 42);
-// ft::vector<int> fnbrs(5, 21);
-
-// std::cout << "Before swap:" << std::endl;
-// std::cout << nbrs.data() << ": ";
-// print_container(nbrs);
-// std::cout << fnbrs.data() << ": ";
-// print_container(fnbrs);
-// ft::swap(nbrs, fnbrs);
-// std::cout << std::endl;
-// std::cout << "After swap:" << std::endl;
-// std::cout << nbrs.data() << ": ";
-// print_container(nbrs);
-// std::cout << fnbrs.data() << ": ";
-// print_container(fnbrs);
-
 std::vector<int> createStdVectorInt(unsigned size) {
 	std::vector<int> res;
 
@@ -146,6 +128,36 @@ void vectorTestAssign() {
 
 	assert(nbrs.size() == fnbrs.size() && nbrs.capacity() == fnbrs.capacity());
 	print_container_compare(nbrs, fnbrs, true);
+
+	PRINT_W_COLOR(DARKGRAY, "--------------------") << std::endl;
+}
+
+void vectorTestSwap() {
+	PRINT_W_COLOR(CYAN, "Testing swap()");
+	PRINT_W_COLOR(DARKGRAY, "--------------------");
+
+	std::vector<int> v1(5, 42);
+	std::vector<int> v2(9, 21);
+	ft::vector<int> fv1(5, 42);
+	ft::vector<int> fv2(9, 21);
+
+	PRINT_W_COLOR(BLUE, "v1");
+	std::cout << YELLOW << v1.data() << ": "; print_container(v1, true); std::cout << RESET;
+	std::cout << MAGENTA << fv1.data() << ": "; print_container(fv1, true); std::cout << RESET;
+	PRINT_W_COLOR(BLUE, "v2");
+	std::cout << YELLOW << v2.data() << ": "; print_container(v2, true); std::cout << RESET;
+	std::cout << MAGENTA << fv2.data() << ": "; print_container(fv2, true); std::cout << RESET;
+
+	std::swap(v1, v2);
+	ft::swap(fv1, fv2);
+	std::cout << std::endl << "swapping ..." << std::endl << std::endl;
+
+	PRINT_W_COLOR(LIGHTBLUE, "v1");
+	std::cout << LIGHTYELLOW << v1.data() << ": "; print_container(v1, true); std::cout << RESET;
+	std::cout << LIGHTMAGENTA << fv1.data() << ": "; print_container(fv1, true); std::cout << RESET;
+	PRINT_W_COLOR(LIGHTBLUE, "v2");
+	std::cout << LIGHTYELLOW << v2.data() << ": "; print_container(v2, true); std::cout << RESET;
+	std::cout << LIGHTMAGENTA << fv2.data() << ": "; print_container(fv2, true); std::cout << RESET;
 
 	PRINT_W_COLOR(DARKGRAY, "--------------------") << std::endl;
 }
