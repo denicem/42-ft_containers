@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/04 19:43:42 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/04 21:45:32 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,7 +283,6 @@ namespace ft {
 		// insert fill
 		void insert(iterator pos, size_type n, const value_type& val) {
 			size_type curr = pos - begin();
-			std::cout << curr << std::endl;
 			if (this->_size + n > this->_cap)
 				_realloc(this->_size + n);
 			this->_insert_construct_end(curr, n);

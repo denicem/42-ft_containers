@@ -162,6 +162,85 @@ void vectorTestSwap() {
 	PRINT_W_COLOR(DARKGRAY, "--------------------") << std::endl;
 }
 
+void vectorTestInsert() {
+	std::vector<int> v1(5, 42);
+	ft::vector<int> fv1(5, 42);
+
+	PRINT_W_COLOR(BOLD, "vector at the beginning");
+	print_container_compare(v1, fv1, true);
+
+	//TODO: save return value from insert single element
+	// insert, single element, begin
+	PRINT_W_COLOR(BOLD, "\ninserting single element at the beginning");
+	v1.insert(v1.begin(), 21);
+	fv1.insert(fv1.begin(), 21);
+	print_container_compare(v1, fv1, true);
+
+	// insert, single element, in the middle
+	PRINT_W_COLOR(BOLD, "\ninserting single element in the middle");
+	v1.insert(v1.begin() + 3, 21);
+	fv1.insert(fv1.begin() + 3, 21);
+	print_container_compare(v1, fv1, true);
+
+	// insert, single element, end
+	PRINT_W_COLOR(BOLD, "\ninserting single element at the end");
+	v1.insert(v1.end(), 21);
+	fv1.insert(fv1.end(), 21);
+	print_container_compare(v1, fv1, true);
+
+	//resetting vector to initial state
+	v1.assign(5, 42);
+	v1.shrink_to_fit();
+	fv1.assign(5, 42);
+	fv1.shrink_to_fit();
+	print_container_compare(v1, fv1, true);
+
+	// insert, fill, begin
+	PRINT_W_COLOR(BOLD, "\ninserting multiple elements at the beginning");
+	v1.insert(v1.begin(), 6, 21);
+	fv1.insert(fv1.begin(), 6, 21);
+	print_container_compare(v1, fv1, true);
+
+	// insert, fill, in the middle
+	PRINT_W_COLOR(BOLD, "\ninserting multiple elements in the middle");
+	v1.insert(v1.begin() + 3, 6, 21);
+	fv1.insert(fv1.begin() + 3, 6, 21);
+	print_container_compare(v1, fv1, true);
+
+	// insert, fill, end
+	PRINT_W_COLOR(BOLD, "\ninserting multiple elements at the end");
+	v1.insert(v1.end(), 6, 21);
+	fv1.insert(fv1.end(), 6, 21);
+	print_container_compare(v1, fv1, true);
+
+	//resetting vector to initial state
+	v1.assign(5, 42);
+	v1.shrink_to_fit();
+	fv1.assign(5, 42);
+	fv1.shrink_to_fit();
+	print_container_compare(v1, fv1, true);
+
+	std::vector<int> example = createStdVectorInt(7);
+
+	// insert, range, begin
+	PRINT_W_COLOR(BOLD, "\ninserting another vector w iterators at the beginning");
+	v1.insert(v1.begin(), example.begin(), example.end());
+	fv1.insert(fv1.begin(), example.begin(), example.end());
+	print_container_compare(v1, fv1, true);
+
+	// insert, range, in the middle
+	PRINT_W_COLOR(BOLD, "\ninserting another vector w iterators in the middle");
+	v1.insert(v1.begin() + 3, example.begin(), example.end());
+	fv1.insert(fv1.begin() + 3, example.begin(), example.end());
+	print_container_compare(v1, fv1, true);
+
+	// insert, range, end
+	PRINT_W_COLOR(BOLD, "\ninserting another vector w iterators at the end");
+	v1.insert(v1.end(), example.begin(), example.end());
+	fv1.insert(fv1.end(), example.begin(), example.end());
+	print_container_compare(v1, fv1, true);
+}
+
 #endif
 
 /*
