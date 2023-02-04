@@ -54,7 +54,7 @@
 	std::cout << color << text << RESET << std::endl; \
 }
 
-# define PRINT_LN std::cout << __FILE__ << ": " << __LINE__ << std::endl
+# define PRINT_POS std::cout << __FILE__ << ": " << __LINE__ << std::endl
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -102,6 +102,18 @@ void measureTime(void (*func_std)(), void (*func_ft)()) {
 		PRINT_W_COLOR(GREEN, "SUCCESS")
 	else
 		PRINT_W_COLOR(RED, "FAIL")
+}
+
+template <typename Container>
+void print_container(const Container& c, bool print_info = false) {
+	typename Container::const_iterator it;
+	for (it = c.begin(); it != c.end(); ++it)
+		std::cout << *it << " ";
+	std::cout << std::endl;
+	if (print_info) {
+		std::cout << "Size: " << c.size() << std::endl;
+		std::cout << "Capacity: " << c.capacity() << std::endl;
+	}
 }
 
 #endif
