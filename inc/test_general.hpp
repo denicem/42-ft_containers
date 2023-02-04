@@ -112,6 +112,12 @@ void print_container(const Container& c, bool print_info = false) {
 	} 
 }
 
+template <typename Container>
+void print_container_info(const Container& c) {
+	std::cout << "Size: " << c.size() << std::endl;
+	std::cout << "Capacity: " << c.capacity() << std::endl;
+}
+
 template <typename Container1, typename Container2>
 void print_container_compare(const Container1& std_c, const Container2& ft_c, bool print_info = false) {
 	PRINT_W_COLOR(LIGHTGREEN, "----- CONTAINER COMPARE -----") << std::endl;
