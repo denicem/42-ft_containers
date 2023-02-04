@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/03 22:34:55 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/04 16:28:03 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,7 +319,22 @@ namespace ft {
 
 		// iterator erase(iterator first, iterator last) {}
 
-		// void swap(vector& x) {}
+		void swap(vector& x) {
+			allocator_type	tmp_alloc = this->_alloc;
+			size_type	tmp_cap = this->_cap;
+			size_type	tmp_size = this->_size;
+			pointer		tmp_data = this->_data;
+
+			this->_alloc = x._alloc;
+			this->_cap = x._cap;
+			this->_size = x._size;
+			this->_data = x._data;
+
+			x._alloc = tmp_alloc;
+			x._cap = tmp_cap;
+			x._size = tmp_size;
+			x._data = tmp_data;
+		}
 
 		void clear() {
 			iterator it = this->begin();
@@ -354,8 +369,8 @@ namespace ft {
 // bool operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {}
 // ----------------------- -------------------- -----------------------
 
-// template <class T, class Alloc>
-// void swap(vector<T, Alloc>& x, vector<T, Alloc>& y) {}
+template <class T, class Alloc>
+void swap(vector<T, Alloc>& x, vector<T, Alloc>& y) { x.swap(y); }
 
 } // END NAMESPACE FT
 
