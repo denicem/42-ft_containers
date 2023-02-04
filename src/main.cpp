@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/03 20:52:23 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/04 17:37:03 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,32 @@
 #include "test_vector.hpp"
 
 int main() {
-	std::cout << "Hello ft_containers." << std::endl;
+	std::cout << "Hello ft_containers." << std::endl << std::endl;
 
 	// measureTime(&vector_test_basic_std, &vector_test_basic_ft);
 	// vectorTestConstructors();
 	// vectorTestPushBack();
 	// vectorTestAssign();
 
-	std::vector<int> nbrs(5);
-	ft::vector<int> fnbrs(5);
-	std::vector<int> hello(3, 56);
+	std::vector<int> nbrs(5, 42);
+	ft::vector<int> fnbrs(5, 21);
+
+	print_container_compare(nbrs, fnbrs);
+
+	// std::cout << "Before swap:" << std::endl;
+	// std::cout << nbrs.data() << ": ";
+	// print_container(nbrs);
+	// std::cout << fnbrs.data() << ": ";
+	// print_container(fnbrs);
+	// ft::swap(nbrs, fnbrs);
+	// std::cout << std::endl;
+	// std::cout << "After swap:" << std::endl;
+	// std::cout << nbrs.data() << ": ";
+	// print_container(nbrs);
+	// std::cout << fnbrs.data() << ": ";
+	// print_container(fnbrs);
+
+	// std::vector<int> hello(3, 56);
 
 	// try {
 	// 	fnbrs.at(3);
@@ -41,26 +57,26 @@ int main() {
 	// 	std::cout << e.what() << std::endl;
 	// }
 
-	nbrs.push_back(42);
-	nbrs.push_back(42);
-	nbrs.push_back(42);
-	nbrs.push_back(42);
-	nbrs.push_back(42);
-	nbrs.push_back(42);
-	fnbrs.push_back(42);
-	fnbrs.push_back(42);
-	fnbrs.push_back(42);
-	fnbrs.push_back(42);
-	fnbrs.push_back(42);
-	fnbrs.push_back(42);
+	// nbrs.push_back(42);
+	// nbrs.push_back(42);
+	// nbrs.push_back(42);
+	// nbrs.push_back(42);
+	// nbrs.push_back(42);
+	// nbrs.push_back(42);
+	// fnbrs.push_back(42);
+	// fnbrs.push_back(42);
+	// fnbrs.push_back(42);
+	// fnbrs.push_back(42);
+	// fnbrs.push_back(42);
+	// fnbrs.push_back(42);
 	
-	for (size_t i = 0; i < nbrs.size(); ++i)
-		std::cout << nbrs[i] << " ";
-	std::cout << std::endl;
-	std::cout << "Cap: " << nbrs.capacity() << "\nSize: " << nbrs.size() << std::endl;
+	// for (size_t i = 0; i < nbrs.size(); ++i)
+	// 	std::cout << nbrs[i] << " ";
+	// std::cout << std::endl;
+	// std::cout << "Cap: " << nbrs.capacity() << "\nSize: " << nbrs.size() << std::endl;
 
-	std::cout << std::endl;
-	std::cout << std::endl;
+	// std::cout << std::endl;
+	// std::cout << std::endl;
 
 	// nbrs.insert(nbrs.begin() + 2, 7, 55);
 	// fnbrs.insert(fnbrs.begin() + 2, 7, 55);
@@ -78,17 +94,17 @@ int main() {
 	// fnbrs.insert(fnbrs.begin() + 2, hello.begin(), hello.end());
 	// nbrs.insert(nbrs.end(), hello.begin(), hello.end());
 	// fnbrs.insert(fnbrs.end(), hello.begin(), hello.end());
-	nbrs.insert(nbrs.begin(), hello.begin(), hello.end());
-	fnbrs.insert(fnbrs.begin(), hello.begin(), hello.end());
+	// nbrs.insert(nbrs.begin(), hello.begin(), hello.end());
+	// fnbrs.insert(fnbrs.begin(), hello.begin(), hello.end());
 
-	for (size_t i = 0; i < nbrs.size(); ++i)
-		std::cout << nbrs[i] << " ";
-	std::cout << std::endl;
+	// for (size_t i = 0; i < nbrs.size(); ++i)
+	// 	std::cout << nbrs[i] << " ";
+	// std::cout << std::endl;
 	// std::cout << "Cap: " << nbrs.capacity() << "\nSize: " << nbrs.size() << std::endl;
 
 	// std::cout << "ft:" << std::endl;
-	for (size_t i = 0; i < fnbrs.size(); ++i)
-		std::cout << fnbrs[i] << " ";
+	// for (size_t i = 0; i < fnbrs.size(); ++i)
+	// 	std::cout << fnbrs[i] << " ";
 	// std::cout << std::endl;
 	// std::cout << "fCap: " << fnbrs.capacity() << "\nfSize: " << fnbrs.size() << std::endl;
 
