@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/04 22:04:03 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/04 22:30:47 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int main() {
 	// vectorTestPushBack();
 	// vectorTestAssign();
 	// vectorTestSwap();
-	vectorTestInsert();
+	// vectorTestInsert();
+	vectorTestResize();
 
 	// std::vector<int> nbrs(5, 42);
 	// ft::vector<int> fnbrs(5, 21);
@@ -43,10 +44,6 @@ int main() {
 	// catch (std::exception& e) {
 	// 	std::cout << e.what() << std::endl;
 	// }
-
-	// nbrs.resize(17, 56);
-	// fnbrs.resize(17, 56);
-	// std::cout << std::endl;
 
 	return (0);
 }

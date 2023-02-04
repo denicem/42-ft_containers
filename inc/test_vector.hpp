@@ -241,6 +241,29 @@ void vectorTestInsert() {
 	print_container_compare(v1, fv1, true);
 }
 
+void vectorTestResize() {
+	std::vector<int> v1(7, 42);
+	ft::vector<int> fv1(7, 42);
+
+	PRINT_W_COLOR(BOLD, "vector at the beginning");
+	print_container_compare(v1, fv1, true);
+
+	v1.resize(4);
+	fv1.resize(4);
+	PRINT_W_COLOR(BOLD, "\nvector after resizing smaller than size");
+	print_container_compare(v1, fv1, true);
+
+	v1.resize(6, 34);
+	fv1.resize(6, 34);
+	PRINT_W_COLOR(BOLD, "\nvector after resizing bigger than size");
+	print_container_compare(v1, fv1, true);
+
+	v1.resize(v1.capacity() + 4, 89);
+	fv1.resize(fv1.capacity() + 4, 89);
+	PRINT_W_COLOR(BOLD, "\nvector after resizing bigger than capacity");
+	print_container_compare(v1, fv1, true);
+}
+
 #endif
 
 /*
