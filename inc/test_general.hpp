@@ -119,17 +119,23 @@ void print_container_compare(const Container1& std_c, const Container2& ft_c, bo
 	PRINT_W_COLOR (LIGHTYELLOW, "STD");
 	PRINT_W_COLOR (LIGHTMAGENTA, "FT") << std::endl;
 
-	typename Container1::const_iterator std_it;
 	std::cout << LIGHTYELLOW;
-	for (std_it = std_c.begin(); std_it != std_c.end(); ++std_it)
-		std::cout << *std_it << " ";
+	if (!std_c.empty()) {
+		typename Container1::const_iterator std_it;
+		for (std_it = std_c.begin(); std_it != std_c.end(); ++std_it)
+			std::cout << *std_it << " ";
+	}
+	else std::cout << "EMPTY.";
 	std::cout << RESET;
 	std::cout << std::endl;
 
-	typename Container2::const_iterator ft_it;
 	std::cout << LIGHTMAGENTA;
-	for (ft_it = ft_c.begin(); ft_it != ft_c.end(); ++ft_it)
-		std::cout << *ft_it << " ";
+	if (!ft_c.empty()) {
+		typename Container2::const_iterator ft_it;
+		for (ft_it = ft_c.begin(); ft_it != ft_c.end(); ++ft_it)
+			std::cout << *ft_it << " ";
+	}
+	else std::cout << "EMPTY.";
 	std::cout << RESET;
 	std::cout << std::endl << std::endl;;
 
