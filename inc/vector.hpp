@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/04 16:28:03 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:43:42 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,7 +348,7 @@ namespace ft {
 	** ----------------------- ALLOCATOR -----------------------
 	*/
 	public:
-		// allocator_type get_allocator() const {}
+		allocator_type get_allocator() const { return (this->_alloc); }
 	};
 /*
 ** ----------------------- NON-MEMBER FUNCS OVERLOADS -----------------------
