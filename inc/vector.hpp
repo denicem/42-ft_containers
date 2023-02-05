@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/05 20:09:51 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/05 20:56:18 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <memory>
 
 #include "iterator.hpp"
+#include "reverse_iterator.hpp"
 #include "algorithm.hpp"
 #include "type_traits.hpp"
 
@@ -50,8 +51,8 @@ namespace ft {
 		typedef typename allocator_type::const_reference	const_reference;
 		typedef ft::Iterator<value_type>					iterator;
 		typedef ft::Iterator<const value_type>				const_iterator;
-		// reverse_iterator;
-		// const_reverse_iterator;
+		typedef ft::ReverseIterator<value_type>				reverse_iterator;
+		typedef ft::ReverseIterator<const value_type>		const_reverse_iterator;
 		
 	/*
 	** --------------------------- MEMBER VARIABLES ---------------------------
@@ -167,14 +168,14 @@ namespace ft {
 		const_iterator begin() const { return (const_iterator(_data)); }
 		iterator end() { return (iterator(_data + _size)); }
 		const_iterator end() const { return (const_iterator(_data + _size)); }
-		// reverse_iterator rbegin() {}
-		// const_reverse_iterator rbegin() const {}
-		// reverse_iterator rend() {}
-		// const_reverse_iterator rend() const {}
+		reverse_iterator rbegin() { return (reverse_iterator(_data + _size - 1)); }
+		const_reverse_iterator rbegin() const { return (const_reverse_iterator(_data + _size - 1)); }
+		reverse_iterator rend() { return (reverse_iterator(_data)); }
+		const_reverse_iterator rend() const { return (const_reverse_iterator(_data)); }
 		const_iterator cbegin() const { return (const_iterator(_data)); }
 		const_iterator cend() const { return (const_iterator(_data + _size)); }
-		// const_reverse_iterator crbegin() const noexcept {}
-		// const_reverse_iterator crend() const noexcept {}
+		const_reverse_iterator crbegin() const { return (const_reverse_iterator(_data + _size - 1)); }
+		const_reverse_iterator crend() const { return (const_reverse_iterator(_data)); }
 
 	/*
 	** ----------------------- CAPACITY -----------------------

@@ -6,12 +6,12 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 20:42:35 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/03 15:28:31 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/05 20:55:43 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ITERATOR_H
-#define ITERATOR_H
+#ifndef REVERSE_ITERATOR_H
+#define REVERSE_ITERATOR_H
 
 #include "iterator_traits.hpp"
 #include "iterator.hpp"
@@ -48,10 +48,10 @@ class ReverseIterator {
 		/*
 		** ----------------------- CONSTRUCTORS & DESTRUCTOR -----------------------
 		*/
-		ReverseIterator(pointer ptr = NULL): _ptr(ptr) { "default constructor" << std::endl; }
+		ReverseIterator(pointer ptr = NULL): _ptr(ptr) {}
 		// ReverseIterator(iter_type it) { "initialization constructor" << std::endl; }
 		template< typename T1 >
-		ReverseIterator(const ReverseIterator<T1>& other): _ptr(other.base()) { "copy constructor" << std::endl; }
+		ReverseIterator(const ReverseIterator<T1>& other): _ptr(other.base()) {}
 		~ReverseIterator() {}
 
 	public:
