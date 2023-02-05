@@ -17,6 +17,7 @@
 #include <memory>
 
 #include "iterator.hpp"
+#include "algorithm.hpp"
 #include "type_traits.hpp"
 
 // TODO: understand type_traits, enable_if and is_integral better
@@ -205,6 +206,7 @@ namespace ft {
 				this->_realloc(n);
 		}
 
+		// NOTE: delete, cause it's C++11
 		void shrink_to_fit() { if (this->_cap > this->_size) this->_realloc(this->_size); }
 
 	/*
@@ -354,18 +356,40 @@ namespace ft {
 */
 
 // ----------------------- RELATIONAL OPERATORS -----------------------
-// template <class T, class Alloc>
-// bool operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {}
-// template <class T, class Alloc>
-// bool operator!=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {}
-// template <class T, class Alloc>
-// bool operator<(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {}
-// template <class T, class Alloc>
-// bool operator<=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {}
-// template <class T, class Alloc>
-// bool operator>(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {}
-// template <class T, class Alloc>
-// bool operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {}
+
+template <class T, class Alloc>  
+bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	//check sizes, then compare
+	if (lhs.size() == rhs.size())
+		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+	return false;
+}
+
+template <class T, class Alloc>
+bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	return !(lhs == rhs);
+}
+
+template <class T, class Alloc>
+bool operator< (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+}
+
+template <class T, class Alloc>
+bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	return !(rhs < lhs);
+}
+
+template <class T, class Alloc>
+bool operator> (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	return (rhs < lhs);
+}
+
+template <class T, class Alloc>
+bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	return !(lhs < rhs);
+}
+
 // ----------------------- -------------------- -----------------------
 
 template <class T, class Alloc>
