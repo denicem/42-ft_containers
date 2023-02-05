@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/04 22:53:15 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/05 19:29:17 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int main() {
 	// vectorTestAssign();
 	// vectorTestSwap();
 	// vectorTestInsert();
-	vectorTestResize();
+	// vectorTestResize();
+	vectorTestErase();
 
 	return (0);
 }

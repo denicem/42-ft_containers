@@ -16,6 +16,15 @@ std::vector<int> createStdVectorInt(unsigned size) {
 	return (res);
 }
 
+ft::vector<int> createFtVectorInt(unsigned size) {
+	ft::vector<int> res;
+
+	for (unsigned i = 0; i < size; i++)
+		res.push_back(i);
+
+	return (res);
+}
+
 void vector_test_basic_std() {
 	std::vector<int> nbrs;
 
@@ -188,7 +197,7 @@ void vectorTestInsert() {
 	fv1.insert(fv1.end(), 21);
 	print_container_compare(v1, fv1, true);
 
-	//resetting vector to initial state
+	//resetting vector to initial state TODO: shrink_to_fit() is in C++11 -> put test cases in a scope 
 	v1.assign(5, 42);
 	v1.shrink_to_fit();
 	fv1.assign(5, 42);
@@ -239,6 +248,65 @@ void vectorTestInsert() {
 	v1.insert(v1.end(), example.begin(), example.end());
 	fv1.insert(fv1.end(), example.begin(), example.end());
 	print_container_compare(v1, fv1, true);
+}
+
+void vectorTestErase() {
+	std::vector<int> v1 = createStdVectorInt(15);
+	std::vector<int> tmp(5, 42);
+	ft::vector<int> fv1 = createFtVectorInt(15);
+	
+
+	PRINT_W_COLOR(BOLD, "vector at the beginning");
+	print_container_compare(v1, fv1);
+
+	{
+		PRINT_W_COLOR(BOLD, "\nerasing single element at the beginning");
+		std::vector<int>::iterator it = v1.erase(v1.begin());
+		ft::vector<int>::iterator fit= fv1.erase(fv1.begin());
+		print_container_compare(v1, fv1);
+		std::cout << "Return val - std: " << *it << std::endl;
+		std::cout << "Return val -  ft: " << *fit << std::endl;
+	}
+	{
+		PRINT_W_COLOR(BOLD, "\nerasing single element in the middle");
+		std::vector<int>::iterator it = v1.erase(v1.begin() + 4);
+		ft::vector<int>::iterator fit= fv1.erase(fv1.begin() + 4);
+		print_container_compare(v1, fv1);
+		std::cout << "Return val - std: " << *it << std::endl;
+		std::cout << "Return val -  ft: " << *fit << std::endl;
+	}
+	{
+		PRINT_W_COLOR(BOLD, "\nerasing single element at the end");
+		std::vector<int>::iterator it = v1.erase(v1.end() - 1);
+		ft::vector<int>::iterator fit= fv1.erase(fv1.end() - 1);
+		print_container_compare(v1, fv1);
+		std::cout << "Return val - std: " << *it << std::endl;
+		std::cout << "Return val -  ft: " << *fit << std::endl;
+	}
+	{
+		PRINT_W_COLOR(BOLD, "\nerasing multiple elements at the beginning");
+		std::vector<int>::iterator it = v1.erase(v1.begin(), v1.begin() + 3);
+		ft::vector<int>::iterator fit= fv1.erase(fv1.begin(), fv1.begin() + 3);
+		print_container_compare(v1, fv1);
+		std::cout << "Return val - std: " << *it << std::endl;
+		std::cout << "Return val -  ft: " << *fit << std::endl;
+	}
+	{
+		PRINT_W_COLOR(BOLD, "\nerasing multiple elements in the middle");
+		std::vector<int>::iterator it = v1.erase(v1.begin() + 3, v1.begin() + 6);
+		ft::vector<int>::iterator fit= fv1.erase(fv1.begin() + 3, fv1.begin() + 6);
+		print_container_compare(v1, fv1);
+		std::cout << "Return val - std: " << *it << std::endl;
+		std::cout << "Return val -  ft: " << *fit << std::endl;
+	}
+	{
+		PRINT_W_COLOR(BOLD, "\nerasing multiple elements at the end");
+		std::vector<int>::iterator it = v1.erase(v1.end() - 3, v1.end());
+		ft::vector<int>::iterator fit= fv1.erase(fv1.end() - 3, fv1.end());
+		print_container_compare(v1, fv1);
+		std::cout << "Return val - std: " << *it << std::endl;
+		std::cout << "Return val -  ft: " << *fit << std::endl;
+	}
 }
 
 void vectorTestResize() {

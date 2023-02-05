@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/04 21:45:32 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/05 20:09:51 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,19 +306,30 @@ namespace ft {
 			this->_size += n;
 		}
 
-		void erase(iterator pos) // TODO: return type: iterator
-		{
-			// if (isOutOfBounds(pos))
-			// 	throw std::out_of_range("Iterator out of bounds.");
-			for (; pos != end(); ++pos)
-			{
-				if (pos + 1 != end())
-					*pos = *(pos + 1);
+		iterator erase(iterator pos) {
+			iterator res = pos;
+			while (pos + 1 != end()) {
+				*pos = *(pos + 1);
+				++pos;
 			}
-			--this->_size;
+			this->pop_back();
+			return (res);
 		}
 
-		// iterator erase(iterator first, iterator last) {}
+		iterator erase(iterator first, iterator last) {
+			size_type pos = first - begin();
+			size_type res = pos;
+			size_type n = last - first;
+
+			for (;first != last; ++first)
+				this->_alloc.destroy(first.base());
+			for (; last != end(); ++last, ++pos) {
+				this->_alloc.construct(this->_data + pos, *last);
+				this->_alloc.destroy(last.base());
+			}
+			this->_size -= n;
+			return (iterator(this->_data + res));
+		}
 
 		void swap(vector& x) {
 			allocator_type	tmp_alloc = this->_alloc;
