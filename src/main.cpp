@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/05 19:29:17 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/06 03:47:51 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 #include "vector.hpp"
 
 #include <iostream>
-#include <cassert>
 
 #include "Vect3.hpp"
 
 #include "test_general.hpp"
-#include "test_vector.hpp"
+// #include "test_vector.hpp"
 
 int main() {
 	std::cout << "Hello ft_containers." << std::endl << std::endl;
@@ -31,7 +30,16 @@ int main() {
 	// vectorTestSwap();
 	// vectorTestInsert();
 	// vectorTestResize();
-	vectorTestErase();
+	// vectorTestErase();
+
+	try {
+		std::vector<int> v1(5, 42);
+		ft::vector<int> fv1(5, 42);
+		assert(v1.size() != fv1.size(), false);
+	}
+	catch (ft::AssertException& e) {
+		std:: cout << e.what() << std::endl;
+	}
 
 	return (0);
 }
