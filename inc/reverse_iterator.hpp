@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 20:42:35 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/05 20:55:43 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/06 03:52:48 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ class ReverseIterator {
 		typedef iter_type&						reference;
 		typedef const iter_type&				const_reference;
 		// typedef Iter							iter_type;
-		// typedef typename iterator_traits<iterator_type>::iterator_category iterator_category;
+		// typedef typename iterator_traits<iterator_type>::iterator_category iterator_category; // TODO: use these member types, reverse_iterator to file iterator.hpp ?!?
 		// typedef typename iterator_traits<iterator_type>::value_type value_type;
 		// typedef typename iterator_traits<iterator_type>::difference_type difference_type;
 		// typedef typename iterator_traits<iterator_type>::pointer pointer;

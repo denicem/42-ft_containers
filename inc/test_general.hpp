@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include <exception>
-#include "assert.hpp"
 
 /* COLOURS */
 
@@ -52,8 +51,13 @@
 
 /*--- DEBUG PRINTER ---*/
 # define PRINT_W_COLOR(color, text) std::cout << color << text << RESET << std::endl
-
 # define PRINT_POS std::cout << __FILE__ << ": " << __LINE__ << std::endl
+
+#undef assert
+#undef __assert
+#define assert(e, succ_msg) (e ? (succ_msg ? __assert_succ_msg(#e, __FILE__, __LINE__) : void() ) : __assert(#e, __FILE__, __LINE__))
+#define __assert(e, file, line) (std::cout << "Testing " << UNDERLINED << e << RESET << RED << " failed " << RESET << BOLD << "@ " << file << ":" << line << RESET << std::endl, void())
+#define __assert_succ_msg(e, file, line) (std::cout << "Testing " << UNDERLINED << e << RESET << GREEN << " passed " << RESET << BOLD << "@ " << file << ":" << line << RESET << std::endl, void())
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -96,10 +100,11 @@ void measureTime(void (*func_std)(), void (*func_ft)()) {
 	std::cout << "Duration std::vector * 20:\t" << std::fixed << duration_std * 20 << " seconds." << std::endl;
 	std::cout << std::endl;
 
-	if (duration_std * 20 > duration_ft) // NOTE: is that correct, if duration_ft can be 20x slower than duration_std
-		PRINT_W_COLOR(GREEN, "SUCCESS");
-	else
-		PRINT_W_COLOR(RED, "FAIL");
+	// if (duration_std * 20 > duration_ft) // NOTE: is that correct, if duration_ft can be 20x slower than duration_std
+	// 	PRINT_W_COLOR(GREEN, "SUCCESS");
+	// else
+	// 	PRINT_W_COLOR(RED, "FAIL");
+	assert(duration_std * 20 > duration_ft, true);
 }
 
 template <typename Container>

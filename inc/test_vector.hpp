@@ -48,31 +48,31 @@ void vectorTestConstructors() {
 	// TEST default constructor
 	std::vector<int> v1;
 	ft::vector<int> fv1;
-	assert(v1.empty() == fv1.empty());
+	assert(v1.empty() == fv1.empty(), true);
 
 	// TEST fill constructor
 	std::vector<int> v2(5);
 	ft::vector<int> fv2(5);
-	assert(v2.size() == fv2.size());
+	assert(v2.size() == fv2.size(), true);
 	print_container_compare(v2, fv2, true);
 
 	// TEST fill copy constructor
 	std::vector<int> v2_cpy(v2);
 	ft::vector<int> fv2_cpy(fv2);
-	assert(v2_cpy.size() == fv2_cpy.size());
+	assert(v2_cpy.size() == fv2_cpy.size(), true);
 	print_container_compare(v2_cpy, fv2_cpy);
 
 	// TEST fill constructor with second argument
 	std::vector<int> v3(10, 5);
 	ft::vector<int> fv3(10, 5);
-	assert(v3.size() == fv3.size());
+	assert(v3.size() == fv3.size(), true);
 	print_container_compare(v3, fv3, true);
 
 	// TEST range constructor
 	std::vector<int> example = createStdVectorInt(8);
 	ft::vector<int> v5(example.begin(), example.end());
 	ft::vector<int> fv5(example.begin(), example.end());
-	assert(v5.size() == fv5.size());
+	assert(v5.size() == fv5.size(), true);
 	// v5.clear();
 	// fv5.clear();
 	// assert(v5.empty() == fv5.empty());
@@ -91,7 +91,7 @@ void vectorTestPushBack() {
 	for (int i = 0; i < 5; i++) {
 		v1.push_back(i);
 		fv1.push_back(i);
-		assert(v1.size() == fv1.size());
+		assert(v1.size() == fv1.size(), true);
 	}
 	print_container_compare(v1, fv1);
 
@@ -117,25 +117,25 @@ void vectorTestAssign() {
 	nbrs.assign(10, 21);
 	fnbrs.assign(10, 21);
 	
-	assert(nbrs.size() == fnbrs.size() && nbrs.capacity() == fnbrs.capacity());
+	assert(nbrs.size() == fnbrs.size() && nbrs.capacity() == fnbrs.capacity(), true);
 	print_container_compare(nbrs, fnbrs, true);
 
 	nbrs.assign(fiftysix.begin(), fiftysix.end());
 	fnbrs.assign(fiftysix.begin(), fiftysix.end());
 
-	assert(nbrs.size() == fnbrs.size() && nbrs.capacity() == fnbrs.capacity());
+	assert(nbrs.size() == fnbrs.size() && nbrs.capacity() == fnbrs.capacity(), true);
 	print_container_compare(nbrs, fnbrs, true);
 
 	nbrs.assign(14, 17);
 	fnbrs.assign(14, 17);
 
-	assert(nbrs.size() == fnbrs.size() && nbrs.capacity() == fnbrs.capacity());
+	assert(nbrs.size() == fnbrs.size() && nbrs.capacity() == fnbrs.capacity(), true);
 	print_container_compare(nbrs, fnbrs, true);
 
 	nbrs.assign(2, 1997);
 	fnbrs.assign(2, 1997);
 
-	assert(nbrs.size() == fnbrs.size() && nbrs.capacity() == fnbrs.capacity());
+	assert(nbrs.size() == fnbrs.size() && nbrs.capacity() == fnbrs.capacity(), true);
 	print_container_compare(nbrs, fnbrs, true);
 
 	PRINT_W_COLOR(DARKGRAY, "--------------------") << std::endl;
