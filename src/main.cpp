@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/06 21:44:55 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:13:27 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,35 @@
 int main() {
 	std::cout << "Hello ft_containers." << std::endl << std::endl;
 
-	vectorTestConstructors();
-	vectorTestPushBack();
-	vectorTestAssign();
-	vectorTestSwap();
+	// vectorTestConstructors();
+	// vectorTestPushBack();
+	// vectorTestAssign();
+	// vectorTestSwap();
 	// vectorTestInsert();
 	// vectorTestResize();
 	// vectorTestErase();
 
-	std::vector<int> v1(5, 42);
-	ft::vector<int> fv1(5, 42);
-	assert(v1.size() == fv1.size(), true);
-	assert(v1.size() != fv1.size(), true);
-	assert(v1.size() >= fv1.size(), true);
-	assert(v1.size() > fv1.size(), true);
-	assert(v1.size() <= fv1.size(), true);
-	assert(v1.size() < fv1.size(), true);
-	measureTime(&vector_test_basic_std, &vector_test_basic_ft);
+	// std::vector<int> v1(5, 42);
+	// ft::vector<int> fv1(5, 42);
+	// assert(v1.size() == fv1.size(), true);
+	// assert(v1.size() != fv1.size(), true);
+	// assert(v1.size() >= fv1.size(), true);
+	// assert(v1.size() > fv1.size(), true);
+	// assert(v1.size() <= fv1.size(), true);
+	// assert(v1.size() < fv1.size(), true);
+	// measureTime(&vector_test_basic_std, &vector_test_basic_ft);
+
+	ft::vector<int> v1 = createFtVectorInt(10);
+	ft::vector<int> v2 = createFtVectorInt(7);
+
+	print_container(v1, true);
+	print_container(v2, true);
+
+	std::cout << "\nv2 = v1\n" << std::endl;
+	v2 = v1;
+
+	print_container(v1, true);
+	print_container(v2, true);
 
 	return (0);
 }

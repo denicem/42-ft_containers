@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/05 20:56:18 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:11:49 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@
 
 namespace ft {
 
-	template < class T, class Alloc = std::allocator<T> >
-	class vector {
+template < class T, class Alloc = std::allocator<T> >
+class vector {
+
 	/*
 	** ----------------------- MEMBER TYPES -----------------------
 	*/
@@ -148,15 +149,16 @@ namespace ft {
 		}
 
 		// assignment operator
-		vector& operator=(const vector& x)
-		{
-			if (this->_size < x._size)
-				_realloc(x._size);
-			for (size_type i = 0; i < x._size; ++i)
-			{
-				this->_data[i] = x[i];
+		vector& operator=(const vector& x) {
+			if (this != &x) {
+				this->clear();
+				this->_alloc = x._alloc;
+				if (x._size > this->_cap)
+					this->_realloc(x._size);
+				for (size_type i = 0; i < x._size; ++i)
+					(this->_alloc).construct(this->_data + i, x[i]);
+				this->_size = x._size;
 			}
-			this->_size = x._size;
 			return (*this);
 		}
 
@@ -362,7 +364,8 @@ namespace ft {
 	*/
 	public:
 		allocator_type get_allocator() const { return (this->_alloc); }
-	};
+
+}; // END class vector
 /*
 ** ----------------------- NON-MEMBER FUNCS OVERLOADS -----------------------
 */
@@ -407,6 +410,6 @@ bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
 template <class T, class Alloc>
 void swap(vector<T, Alloc>& x, vector<T, Alloc>& y) { x.swap(y); }
 
-} // END NAMESPACE FT
+} // END namespace ft
 
 #endif
