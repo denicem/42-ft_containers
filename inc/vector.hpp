@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/07 19:50:05 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:59:37 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,16 +116,7 @@ class vector {
 			typename ft::enable_if< !ft::is_integral< InputIterator >::value >::type* = NULL)
 			: _alloc(alloc), _cap(0), _size(0), _data(NULL)
 		{
-			// std::cout << "range constructor" << std::endl;
-
-			for (InputIterator it = first; it != last; ++it) // TODO: calc with distance
-				++this->_cap;
-			this->_data = (this->_alloc).allocate(this->_cap);
-
-			for (size_type i = 0; first != last && i < this->_cap; ++i, ++first) {
-				(this->_alloc).construct(this->_data + this->_size, *first);
-				++this->_size;
-			}
+			this->assign(first, last);
 		}
 
 		// copy constructor
@@ -222,8 +213,8 @@ class vector {
 		const_reference at(size_type idx) const { if (idx >= this->_size)  throw std::out_of_range("ft::out_of_range"); return (this->_data[idx]); }
 		reference front() { return (*(this->_data)); }
 		const_reference front() const { return (*(this->_data)); }
-		reference back() { return (*(this->_data + _size - 1)); }
-		const_reference back() const { return (*(this->_data + _size) - 1); }
+		reference back() { return (this->_data[this->_size - 1]); }
+		const_reference back() const { return (this->_data[this->_size - 1]); }
 		pointer data() { return (this->_data); }
 		const_pointer data() const { return (this->_data); }
 
@@ -323,15 +314,14 @@ class vector {
 			size_type pos = first - begin();
 			size_type res = pos;
 			size_type n = last - first;
+			iterator it;
 
-			for (;first != last; ++first)
-				this->_alloc.destroy(first.base());
-			for (; last != end(); ++last, ++pos) {
-				this->_alloc.construct(this->_data + pos, *last);
-				this->_alloc.destroy(last.base());
-			}
+			for (it = first ; (it + n) < end(); ++it)
+				*it = *(it + n);
+			for (; it < end(); ++it)
+				this->_alloc.destroy(it.base());
 			this->_size -= n;
-			return (iterator(this->_data + res));
+			return (first);
 		}
 
 		void swap(vector& x) {
