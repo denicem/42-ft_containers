@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 20:42:35 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/06 03:52:48 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:16:17 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,12 @@ class ReverseIterator {
 		/*
 		** ----------------------- MEMBER TYPES -----------------------
 		*/
-		typedef random_access_iterator_tag	iterator_category;
 		typedef Iter							iter_type;
-		typedef std::ptrdiff_t					difference_type;
-		typedef iter_type*						pointer;
-		typedef const iter_type*				const_pointer;
-		typedef iter_type&						reference;
-		typedef const iter_type&				const_reference;
-		// typedef Iter							iter_type;
-		// typedef typename iterator_traits<iterator_type>::iterator_category iterator_category; // TODO: use these member types, reverse_iterator to file iterator.hpp ?!?
-		// typedef typename iterator_traits<iterator_type>::value_type value_type;
-		// typedef typename iterator_traits<iterator_type>::difference_type difference_type;
-		// typedef typename iterator_traits<iterator_type>::pointer pointer;
-		// typedef typename iterator_traits<iterator_type>::reference reference;
+		typedef typename iterator_traits<iter_type>::iterator_category iterator_category;
+		typedef typename iterator_traits<iter_type>::value_type value_type;
+		typedef typename iterator_traits<iter_type>::difference_type difference_type;
+		typedef typename iterator_traits<iter_type>::pointer pointer;
+		typedef typename iterator_traits<iter_type>::reference reference;
 
 	protected:
 		/*

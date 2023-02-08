@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/07 17:11:49 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:50:05 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@ class vector {
 		typedef Alloc										allocator_type;
 		typedef typename allocator_type::value_type			value_type;
 		typedef typename allocator_type::size_type			size_type;
-		typedef typename allocator_type::difference_type	difference_type;
+		typedef typename allocator_type::difference_type	difference_type; // TODO: from iterator_traits<iterator>
 		typedef typename allocator_type::pointer			pointer;
 		typedef typename allocator_type::const_pointer		const_pointer;
 		typedef typename allocator_type::reference			reference;
 		typedef typename allocator_type::const_reference	const_reference;
 		typedef ft::Iterator<value_type>					iterator;
 		typedef ft::Iterator<const value_type>				const_iterator;
-		typedef ft::ReverseIterator<value_type>				reverse_iterator;
-		typedef ft::ReverseIterator<const value_type>		const_reverse_iterator;
+		typedef ft::ReverseIterator<iterator>				reverse_iterator;
+		typedef ft::ReverseIterator<const_iterator>		const_reverse_iterator;
 		
 	/*
 	** --------------------------- MEMBER VARIABLES ---------------------------
@@ -118,7 +118,7 @@ class vector {
 		{
 			// std::cout << "range constructor" << std::endl;
 
-			for (InputIterator it = first; it != last; ++it)
+			for (InputIterator it = first; it != last; ++it) // TODO: calc with distance
 				++this->_cap;
 			this->_data = (this->_alloc).allocate(this->_cap);
 

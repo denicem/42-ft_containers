@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 17:43:36 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/03 16:29:13 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:18:19 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ class Iterator {
 		** ----------------------- MEMBER TYPES -----------------------
 		*/
 		typedef random_access_iterator_tag	iterator_category;
-		typedef Iter							iter_type;
+		typedef Iter							value_type;
 		typedef std::ptrdiff_t					difference_type;
-		typedef iter_type*						pointer;
-		typedef const iter_type*				const_pointer;
-		typedef iter_type&						reference;
-		typedef const iter_type&				const_reference;
+		typedef value_type*						pointer;
+		typedef const value_type*				const_pointer;
+		typedef value_type&						reference;
+		typedef const value_type&				const_reference;
 
 	protected:
 		/*
@@ -44,7 +44,7 @@ class Iterator {
 		** ----------------------- CONSTRUCTORS & DESTRUCTOR -----------------------
 		*/
 		Iterator(pointer ptr = NULL): _ptr(ptr) {  }
-		// explicit Iterator(iter_type it): _ptr(it) { "initialization constructor" << std::endl; }
+		// explicit Iterator(value_type it): _ptr(it) { "initialization constructor" << std::endl; }
 		template< typename T1 >
 		Iterator(const Iterator<T1>& other): _ptr(other.base()) { std::cout << "copy constructor" << std::endl; }
 		~Iterator() {}
