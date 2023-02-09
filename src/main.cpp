@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/08 16:19:03 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/08 19:25:15 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,28 @@ int main() {
 	// assert(v1.size() < fv1.size(), true);
 	// measureTime(&vector_test_basic_std, &vector_test_basic_ft);
 
-	ft::vector<int> v1 = createFtVectorInt(10);
-	ft::vector<int> v2 = createFtVectorInt(7);
+	// ft::vector<int> v1 = createFtVectorInt(10);
+	// ft::vector<int> v2 = createFtVectorInt(7);
 
-	print_container(v1, true);
-	print_container(v2, true);
+	// print_container(v1, true);
+	// print_container(v2, true);
 
-	std::cout << "\nv2 = v1\n" << std::endl;
-	v2 = v1;
+	// std::cout << "\nv2 = v1\n" << std::endl;
+	// v2 = v1;
 
-	print_container(v1, true);
-	print_container(v2, true);
+	// print_container(v1, true);
+	// print_container(v2, true);
 
-	ft::vector<int>::reverse_iterator rit = v1.rbegin();
-	std::cout << *rit << std::endl;
+	// ft::vector<int>::reverse_iterator rit = v1.rbegin();
+	// std::cout << *rit << std::endl;
+
+
+	ft::vector<int> fv1;
+	std::vector<int> v2 = createStdVectorInt(5);
+	fv1.insert(fv1.begin(), 5, -1);
+	print_container(fv1, true);
+	fv1.insert(fv1.begin(), 5, 42);
+	print_container(fv1, true);
 
 	return (0);
 }

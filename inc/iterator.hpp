@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 17:43:36 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/08 16:18:19 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:27:22 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ class Iterator {
 		** ----------------------- CONSTRUCTORS & DESTRUCTOR -----------------------
 		*/
 		Iterator(pointer ptr = NULL): _ptr(ptr) {  }
-		// explicit Iterator(value_type it): _ptr(it) { "initialization constructor" << std::endl; }
+		// explicit Iterator(iterator_type it): _ptr(it._ptr) { "initialization constructor" << std::endl; }
 		template< typename T1 >
-		Iterator(const Iterator<T1>& other): _ptr(other.base()) { std::cout << "copy constructor" << std::endl; }
+		Iterator(const Iterator<T1>& other): _ptr(other.base()) {}
 		~Iterator() {}
 
 	public:
@@ -61,7 +61,7 @@ class Iterator {
 			return (*this);
 		}
 		template< typename T1 >
-		Iterator& operator=(const Iterator<T1>& other) {
+		Iterator& operator=( Iterator<T1>& other) {
 			if (this != &other)
 				_ptr = other._ptr;
 			return (*this);
@@ -122,6 +122,12 @@ class Iterator {
 			tmp -= n;
 			return (tmp);
 		}
+	bool operator==(const Iterator<const Iter>& other) { return (this->base() == other.base()); }
+	bool operator!=(const Iterator<const Iter>& other) { return (this->base() != other.base()); }
+	bool operator<(const Iterator<const Iter>& other) { return (this->base() < other.base()); }
+	bool operator<=(const Iterator<const Iter>& other) { return (this->base() <= other.base()); }
+	bool operator>(const Iterator<const Iter>& other) { return (this->base() > other.base()); }
+	bool operator>=(const Iterator<const Iter>& other) { return (this->base() >= other.base()); }
 };
 
 /*
@@ -130,18 +136,18 @@ class Iterator {
 */
 
 // ---------------------------- RELATIONAL OPERATORS ---------------------------
-template< class Iter1, class Iter2 >
-bool operator==(const Iterator<Iter1>& lhs, const Iterator<Iter2>& rhs) { return (lhs.base() == rhs.base()); }
-template< class Iter1, class Iter2 >
-bool operator!=(const Iterator<Iter1>& lhs, const Iterator<Iter2>& rhs) { return (lhs.base() != rhs.base()); }
-template< class Iter1, class Iter2 >
-bool operator<(const Iterator<Iter1>& lhs, const Iterator<Iter2>& rhs) { return (lhs.base() < rhs.base()); }
-template< class Iter1, class Iter2 >
-bool operator<=(const Iterator<Iter1>& lhs, const Iterator<Iter2>& rhs) { return (lhs.base() <= rhs.base()); }
-template< class Iter1, class Iter2 >
-bool operator>(const Iterator<Iter1>& lhs, const Iterator<Iter2>& rhs) { return (lhs.base() > rhs.base()); }
-template< class Iter1, class Iter2 >
-bool operator>=(const Iterator<Iter1>& lhs, const Iterator<Iter2>& rhs) { return (lhs.base() >= rhs.base()); }
+// template< class Iter >
+// bool operator==(const Iterator<Iter>& lhs, const Iterator<const Iter>& rhs) { return (lhs.base() == rhs.base()); }
+// template< class Iter >
+// bool operator!=(const Iterator<Iter>& lhs, const Iterator<const Iter>& rhs) { return (lhs.base() != rhs.base()); }
+// template< class Iter >
+// bool operator<(const Iterator<Iter>& lhs, const Iterator<const Iter>& rhs) { return (lhs.base() < rhs.base()); }
+// template< class Iter >
+// bool operator<=(const Iterator<Iter>& lhs, const Iterator<const Iter>& rhs) { return (lhs.base() <= rhs.base()); }
+// template< class Iter >
+// bool operator>(const Iterator<Iter>& lhs, const Iterator<const Iter>& rhs) { return (lhs.base() > rhs.base()); }
+// template< class Iter >
+// bool operator>=(const Iterator<Iter>& lhs, const Iterator<const Iter>& rhs) { return (lhs.base() >= rhs.base()); }
 
 // ---------------------------- ARITHMETIC OPERATORS ---------------------------
 template< class Iter>

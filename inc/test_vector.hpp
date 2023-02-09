@@ -41,6 +41,14 @@ void vector_test_basic_ft() {
 	std::cout << nbrs[0] << std::endl;
 }
 
+void vector_test_basic() {
+	ft::vector<int> nbrs;
+
+	nbrs.push_back(42);
+
+	std::cout << nbrs[0] << std::endl;
+}
+
 void vectorTestConstructors() {
 	PRINT_W_COLOR(CYAN, "Testing constructors");
 	PRINT_W_COLOR(DARKGRAY, "--------------------");
