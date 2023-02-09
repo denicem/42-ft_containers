@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/09 23:12:52 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/09 23:47:54 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 #include "algorithm.hpp"
 #include "type_traits.hpp"
 
-// TODO: understand type_traits, enable_if and is_integral better
+// TODO understand type_traits, enable_if and is_integral better
 // TODO rewrite realloc() - use std::allocator
 // TODO rewrite destructor - use std::allocator
 // TODO rewrite clear() - use destroy() from std::allocator
 
-// TODO: implement reverse_iterator
+// TODO implement reverse_iterator
 // TODO: understand iterator_traits
 
 // TODO rewrite push_back()
@@ -100,8 +100,6 @@ class vector {
 		// default constructor
 		explicit vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _cap(0), _size(0), _data(NULL) {
 			// std::cout << "default constructor." << std::endl;
-			// this->_cap = 2; // NOTE: is it bad?
-			// (this->_alloc).allocate(this->_cap);
 		}
 
 		// fill constructor
@@ -166,10 +164,8 @@ class vector {
 		const_iterator begin() const { return (const_iterator(_data)); }
 		iterator end() { return (iterator(_data + _size)); }
 		const_iterator end() const { return (const_iterator(_data + _size)); }
-		// reverse_iterator rbegin() { return (reverse_iterator(_data + _size)); }
 		reverse_iterator rbegin() { return (reverse_iterator(end())); }
 		const_reverse_iterator rbegin() const { return (const_reverse_iterator(end())); }
-		// reverse_iterator rend() { return (reverse_iterator(_data)); }
 		reverse_iterator rend() { return (reverse_iterator(begin())); }
 		const_reverse_iterator rend() const { return (const_reverse_iterator(begin())); }
 		const_iterator cbegin() const { return (const_iterator(_data)); }
@@ -208,9 +204,6 @@ class vector {
 				this->_realloc(n);
 		}
 
-		// NOTE: delete, cause it's C++11
-		void shrink_to_fit() { if (this->_cap > this->_size) this->_realloc(this->_size); }
-
 	/*
 	** ----------------------- ELEMENT ACCESS -----------------------
 	*/
@@ -232,16 +225,14 @@ class vector {
 	public:
 		// range assign
 		template <class InputIterator>
-		void assign (InputIterator first, InputIterator last, typename ft::enable_if< !ft::is_integral< InputIterator >::value >::type* = NULL)
-		{
+		void assign (InputIterator first, InputIterator last, typename ft::enable_if< !ft::is_integral< InputIterator >::value >::type* = NULL) {
 			this->clear();
 			for (; first != last; ++first)
 				this->push_back(*first);
 		}
 
 		// fill assign
-		void assign(size_type n, const value_type& val)
-		{
+		void assign(size_type n, const value_type& val) {
 			this->clear();
 			if (n > this->_cap)
 				this->reserve(n);
@@ -249,8 +240,7 @@ class vector {
 				this->push_back(val);
 		}
 
-		void push_back(const_reference value)
-		{
+		void push_back(const_reference value) {
 			if (this->_size >= this->_cap)
 				this->reserve( this->capacity() ? this->_cap * 2 : 2 ); // NOTE: whats the optimal amount?!?
 			(this->_alloc).construct(this->_data + this->_size, value);
@@ -275,60 +265,11 @@ class vector {
 	// 				break ;
 	// 		}
 	// 	}
-
-	// 	template <class InputIterator>
-	// 	size_type count_diff(InputIterator first, InputIterator last) {
-	// 		size_type res = 0;
-	// 		for (; first != last; ++res, ++first);
-	// 		return (res);
-	// 	}
 	public:
-		// // insert single element
-		// iterator insert(iterator pos, const value_type& val) {
-		// 	size_type res = 0;
-		// 	if (this->_data)
-		// 		res = pos - this->begin();
-		// 	this->insert(pos, 1, val);
-		// 	return (iterator(this->_data + res));
-		// }
-		// // insert fill
-		// void insert(iterator pos, size_type n, const value_type& val) {
-		// 	if (n < 1)
-		// 		return ;
-		// 	size_type curr = 0;
-		// 	if (this->_data)
-		// 		curr = pos - begin();
-		// 	if (!this->_data || this->_size + n > this->_cap)
-		// 		_realloc(this->_size + n);
-		// 	if (!this->empty())
-		// 		this->_insert_construct_end(curr, n);
-		// 	for (size_type i = 0; i < n; ++i, ++curr)
-		// 		// (this->_alloc).construct(this->_data + curr, val);
-		// 		*(this->_data + curr) = val;
-		// 	this->_size += n;
-		// }
-		// // insert range
-		// template <class InputIterator>
-		// void insert(iterator pos, InputIterator first, InputIterator last, typename ft::enable_if< !ft::is_integral< InputIterator >::value >::type* = NULL) {
-		// 	size_type n = count_diff(first, last);
-		// 	if (n < 1)
-		// 		return ;
-		// 	size_type curr = pos - begin();
-		// 	if (this->_data)
-		// 		curr = pos - begin();
-		// 	if (!this->_data || this->_size + n >= this->_cap)
-		// 		_realloc(this->_cap + n);
-		// 	if (!this->empty())
-		// 		this->_insert_construct_end(curr, n);
-		// 	for (; first != last; ++curr, ++first)
-		// 		(this->_alloc).construct(this->_data + curr, *first);
-		// 		// *(this->_data + curr) = *first;
-		// 	this->_size += n;
-		// }
 
 	// insert single element
 	iterator insert(iterator pos, const_reference val) {
-		size_type res = pos - begin(); // NOTE: address change so you have to save it :)
+		size_type res = pos - begin();
 		this->insert(pos, 1, val);
 		return (iterator(this->_data + res));
 	}
@@ -336,19 +277,14 @@ class vector {
 	// insert fill
 	void insert(iterator pos, size_type n, const_reference val) {
 		size_type index = pos - this->begin();
-		if (n)
-		{
+		if (n) {
 			if (this->size() + n > this->capacity())
-			{
-				reserve((this->size() + n) * 1.5);
-			}
-			for (size_type i = this->_size; i > index; i--)
-			{
+				reserve(this->size() + n);
+			for (size_type i = this->_size; i > index; i--) {
 				this->_alloc.construct(this->_data + i + n - 1, *(this->_data + i -1));
 				this->_alloc.destroy(this->_data + i - 1);
 			}
-			for (size_type i = 0; i < n; i++)
-			{
+			for (size_type i = 0; i < n; i++) {
 				this->_alloc.construct(this->_data + index + i, val);
 				this->_size++;
 			}
@@ -357,8 +293,7 @@ class vector {
 
 	// insert range
 	template <class InputIterator>
-	void insert(iterator pos, InputIterator first, InputIterator last, typename ft::enable_if< !ft::is_integral< InputIterator >::value >::type* = NULL)
-	{
+	void insert(iterator pos, InputIterator first, InputIterator last, typename ft::enable_if< !ft::is_integral< InputIterator >::value >::type* = NULL) {
 		for (; first != last; ++first, ++pos)
 			pos = insert(pos, *first);
 	}
@@ -425,8 +360,7 @@ class vector {
 
 template <class T, class Alloc>  
 bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-	//check sizes, then compare
-	if (lhs.size() == rhs.size())
+	if (lhs.size() == rhs.size()) // NOTE: check sizes, then compare
 		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
 	return false;
 }
