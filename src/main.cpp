@@ -6,19 +6,21 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/08 19:25:15 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/11 00:18:03 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vector>
 #include "vector.hpp"
+#include "stack.hpp"
+#include "utility.hpp"
 
 #include <iostream>
 
 #include "Vect3.hpp"
 
-#include "test_general.hpp"
-#include "test_vector.hpp"
+// #include "test_general.hpp"
+// #include "test_vector.hpp"
 
 int main() {
 	std::cout << "Hello ft_containers." << std::endl << std::endl;
@@ -57,12 +59,20 @@ int main() {
 	// std::cout << *rit << std::endl;
 
 
-	ft::vector<int> fv1;
-	std::vector<int> v2 = createStdVectorInt(5);
-	fv1.insert(fv1.begin(), 5, -1);
-	print_container(fv1, true);
-	fv1.insert(fv1.begin(), 5, 42);
-	print_container(fv1, true);
+	// ft::vector<int> fv1;
+	// std::vector<int> v2 = createStdVectorInt(5);
+	// fv1.insert(fv1.begin(), 5, -1);
+	// print_container(fv1, true);
+	// fv1.insert(fv1.begin(), 5, 42);
+	// print_container(fv1, true);
+
+	
+	// ft::pair<std::string, int> pr = ft::make_pair(std::string("Hello"), 42);
+	// ft::pair<std::string, int> pr = ft::make_pair("Hello", 42); // NOTE: this works in the std:: version why?
+	ft::pair<std::string, int> pr = ft::make_pair(std::string("Hello"), 42);
+
+
+	std::cout << pr.first << ": " << pr.second << std::endl;
 
 	return (0);
 }
