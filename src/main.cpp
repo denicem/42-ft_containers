@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/11 00:18:03 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/11 23:15:26 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #include "vector.hpp"
 #include "stack.hpp"
 #include "utility.hpp"
+
+#include "Node.hpp"
+#include "AVLTree.hpp"
 
 #include <iostream>
 
@@ -69,10 +72,19 @@ int main() {
 	
 	// ft::pair<std::string, int> pr = ft::make_pair(std::string("Hello"), 42);
 	// ft::pair<std::string, int> pr = ft::make_pair("Hello", 42); // NOTE: this works in the std:: version why?
-	ft::pair<std::string, int> pr = ft::make_pair(std::string("Hello"), 42);
+	// ft::pair<std::string, int> pr = ft::make_pair(std::string("Hello"), 42);
 
 
-	std::cout << pr.first << ": " << pr.second << std::endl;
+	// std::cout << pr.first << ": " << pr.second << std::endl;
+	ft::AVLTree<int> avl_int;
+	// ft::AVLTree< ft::pair<std::string, int> > avl_pair();
+
+	avl_int.insert(42);
+
+	std::cout << avl_int.getRoot()->data << std::endl;
+	// avl_pair.insert(ft::make_pair(std::string("Hello"), 42));
+
+
 
 	return (0);
 }
