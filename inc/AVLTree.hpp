@@ -139,6 +139,65 @@ class AVLTree {
 			this->updateBalance(curr);
 		}
 
+		// find the node with the minimum key
+		node_pointer minimum(node_pointer curr) {
+			while (curr->left != NULL) {
+				curr = curr->left;
+			}
+			return (curr);
+		}
+
+		node_pointer deleteNodeHelper(node_pointer curr, value_type key) {
+			node_pointer p;
+			// search the key
+			if (curr == NULL) return (curr);
+			else if (key < curr->data) curr->left = deleteNodeHelper(curr->left, key);
+			else if (key > curr->data) curr->right = deleteNodeHelper(curr->right, key);
+			else {
+				// the key has been found, now delete it
+				p = curr->parent;
+				// case 1: curr is a leaf node
+				if (curr->left == NULL && curr->right == NULL) {
+					delete curr;
+					curr = NULL;
+				}
+
+				// case 2: curr has only one child
+				else if (curr->left == NULL) {
+					node_pointer temp = curr;
+					curr = curr->right;
+					delete temp;
+				}
+
+				else if (curr->right == NULL) {
+					node_pointer temp = curr;
+					curr = curr->left;
+					delete temp;
+				}
+
+				// case 3: has both children
+				else {
+					node_pointer temp = minimum(curr->right);
+					curr->data = temp->data;
+					curr->right = deleteNodeHelper(curr->right, temp->data);
+				}
+
+			} 
+
+			// Write the update balance logic here 
+			// YOUR CODE HERE
+			if (p)
+				updateBalance(p);
+			// updateBalance(curr);
+
+			return (curr);
+		}
+
+		node_pointer deleteNode (value_type key) {
+			node_pointer deletedNode = deleteNodeHelper(this->_root, key);
+			return (deletedNode);
+		}
+
 		void printHelper(node_pointer curr, std::string indent, bool last) const {
 			// print the tree structure on the screen
 			if (curr != NULL) {

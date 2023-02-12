@@ -103,9 +103,19 @@ int main() {
 	// avl_int.print2D();
 	// avl_pair.print2D();
 
+	avl_int.insert(45);
+	avl_int.insert(40);
+	avl_int.insert(50);
+	avl_int.print2D();
 	int input;
 	while (std::cin >> input && input != 0) {
-		avl_int.insert(input);
+		char mode;
+
+		std::cin >> mode;
+		if (mode == 'i')
+			avl_int.insert(input);
+		if (mode == 'd')
+		avl_int.deleteNode(input);
 		avl_int.print2D();
 	}
 
