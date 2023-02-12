@@ -74,17 +74,40 @@ int main() {
 	// ft::pair<std::string, int> pr = ft::make_pair("Hello", 42); // NOTE: this works in the std:: version why?
 	// ft::pair<std::string, int> pr = ft::make_pair(std::string("Hello"), 42);
 
-
 	// std::cout << pr.first << ": " << pr.second << std::endl;
+
 	ft::AVLTree<int> avl_int;
-	// ft::AVLTree< ft::pair<std::string, int> > avl_pair();
+	// ft::AVLTree< ft::pair<std::string, int> > avl_pair;
 
-	avl_int.insert(42);
+	// avl_int.prettyPrint();
+	// avl_int.insert(50);
+	// avl_int.insert(30);
+	// avl_int.insert(70);
+	// avl_int.insert(23);
+	// avl_int.insert(42);
+	// avl_int.insert(17);
+	// avl_int.insert(35);
+	// avl_int.insert(33);
+	// avl_int.insert(37);
+	// avl_int.insert(48);
+	// avl_int.insert(90);
 
-	std::cout << avl_int.getRoot()->data << std::endl;
 	// avl_pair.insert(ft::make_pair(std::string("Hello"), 42));
+	// avl_pair.insert(ft::make_pair(std::string("Romyyy"), 42));
+	// avl_pair.insert(ft::make_pair(std::string("DNC"), 42));
 
+	// std::cout << avl_int.getRoot()->data << std::endl;
+	// std::cout << avl_pair.getRoot()->data.first << ": " << avl_pair.getRoot()->data.second << std::endl;
 
+	// avl_int.prettyPrint();
+	// avl_int.print2D();
+	// avl_pair.print2D();
+
+	int input;
+	while (std::cin >> input && input != 0) {
+		avl_int.insert(input);
+		avl_int.print2D();
+	}
 
 	return (0);
 }
