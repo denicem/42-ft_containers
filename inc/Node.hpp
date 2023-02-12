@@ -15,8 +15,8 @@ struct Node {
 	node_pointer right;
 	int bf;
 
-	Node(): data(value_type()), parent(NULL), left(NULL), right(NULL), bf(0) {}
-	Node(const value_type& data): data(data), parent(NULL), left(NULL), right(NULL), bf(0) {}
+	// Node(): data(value_type()), parent(NULL), left(NULL), right(NULL), bf(0) {}
+	Node(const value_type& data = value_type()): data(data), parent(NULL), left(NULL), right(NULL), bf(0) {}
 
 };
 
