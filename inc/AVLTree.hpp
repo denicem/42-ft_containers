@@ -193,8 +193,64 @@ class AVLTree {
 			return (curr);
 		}
 
+		node_pointer deleteNodeHelper2(node_pointer curr, value_type key) {
+			node_pointer p;
+
+			if (curr == NULL)
+				return NULL;
+			else
+				if (key > curr->data) {
+					curr->right = deleteNodeHelper2(curr->right, key);
+					if (curr->bf > 1) {
+						if (curr->left->bf >= 0)
+							rightRotate(curr);
+						else {
+							leftRotate(curr->left);
+							rightRotate(curr);
+						}
+					}
+				}
+				else
+					if (key < curr-> data) {
+						curr->left = deleteNodeHelper2(curr->left, key);
+						if (curr->bf < -1) {
+							if (curr->right->bf <= 0)
+								leftRotate(curr);
+							else {
+								rightRotate(curr->right);
+								leftRotate(curr);
+							}
+						}
+					}
+					else {
+						if (curr->right != NULL) {
+							p = curr->right;
+
+							while(p->left != NULL)
+								p = p->left;
+
+							curr->data = p->data;
+							curr->right = deleteNodeHelper2(curr->right, p->data);
+
+							if (curr->bf > 1) {
+								if (curr->left->bf >= 0)
+									rightRotate(curr);
+								else {
+									leftRotate(curr->left);
+									rightRotate(curr);
+								}
+							}
+						}
+						else
+							return (curr->left);
+					}
+			// curr->ht = height(curr);
+			return (curr);
+		}
+
 		node_pointer deleteNode (value_type key) {
 			node_pointer deletedNode = deleteNodeHelper(this->_root, key);
+			// node_pointer deletedNode = deleteNodeHelper2(this->_root, key);
 			return (deletedNode);
 		}
 
