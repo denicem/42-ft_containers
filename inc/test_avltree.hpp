@@ -40,7 +40,7 @@ void test_interactive() {
 		if (action == "i") avl_int.insert(val);
 		else if (action == "d") avl_int.deleteNode(val);
 		else std::cout << LIGHTBLUE << "Search action not implemented... yet." << RESET << std::endl;
-		avl_int.print2D();
+		avl_int.printTree();
 		std::cout << LIGHTGREEN << "\n> " << RESET;
 	}
 	std::cout << LIGHTMAGENTA << "exit Interactive Mode" << RESET << std::endl;

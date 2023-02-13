@@ -148,7 +148,7 @@ class AVLTree {
 		}
 
 		node_pointer deleteNodeHelper(node_pointer curr, value_type key) {
-			node_pointer p;
+			node_pointer p = NULL;
 			// search the key
 			if (curr == NULL) return (curr);
 			else if (key < curr->data) curr->left = deleteNodeHelper(curr->left, key);
@@ -193,60 +193,60 @@ class AVLTree {
 			return (curr);
 		}
 
-		node_pointer deleteNodeHelper2(node_pointer curr, value_type key) {
-			node_pointer p;
+		// node_pointer deleteNodeHelper2(node_pointer curr, value_type key) {
+		// 	node_pointer p;
 
-			if (curr == NULL)
-				return NULL;
-			else
-				if (key > curr->data) {
-					curr->right = deleteNodeHelper2(curr->right, key);
-					if (curr->bf > 1) {
-						if (curr->left->bf >= 0)
-							rightRotate(curr);
-						else {
-							leftRotate(curr->left);
-							rightRotate(curr);
-						}
-					}
-				}
-				else
-					if (key < curr-> data) {
-						curr->left = deleteNodeHelper2(curr->left, key);
-						if (curr->bf < -1) {
-							if (curr->right->bf <= 0)
-								leftRotate(curr);
-							else {
-								rightRotate(curr->right);
-								leftRotate(curr);
-							}
-						}
-					}
-					else {
-						if (curr->right != NULL) {
-							p = curr->right;
+		// 	if (curr == NULL)
+		// 		return NULL;
+		// 	else
+		// 		if (key > curr->data) {
+		// 			curr->right = deleteNodeHelper2(curr->right, key);
+		// 			if (curr->bf > 1) {
+		// 				if (curr->left->bf >= 0)
+		// 					rightRotate(curr);
+		// 				else {
+		// 					leftRotate(curr->left);
+		// 					rightRotate(curr);
+		// 				}
+		// 			}
+		// 		}
+		// 		else
+		// 			if (key < curr-> data) {
+		// 				curr->left = deleteNodeHelper2(curr->left, key);
+		// 				if (curr->bf < -1) {
+		// 					if (curr->right->bf <= 0)
+		// 						leftRotate(curr);
+		// 					else {
+		// 						rightRotate(curr->right);
+		// 						leftRotate(curr);
+		// 					}
+		// 				}
+		// 			}
+		// 			else {
+		// 				if (curr->right != NULL) {
+		// 					p = curr->right;
 
-							while(p->left != NULL)
-								p = p->left;
+		// 					while(p->left != NULL)
+		// 						p = p->left;
 
-							curr->data = p->data;
-							curr->right = deleteNodeHelper2(curr->right, p->data);
+		// 					curr->data = p->data;
+		// 					curr->right = deleteNodeHelper2(curr->right, p->data);
 
-							if (curr->bf > 1) {
-								if (curr->left->bf >= 0)
-									rightRotate(curr);
-								else {
-									leftRotate(curr->left);
-									rightRotate(curr);
-								}
-							}
-						}
-						else
-							return (curr->left);
-					}
-			// curr->ht = height(curr);
-			return (curr);
-		}
+		// 					if (curr->bf > 1) {
+		// 						if (curr->left->bf >= 0)
+		// 							rightRotate(curr);
+		// 						else {
+		// 							leftRotate(curr->left);
+		// 							rightRotate(curr);
+		// 						}
+		// 					}
+		// 				}
+		// 				else
+		// 					return (curr->left);
+		// 			}
+		// 	// curr->ht = height(curr);
+		// 	return (curr);
+		// }
 
 		node_pointer deleteNode (value_type key) {
 			node_pointer deletedNode = deleteNodeHelper(this->_root, key);
@@ -254,7 +254,7 @@ class AVLTree {
 			return (deletedNode);
 		}
 
-		void printHelper(node_pointer curr, std::string indent, bool last) const {
+		void prettyPrint(node_pointer curr, std::string indent, bool last) const {
 			// print the tree structure on the screen
 			if (curr != NULL) {
 				std::cout << indent;
@@ -268,16 +268,13 @@ class AVLTree {
 				}
 				std::cout << curr->data << "( BF = " << curr->bf <<")" << std::endl;
 
-				this->printHelper(curr->left, indent, false);
-				this->printHelper(curr->right, indent, true);
+				this->prettyPrint(curr->left, indent, false);
+				this->prettyPrint(curr->right, indent, true);
 			}
 		}
 
-		void prettyPrint() const {
-			this->printHelper(this->_root, "", true);
-		}
 
-		void print2DUtil(node_pointer root, int space) const {
+		void print2D(node_pointer root, int space) const {
 			// Base case
 			if (root == NULL)
 				return ;
@@ -286,23 +283,22 @@ class AVLTree {
 			space += COUNT;
 
 			// Process right child first
-			print2DUtil(root->right, space);
+			print2D(root->right, space);
 
 			// Print current node after space
 			// count
 			std::cout << std::endl;
 			for (int i = COUNT; i < space; i++)
 				std::cout << " ";
-			std::cout << root->data << "(bf: " << root->bf << ")" << std::endl;
+			std::cout << root->data << " (bBF: " << root->bf << ")" << std::endl;
 
 			// Process left child
-			print2DUtil(root->left, space);
+			print2D(root->left, space);
 		}
 
-		// Wrapper over print2DUtil()
-		void print2D() const {
-			// Pass initial space count as 0
-			print2DUtil(this->_root, 0);
+		void printTree() const {
+			this->print2D(this->_root, 0);
+			// this->prettyPrint(this->_root, "", true);
 		}
 };
 

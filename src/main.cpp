@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/11 23:15:26 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/13 15:15:40 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,9 @@ int main() {
 	// ft::pair<std::string, int> pr = ft::make_pair(std::string("Hello"), 42);
 	// ft::pair<std::string, int> pr = ft::make_pair("Hello", 42); // NOTE: this works in the std:: version why?
 	// ft::pair<std::string, int> pr = ft::make_pair(std::string("Hello"), 42);
-
 	// std::cout << pr.first << ": " << pr.second << std::endl;
 
 	// ft::AVLTree<int> avl_int;
-	// ft::AVLTree< ft::pair<std::string, int> > avl_pair;
-
 	// avl_int.insert(50);
 	// avl_int.insert(30);
 	// avl_int.insert(70);
@@ -91,22 +88,7 @@ int main() {
 	// avl_int.insert(37);
 	// avl_int.insert(48);
 	// avl_int.insert(90);
-
-	// avl_pair.insert(ft::make_pair(std::string("Hello"), 42));
-	// avl_pair.insert(ft::make_pair(std::string("Romyyy"), 42));
-	// avl_pair.insert(ft::make_pair(std::string("DNC"), 42));
-
-	// std::cout << avl_int.getRoot()->data << std::endl;
-	// std::cout << avl_pair.getRoot()->data.first << ": " << avl_pair.getRoot()->data.second << std::endl;
-
-	// avl_int.prettyPrint();
-	// avl_int.print2D();
-	// avl_pair.print2D();
-
-	// avl_int.insert(45);
-	// avl_int.insert(40);
-	// avl_int.insert(50);
-	// avl_int.print2D();
+	// avl_int.printTree();
 
 	test_interactive();
 
