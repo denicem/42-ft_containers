@@ -17,6 +17,7 @@
 
 #include "Node.hpp"
 #include "AVLTree.hpp"
+#include "test_avltree.hpp"
 
 #include <iostream>
 
@@ -76,10 +77,9 @@ int main() {
 
 	// std::cout << pr.first << ": " << pr.second << std::endl;
 
-	ft::AVLTree<int> avl_int;
+	// ft::AVLTree<int> avl_int;
 	// ft::AVLTree< ft::pair<std::string, int> > avl_pair;
 
-	// avl_int.prettyPrint();
 	// avl_int.insert(50);
 	// avl_int.insert(30);
 	// avl_int.insert(70);
@@ -103,21 +103,12 @@ int main() {
 	// avl_int.print2D();
 	// avl_pair.print2D();
 
-	avl_int.insert(45);
-	avl_int.insert(40);
-	avl_int.insert(50);
-	avl_int.print2D();
-	int input;
-	while (std::cin >> input && input != 0) {
-		char mode;
+	// avl_int.insert(45);
+	// avl_int.insert(40);
+	// avl_int.insert(50);
+	// avl_int.print2D();
 
-		std::cin >> mode;
-		if (mode == 'i')
-			avl_int.insert(input);
-		if (mode == 'd')
-		avl_int.deleteNode(input);
-		avl_int.print2D();
-	}
+	test_interactive();
 
 	return (0);
 }
