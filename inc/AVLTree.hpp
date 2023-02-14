@@ -16,9 +16,9 @@ class AVLTree {
 		/*
 		** ----------------------- MEMBER TYPES -----------------------
 		*/
-		typedef T											value_type;
-		typedef ft::Node<value_type>						node;
-		typedef typename node::node_pointer				node_pointer;
+		typedef T							value_type;
+		typedef ft::Node<value_type>		node;
+		typedef typename node::node_pointer	node_pointer;
 
 	private:
 		node_pointer _root;
@@ -147,17 +147,59 @@ class AVLTree {
 			return (curr);
 		}
 
+
+		int height(node_pointer curr) {
+			if (curr == NULL)
+				return 0;
+			return curr->height;
+		}
+
+
 		node_pointer deleteNodeHelper(node_pointer curr, value_type key) {
 			node_pointer p = NULL;
+			int updatedBf = 0;
+
 			// search the key
+			while (curr && curr->data != key) {
+				if (key < curr->data)
+					curr = curr->left;
+				else
+					curr = curr->right;
+			}
 			if (curr == NULL) return (curr);
-			else if (key < curr->data) curr->left = deleteNodeHelper(curr->left, key);
-			else if (key > curr->data) curr->right = deleteNodeHelper(curr->right, key);
+
+			// the key has been found, now delete it
+			std::cout << "Found" << std::endl;
+			p = curr->parent;
+			if (p) {
+				if (p->left == curr)
+					++updatedBf;
+				else if (p->right == curr)
+					--updatedBf;
+			}
+
+			// case 3: has both children
+			if (curr->left && curr->right) {
+				node_pointer temp = minimum(curr->right);
+				curr->data = temp->data;
+				p = temp->parent;
+				if (p) {
+					if (p->left == temp)
+						++updatedBf;
+					else if (p->right == temp)
+						--updatedBf;
+				}
+				delete temp;
+				p->bf += updatedBf;
+				if (updatedBf > 0)
+					p->left = NULL;
+				else
+					p->right = NULL;
+			}
 			else {
-				// the key has been found, now delete it
-				p = curr->parent;
 				// case 1: curr is a leaf node
 				if (curr->left == NULL && curr->right == NULL) {
+					if (updatedBf)
 					delete curr;
 					curr = NULL;
 				}
@@ -174,86 +216,29 @@ class AVLTree {
 					curr = curr->left;
 					delete temp;
 				}
+				p->bf += updatedBf;
+				if (updatedBf > 0)
+					p->left = NULL;
+				else
+					p->right = NULL;
+			}
 
-				// case 3: has both children
-				else {
-					node_pointer temp = minimum(curr->right);
-					curr->data = temp->data;
-					curr->right = deleteNodeHelper(curr->right, temp->data);
-				}
 
-			} 
-
-			// Write the update balance logic here 
-			// YOUR CODE HERE
+			std::cout << "before rebalancing" << std::endl;
+			this->printTree();
+			std::cout << "----------" << std::endl;
 			if (p)
-				updateBalance(p);
-			// updateBalance(curr);
-
+				this->updateBalance(p);
+			
 			return (curr);
 		}
 
-		// node_pointer deleteNodeHelper2(node_pointer curr, value_type key) {
-		// 	node_pointer p;
-
-		// 	if (curr == NULL)
-		// 		return NULL;
-		// 	else
-		// 		if (key > curr->data) {
-		// 			curr->right = deleteNodeHelper2(curr->right, key);
-		// 			if (curr->bf > 1) {
-		// 				if (curr->left->bf >= 0)
-		// 					rightRotate(curr);
-		// 				else {
-		// 					leftRotate(curr->left);
-		// 					rightRotate(curr);
-		// 				}
-		// 			}
-		// 		}
-		// 		else
-		// 			if (key < curr-> data) {
-		// 				curr->left = deleteNodeHelper2(curr->left, key);
-		// 				if (curr->bf < -1) {
-		// 					if (curr->right->bf <= 0)
-		// 						leftRotate(curr);
-		// 					else {
-		// 						rightRotate(curr->right);
-		// 						leftRotate(curr);
-		// 					}
-		// 				}
-		// 			}
-		// 			else {
-		// 				if (curr->right != NULL) {
-		// 					p = curr->right;
-
-		// 					while(p->left != NULL)
-		// 						p = p->left;
-
-		// 					curr->data = p->data;
-		// 					curr->right = deleteNodeHelper2(curr->right, p->data);
-
-		// 					if (curr->bf > 1) {
-		// 						if (curr->left->bf >= 0)
-		// 							rightRotate(curr);
-		// 						else {
-		// 							leftRotate(curr->left);
-		// 							rightRotate(curr);
-		// 						}
-		// 					}
-		// 				}
-		// 				else
-		// 					return (curr->left);
-		// 			}
-		// 	// curr->ht = height(curr);
-		// 	return (curr);
-		// }
-
 		node_pointer deleteNode (value_type key) {
 			node_pointer deletedNode = deleteNodeHelper(this->_root, key);
-			// node_pointer deletedNode = deleteNodeHelper2(this->_root, key);
 			return (deletedNode);
 		}
 
+	private:
 		void prettyPrint(node_pointer curr, std::string indent, bool last) const {
 			// print the tree structure on the screen
 			if (curr != NULL) {
@@ -273,7 +258,6 @@ class AVLTree {
 			}
 		}
 
-
 		void print2D(node_pointer root, int space) const {
 			// Base case
 			if (root == NULL)
@@ -290,12 +274,13 @@ class AVLTree {
 			std::cout << std::endl;
 			for (int i = COUNT; i < space; i++)
 				std::cout << " ";
-			std::cout << root->data << " (bBF: " << root->bf << ")" << std::endl;
+			std::cout << root->data << " (BF: " << root->bf << ")" << std::endl;
 
 			// Process left child
 			print2D(root->left, space);
 		}
 
+	public:
 		void printTree() const {
 			this->print2D(this->_root, 0);
 			// this->prettyPrint(this->_root, "", true);

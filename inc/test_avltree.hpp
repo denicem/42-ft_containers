@@ -18,6 +18,15 @@ void test_interactive() {
 
 	ft::AVLTree<int> avl_int;
 
+	// pre inserting 
+	avl_int.insert(40);
+	avl_int.insert(45);
+	avl_int.insert(50);
+	avl_int.insert(49);
+	avl_int.insert(47);
+	avl_int.printTree();
+	std::cout << std::endl;
+
 	std::string action;
 
 	std::cout << LIGHTGREEN << "> " << RESET;
