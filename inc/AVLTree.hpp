@@ -96,9 +96,12 @@ class AVLTree {
 		}
 
 		void updateBalance(node_pointer curr) {
+			if (!curr)
+				return ;
 			if (curr->bf < -1 || curr->bf > 1) {
-				this->rebalance(curr);
+				std::cout << curr->data << ": BF = " << curr->bf << std::endl;
 				std::cout << "Rebalancing needed." << std::endl;
+				this->rebalance(curr);
 				return ;
 			}
 			if (curr->parent != NULL) {
@@ -147,29 +150,27 @@ class AVLTree {
 			return (curr);
 		}
 
-
-		int height(node_pointer curr) {
-			if (curr == NULL)
-				return 0;
-			return curr->height;
-		}
-
-
-		node_pointer deleteNodeHelper(node_pointer curr, value_type key) {
-			node_pointer p = NULL;
-			int updatedBf = 0;
-
-			// search the key
+		node_pointer search(value_type& key) const {
+			node_pointer curr = this->_root;
 			while (curr && curr->data != key) {
 				if (key < curr->data)
 					curr = curr->left;
 				else
 					curr = curr->right;
 			}
+			return (curr);
+		}
+
+		node_pointer deleteNodeHelper(value_type key) {
+			node_pointer p = NULL;
+			int updatedBf = 0;
+
+			// search the key
+			node_pointer curr = search(key);
 			if (curr == NULL) return (curr);
 
 			// the key has been found, now delete it
-			std::cout << "Found" << std::endl;
+
 			p = curr->parent;
 			if (p) {
 				if (p->left == curr)
@@ -227,14 +228,13 @@ class AVLTree {
 			std::cout << "before rebalancing" << std::endl;
 			this->printTree();
 			std::cout << "----------" << std::endl;
-			if (p)
+			// if (p)
 				this->updateBalance(p);
-			
 			return (curr);
 		}
 
 		node_pointer deleteNode (value_type key) {
-			node_pointer deletedNode = deleteNodeHelper(this->_root, key);
+			node_pointer deletedNode = deleteNodeHelper(key);
 			return (deletedNode);
 		}
 
