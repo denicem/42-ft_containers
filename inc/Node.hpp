@@ -23,5 +23,4 @@ struct Node {
 
 } // END NAMESPACE FT
 
-
 #endif

@@ -45,8 +45,8 @@ void test_interactive() {
 	avl_int.insert(1);
 	avl_int.insert(2);
 	avl_int.insert(3);
-	// avl_int.insert(4);
-	// avl_int.insert(5);
+	avl_int.insert(4);
+	avl_int.insert(5);
 	avl_int.printTree();
 
 	std::string action;

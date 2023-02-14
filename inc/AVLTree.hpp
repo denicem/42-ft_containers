@@ -137,15 +137,14 @@ class AVLTree {
 		}
 
 		// find the node with the minimum key
-		node_pointer minimum(node_pointer curr) {
+		node_pointer min_node(node_pointer curr) {
 			while (curr->left != NULL) {
 				curr = curr->left;
 			}
 			return (curr);
 		}
 
-		node_pointer search(value_type& key) const {
-			node_pointer curr = this->_root;
+		node_pointer search(node_pointer curr, value_type& key) const {
 			while (curr && curr->data != key) {
 				if (key < curr->data)
 					curr = curr->left;
@@ -155,14 +154,55 @@ class AVLTree {
 			return (curr);
 		}
 
-		node_pointer deleteNode (value_type key) {
-			// node_pointer deletedNode = deleteNodeHelper(this->_root, key);
+		void removeChild(node_pointer& parent, node_pointer& child) {
+			if (parent->left == child)
+				parent->left = NULL;
+			else if (parent->right == child)
+				parent->right = NULL;
+		}
 
-			(void) key;
-			std::cout << "Delete function NOT IMPLEMENTED.... yet." << std::endl;
-			return (NULL);
+		node_pointer deleteNodeHelper(node_pointer curr, value_type key) {
+			curr = search(curr, key);
+			if (!curr) return (curr);
 
-			// return (deletedNode);
+			node_pointer prev = curr->parent;
+
+			// case 1: leaf node
+			if (!curr->left && !curr->right) {
+				if (prev) {
+					removeChild(prev, curr);
+				}
+				// delete curr;
+			}
+			
+			// case 2: node has one child
+			else if (!curr->right) {
+				node_pointer tmp = curr->left;
+				curr->data = tmp->data;
+				curr->left = NULL;
+				curr = tmp;
+			}
+			else if (!curr->left) {
+				node_pointer tmp = curr->right;
+				curr->data = tmp->data;
+				curr->right = NULL;
+				curr = tmp;
+			}
+
+			// case 3: node has two children
+			// else {
+
+			// }
+
+			return (curr);
+		}
+
+		void deleteNode (value_type key) {
+			node_pointer deletedNode = deleteNodeHelper(this->_root, key);
+			if (deletedNode)
+				delete deletedNode;
+			else
+				std::cout << "Key not found." << std::endl;
 		}
 
 	private:

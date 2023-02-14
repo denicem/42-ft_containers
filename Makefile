@@ -6,7 +6,7 @@
 #    By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/15 01:48:13 by dmontema          #+#    #+#              #
-#    Updated: 2022/11/15 01:48:23 by dmontema         ###   ########.fr        #
+#    Updated: 2023/02/15 00:35:51 by dmontema         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJS	=		$(patsubst $(SRC_DIR)%.cpp, $(OBJ_DIR)%.o, $(SRCS))
 
 DEPS	=		$(OBJS:.o=.d)
 
-CFLAGS		=	-Wall -Wextra -Werror -std=c++98
+CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -g
 DEPS_FLAGS 	=	-MMD -MP
 INCLUDE		=	-I./inc/
 
