@@ -28,6 +28,18 @@ class AVLTree {
 
 		node_pointer getRoot() const { return (this->_root); }
 
+		int getBalanceFactor(node_pointer curr) const {
+			int rightHeight = curr ? getHeight(curr->right) : 0;
+			int leftHeight = curr ? getHeight(curr->left) : 0;
+			return (rightHeight - leftHeight);
+		}
+
+		int getHeight(node_pointer curr) const {
+			if (curr == NULL)
+				return (0);
+			return ( 1 + std::max( getHeight(curr->right), getHeight(curr->left) ) );
+		}
+
 		void leftRotate(node_pointer x) {
 			node_pointer y = x->right;
 			x->right = y->left;
@@ -44,10 +56,6 @@ class AVLTree {
 			}
 			y->left = x;
 			x->parent = y;
-
-			// update the balance factor
-			x->bf = x->bf - 1 - std::max(0, y->bf);
-			y->bf = y->bf - 1 + std::min(0, x->bf);
 		} 
 
 		void rightRotate(node_pointer x) {
@@ -66,15 +74,11 @@ class AVLTree {
 			}
 			y->right = x;
 			x->parent = y;
-
-			// update the balance factor
-			x->bf = x->bf + 1 - std::min(0, y->bf);
-			y->bf = y->bf + 1 + std::max(0, x->bf);
 		}
 
 		void rebalance(node_pointer curr) {
-			if (curr->bf > 0) {
-				if (curr->right->bf < 0) {
+			if (getBalanceFactor(curr) > 0) {
+				if (getBalanceFactor(curr->right) < 0) {
 					std::cout << "right left rotate" << std::endl;
 					rightRotate(curr->right);
 					leftRotate(curr);
@@ -83,8 +87,8 @@ class AVLTree {
 					leftRotate(curr);
 				}
 			} 
-			else if (curr->bf < 0) {
-				if (curr->left->bf > 0) {
+			else if (getBalanceFactor(curr) < 0) {
+				if (getBalanceFactor(curr->left) > 0) {
 					std::cout << "left right rotate" << std::endl;
 					leftRotate(curr->left);
 					rightRotate(curr);
@@ -96,22 +100,12 @@ class AVLTree {
 		}
 
 		void updateBalance(node_pointer curr) {
-			if (!curr)
-				return ;
-			if (curr->bf < -1 || curr->bf > 1) {
-				std::cout << curr->data << ": BF = " << curr->bf << std::endl;
+			if (getBalanceFactor(curr) < -1 || getBalanceFactor(curr) > 1) {
 				std::cout << "Rebalancing needed." << std::endl;
 				this->rebalance(curr);
-				return ;
 			}
-			if (curr->parent != NULL) {
-				if (curr == curr->parent->left)
-					curr->parent->bf -= 1;
-				if (curr == curr->parent->right)
-					curr->parent->bf += 1;
-				if (curr->parent->bf != 0)
-					this->updateBalance(curr->parent);
-			}
+			if (curr->parent != NULL)
+				updateBalance(curr->parent);
 		}
 
 		void insert(value_type key) {
@@ -161,129 +155,42 @@ class AVLTree {
 			return (curr);
 		}
 
-		node_pointer deleteNodeHelper(value_type key) {
-			node_pointer p = NULL;
-			int updatedBf = 0;
-
-			// search the key
-			node_pointer curr = search(key);
-			if (curr == NULL) return (curr);
-
-			// the key has been found, now delete it
-
-			p = curr->parent;
-			if (p) {
-				if (p->left == curr)
-					++updatedBf;
-				else if (p->right == curr)
-					--updatedBf;
-			}
-
-			// case 3: has both children
-			if (curr->left && curr->right) {
-				node_pointer temp = minimum(curr->right);
-				curr->data = temp->data;
-				p = temp->parent;
-				if (p) {
-					if (p->left == temp)
-						++updatedBf;
-					else if (p->right == temp)
-						--updatedBf;
-				}
-				delete temp;
-				p->bf += updatedBf;
-				if (updatedBf > 0)
-					p->left = NULL;
-				else
-					p->right = NULL;
-			}
-			else {
-				// case 1: curr is a leaf node
-				if (curr->left == NULL && curr->right == NULL) {
-					if (updatedBf)
-					delete curr;
-					curr = NULL;
-				}
-
-				// case 2: curr has only one child
-				else if (curr->left == NULL) {
-					node_pointer temp = curr;
-					curr = curr->right;
-					delete temp;
-				}
-
-				else if (curr->right == NULL) {
-					node_pointer temp = curr;
-					curr = curr->left;
-					delete temp;
-				}
-				p->bf += updatedBf;
-				if (updatedBf > 0)
-					p->left = NULL;
-				else
-					p->right = NULL;
-			}
-
-
-			std::cout << "before rebalancing" << std::endl;
-			this->printTree();
-			std::cout << "----------" << std::endl;
-			// if (p)
-				this->updateBalance(p);
-			return (curr);
-		}
-
 		node_pointer deleteNode (value_type key) {
-			node_pointer deletedNode = deleteNodeHelper(key);
-			return (deletedNode);
+			// node_pointer deletedNode = deleteNodeHelper(this->_root, key);
+
+			(void) key;
+			std::cout << "Delete function NOT IMPLEMENTED.... yet." << std::endl;
+			return (NULL);
+
+			// return (deletedNode);
 		}
 
 	private:
-		void prettyPrint(node_pointer curr, std::string indent, bool last) const {
-			// print the tree structure on the screen
-			if (curr != NULL) {
-				std::cout << indent;
-				if (last) {
-					std::cout << "R----";
-					indent += "     ";
-				}
-				else {
-					std::cout << "L----";
-					indent += "|    ";
-				}
-				std::cout << curr->data << "( BF = " << curr->bf <<")" << std::endl;
-
-				this->prettyPrint(curr->left, indent, false);
-				this->prettyPrint(curr->right, indent, true);
-			}
-		}
-
-		void print2D(node_pointer root, int space) const {
+		void print2D(node_pointer curr, int space) const {
 			// Base case
-			if (root == NULL)
+			if (curr == NULL)
 				return ;
 
 			// Increase distance between levels
 			space += COUNT;
 
 			// Process right child first
-			print2D(root->right, space);
+			print2D(curr->right, space);
 
 			// Print current node after space
 			// count
 			std::cout << std::endl;
 			for (int i = COUNT; i < space; i++)
 				std::cout << " ";
-			std::cout << root->data << " (BF: " << root->bf << ")" << std::endl;
+			std::cout << curr->data << " (BF: " << getBalanceFactor(curr) << ", H: " << getHeight(curr) << ")" << std::endl;
 
 			// Process left child
-			print2D(root->left, space);
+			print2D(curr->left, space);
 		}
 
 	public:
 		void printTree() const {
 			this->print2D(this->_root, 0);
-			// this->prettyPrint(this->_root, "", true);
 		}
 };
 
