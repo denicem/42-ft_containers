@@ -145,6 +145,14 @@ class AVLTree {
 			return (curr);
 		}
 
+		// find the node with the maximum key
+		node_pointer max_node(node_pointer curr) {
+			while (curr->right != NULL) {
+				curr = curr->right;
+			}
+			return (curr);
+		}
+
 		node_pointer searchHelper(node_pointer curr, value_type& key) const {
 			while (curr && curr->data != key) {
 				if (key < curr->data)
@@ -153,6 +161,10 @@ class AVLTree {
 					curr = curr->right;
 			}
 			return (curr);
+		}
+
+		node_pointer search(value_type key) const {
+			return (searchHelper(this->_root, key));
 		}
 
 		void removeChild(node_pointer& parent, node_pointer& child) {
@@ -225,7 +237,7 @@ class AVLTree {
 			}
 		}
 
-		void print2D(node_pointer curr, int space, char dir, int color = 0) const {
+		void print2D(node_pointer curr, int space, std::string dir, int color = 0) const {
 			// Base case
 			if (curr == NULL)
 				return ;
@@ -234,22 +246,22 @@ class AVLTree {
 			space += COUNT;
 
 			// Process right child first
-			print2D(curr->right, space, 'v', (color + 1) % 5);
+			print2D(curr->right, space, "v ", (color + 1) % 5);
 
 			// Print current node after space
 			// count
 			std::cout << std::endl;
 			for (int i = COUNT; i < space; i++)
 				std::cout << " ";
-			std::cout << getColorStr(color) << curr->data << " (BF: " << getBalanceFactor(curr) << ", H: " << getHeight(curr) << ") " << dir << RESET << std::endl;
+			std::cout << getColorStr(color) << dir << curr->data << " (BF: " << getBalanceFactor(curr) << ", H: " << getHeight(curr) << ") " << RESET << std::endl;
 
 			// Process left child
-			print2D(curr->left, space, '^', (color + 1) % 5);
+			print2D(curr->left, space, "^ ", (color + 1) % 5);
 		}
 
 	public:
 		void printTree() const {
-			this->print2D(this->_root, 0, 0);
+			this->print2D(this->_root, 0, "");
 		}
 };
 

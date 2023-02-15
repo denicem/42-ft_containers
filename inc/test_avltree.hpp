@@ -53,9 +53,9 @@ void test_interactive() {
 	std::string action;
 
 	std::cout << BOLD << LIGHTGREEN << "> " << RESET;
-	while (std::cin >> action && action != "e") {
+	while (std::cin >> action && action != "q") {
 		if (action == "h") {
-			std::cout << LIGHTBLUE << "Actions: (i)nsert, (d)elete, (h)elp, (e)xit" << RESET << std::endl;
+			std::cout << LIGHTBLUE << "Actions: (i)nsert, (d)elete, (s)earch, (h)elp, (q)uit" << RESET << std::endl;
 			std::cout << BOLD << LIGHTGREEN << "\n> " << RESET;
 			continue ;
 		}
@@ -71,7 +71,12 @@ void test_interactive() {
 		std::cout << std::endl;
 		if (action == "i") avl_int.insert(val);
 		else if (action == "d") avl_int.deleteNode(val);
-		else std::cout << LIGHTBLUE << "Search action not implemented... yet." << RESET << std::endl;
+		else {
+			ft::AVLTree<int>::node_pointer ptr = avl_int.search(val);
+			std::cout << LIGHTBLUE << "Searching " << val << " ...: " << RESET;
+			if (ptr) std::cout << BOLD << LIGHTGREEN << "FOUND!" << std::endl;
+			else std::cout << BOLD << LIGHTRED << "NOT FOUND!" << std::endl;
+		}
 		avl_int.printTree();
 		std::cout << BOLD << LIGHTGREEN << "\n> " << RESET;
 	}
