@@ -1,6 +1,7 @@
 #ifndef AVL_TREE_HPP
 #define AVL_TREE_HPP
 
+#include "test_general.hpp"
 #include "Node.hpp"
 
 #define COUNT 10
@@ -201,14 +202,30 @@ class AVLTree {
 
 		void deleteNode (value_type key) {
 			node_pointer deletedNode = deleteNodeHelper(this->_root, key);
-			if (deletedNode)
+			if (deletedNode) {
+				if (deletedNode->parent)
+					updateBalance(deletedNode->parent);
+				else
+					updateBalance(this->_root);
 				delete deletedNode;
+			}
 			else
 				std::cout << "Key not found." << std::endl;
 		}
 
 	private:
-		void print2D(node_pointer curr, int space) const {
+		std::string getColorStr(int color) const {
+			switch(color) {
+				case 0: return (LIGHTGREEN);
+				case 1: return (LIGHTBLUE);
+				case 2: return (LIGHTYELLOW);
+				case 3: return (LIGHTMAGENTA);
+				case 4: return (LIGHTCYAN);
+				default: return ("");
+			}
+		}
+
+		void print2D(node_pointer curr, int space, int color = 0) const {
 			// Base case
 			if (curr == NULL)
 				return ;
@@ -217,17 +234,17 @@ class AVLTree {
 			space += COUNT;
 
 			// Process right child first
-			print2D(curr->right, space);
+			print2D(curr->right, space, (color + 1) % 5);
 
 			// Print current node after space
 			// count
 			std::cout << std::endl;
 			for (int i = COUNT; i < space; i++)
 				std::cout << " ";
-			std::cout << curr->data << " (BF: " << getBalanceFactor(curr) << ", H: " << getHeight(curr) << ")" << std::endl;
+			std::cout << getColorStr(color) << curr->data << " (BF: " << getBalanceFactor(curr) << ", H: " << getHeight(curr) << ")" << RESET << std::endl;
 
 			// Process left child
-			print2D(curr->left, space);
+			print2D(curr->left, space, (color + 1) % 5);
 		}
 
 	public:

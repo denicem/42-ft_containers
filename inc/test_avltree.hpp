@@ -27,7 +27,7 @@ void test_interactive() {
 	// avl_int.printTree();
 	// std::cout << std::endl;
 
-	// pre inserting 2
+	// // pre inserting 2
 	// avl_int.insert(58);
 	// avl_int.insert(46);
 	// avl_int.insert(43);
@@ -51,16 +51,16 @@ void test_interactive() {
 
 	std::string action;
 
-	std::cout << LIGHTGREEN << "> " << RESET;
+	std::cout << BOLD << LIGHTGREEN << "> " << RESET;
 	while (std::cin >> action && action != "e") {
 		if (action == "h") {
 			std::cout << LIGHTBLUE << "Actions: (i)nsert, (d)elete, (h)elp, (e)xit" << RESET << std::endl;
-			std::cout << LIGHTGREEN << "\n> " << RESET;
+			std::cout << BOLD << LIGHTGREEN << "\n> " << RESET;
 			continue ;
 		}
 		if (action != "i" && action != "d" && action != "s"){
 			std::cout << LIGHTRED << "Please try again!" << RESET << std::endl;
-			std::cout << LIGHTGREEN << "\n> " << RESET;
+			std::cout << BOLD << LIGHTGREEN << "\n> " << RESET;
 			continue ;
 		}
 
@@ -72,7 +72,7 @@ void test_interactive() {
 		else if (action == "d") avl_int.deleteNode(val);
 		else std::cout << LIGHTBLUE << "Search action not implemented... yet." << RESET << std::endl;
 		avl_int.printTree();
-		std::cout << LIGHTGREEN << "\n> " << RESET;
+		std::cout << BOLD << LIGHTGREEN << "\n> " << RESET;
 	}
 	std::cout << LIGHTMAGENTA << "exit Interactive Mode" << RESET << std::endl;
 }
