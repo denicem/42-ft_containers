@@ -205,8 +205,7 @@ class AVLTree {
 			else {
 				node_pointer tmp = min_node(curr->right);
 				curr->data = tmp->data;
-				curr = tmp;
-				deleteNodeHelper(curr, curr->data);
+				curr = deleteNodeHelper(curr->right, curr->data);
 			}
 
 			return (curr);
