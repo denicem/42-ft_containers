@@ -144,7 +144,7 @@ class AVLTree {
 			return (curr);
 		}
 
-		node_pointer search(node_pointer curr, value_type& key) const {
+		node_pointer searchHelper(node_pointer curr, value_type& key) const {
 			while (curr && curr->data != key) {
 				if (key < curr->data)
 					curr = curr->left;
@@ -162,8 +162,8 @@ class AVLTree {
 		}
 
 		node_pointer deleteNodeHelper(node_pointer curr, value_type key) {
-			curr = search(curr, key);
-			if (!curr) return (curr);
+			curr = searchHelper(curr, key);
+			if (!curr) return (NULL);
 
 			node_pointer prev = curr->parent;
 
@@ -172,7 +172,6 @@ class AVLTree {
 				if (prev) {
 					removeChild(prev, curr);
 				}
-				// delete curr;
 			}
 			
 			// case 2: node has one child
@@ -190,9 +189,12 @@ class AVLTree {
 			}
 
 			// case 3: node has two children
-			// else {
-
-			// }
+			else {
+				node_pointer tmp = min_node(curr->right);
+				curr->data = tmp->data;
+				curr = tmp;
+				deleteNodeHelper(curr, curr->data);
+			}
 
 			return (curr);
 		}
