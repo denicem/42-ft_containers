@@ -46,7 +46,7 @@ void pre_insert_interactive(ft::AVLTree<int>& avl_int) {
 void test_interactive() {
 	std::cout << LIGHTMAGENTA << " <<< Interactive Mode >>> " << RESET << std::endl;
 	std::cout << LIGHTBLUE << "Select action to perform followed by a whitespace and then an int value." << std::endl;
-	std::cout << "Actions: (i)nsert, (d)elete, (h)elp, (e)xit" << RESET << std::endl;
+	std::cout << "Actions: (i)nsert, (d)elete, (h)elp, (q)uit" << RESET << std::endl;
 	std::cout << std::endl;
 
 	ft::AVLTree<int> avl_int;
@@ -58,7 +58,7 @@ void test_interactive() {
 	while (std::cin >> action && action != "q") {
 		if (action == "h") {
 			std::cout << LIGHTGRAY << "---" << RESET << std::endl;
-			std::cout << LIGHTBLUE << "Actions: (i)nsert, (d)elete, (s)earch, (h)elp, (e)xit" << RESET << std::endl;
+			std::cout << LIGHTBLUE << "Actions: (i)nsert, (d)elete, (s)earch, (h)elp, (q)uit" << RESET << std::endl;
 			std::cout << LIGHTGRAY << "---" << RESET << std::endl;
 			std::cout << BOLD << LIGHTGREEN << "> " << RESET;
 			continue ;
