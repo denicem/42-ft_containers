@@ -10,14 +10,7 @@
 #include <iostream>
 #include <string>
 
-void test_interactive() {
-	std::cout << LIGHTMAGENTA << " <<< Interactive Mode >>> " << RESET << std::endl;
-	std::cout << LIGHTBLUE << "Select action to perform followed by a whitespace and then an int value." << std::endl;
-	std::cout << "Actions: (i)nsert, (d)elete, (h)elp, (e)xit" << RESET << std::endl;
-	std::cout << std::endl;
-
-	ft::AVLTree<int> avl_int;
-
+void pre_insert_interactive(ft::AVLTree<int>& avl_int) {
 	// // pre inserting
 	// avl_int.insert(40);
 	// avl_int.insert(45);
@@ -48,6 +41,16 @@ void test_interactive() {
 	// display tree if pre inserting values
 	avl_int.printTree();
 	std::cout << std::endl;
+}
+
+void test_interactive() {
+	std::cout << LIGHTMAGENTA << " <<< Interactive Mode >>> " << RESET << std::endl;
+	std::cout << LIGHTBLUE << "Select action to perform followed by a whitespace and then an int value." << std::endl;
+	std::cout << "Actions: (i)nsert, (d)elete, (h)elp, (e)xit" << RESET << std::endl;
+	std::cout << std::endl;
+
+	ft::AVLTree<int> avl_int;
+	pre_insert_interactive(avl_int);
 
 	std::string action;
 	std::cout << std::endl << LIGHTGRAY << "---" << RESET << std::endl;
