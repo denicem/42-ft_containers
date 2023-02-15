@@ -26,6 +26,7 @@ class AVLTree {
 	
 	public:
 		AVLTree(): _root(NULL) {}
+		AVLTree(const AVLTree& other): _root(other._root) {} // NOTE: not sure about this yet!
 
 		node_pointer getRoot() const { return (this->_root); }
 
