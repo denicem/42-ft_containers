@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/15 15:38:53 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:02:01 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,24 +76,26 @@ int main() {
 	// ft::pair<std::string, int> pr = ft::make_pair(std::string("Hello"), 42);
 	// std::cout << pr.first << ": " << pr.second << std::endl;
 
-	// ft::AVLTree<int> avl_int;
-	// avl_int.insert(50);
-	// avl_int.insert(30);
-	// avl_int.insert(70);
-	// avl_int.insert(23);
-	// avl_int.insert(42);
-	// avl_int.insert(17);
-	// avl_int.insert(35);
-	// avl_int.insert(33);
-	// avl_int.insert(37);
-	// avl_int.insert(48);
-	// avl_int.insert(90);
-	// avl_int.printTree();
+	ft::AVLTree<int> avl_int;
+	avl_int.insert(50);
+	avl_int.insert(30);
+	avl_int.insert(70);
+	avl_int.insert(23);
+	avl_int.insert(42);
+	avl_int.insert(17);
+	avl_int.insert(35);
+	avl_int.insert(33);
+	avl_int.insert(37);
+	avl_int.insert(48);
+	avl_int.insert(90);
+	avl_int.printTree();
 
-	// std::cout << "MIN: " << avl_int.min_node(avl_int.search(35))->data << std::endl;
-	// std::cout << "MAX: " << avl_int.max_node(avl_int.search(35))->data << std::endl;
+	std::cout << "MIN: " << avl_int.min_node(avl_int.getRoot())->data << std::endl;
+	std::cout << "MAX: " << avl_int.max_node(avl_int.getRoot())->data << std::endl;
+	std::cout << "PRE - 37: " << avl_int.predecessor(avl_int.search(37))->data << std::endl;
+	std::cout << "SUC - 37: " << avl_int.successor(avl_int.search(37))->data << std::endl;
 
-	test_interactive();
+	// test_interactive();
 
 	return (0);
 }

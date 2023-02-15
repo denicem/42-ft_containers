@@ -153,6 +153,43 @@ class AVLTree {
 			return (curr);
 		}
 
+		node_pointer successor(node_pointer x) {
+			// if the right subtree is not null,
+			// the successor is the leftmost node in the
+			// right subtree
+			if (x->right != NULL) {
+				return (min_node(x->right));
+			}
+
+			// else it is the lowest ancestor of x whose
+			// left child is also an ancestor of x.
+			node_pointer y = x->parent;
+			while (y != NULL && x == y->right) {
+				x = y;
+				y = y->parent;
+			}
+
+			return (y);
+		}
+
+		// find the predecessor of a given node
+		node_pointer predecessor(node_pointer x) {
+			// if the left subtree is not null,
+			// the predecessor is the rightmost node in the 
+			// left subtree
+			if (x->left != NULL) {
+				return (max_node(x->left));
+			}
+
+			node_pointer y = x->parent;
+			while (y != NULL && x == y->left) {
+				x = y;
+				y = y->parent;
+			}
+
+			return (y);
+		}
+
 		node_pointer searchHelper(node_pointer curr, value_type& key) const {
 			while (curr && curr->data != key) {
 				if (key < curr->data)
