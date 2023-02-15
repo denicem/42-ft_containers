@@ -15,6 +15,18 @@ struct Node {
 	node_pointer right;
 
 	Node(const value_type& data = value_type()): data(data), parent(NULL), left(NULL), right(NULL) {}
+	Node(const Node<value_type>& other): data(other.data), parent(other.parent), left(other.left), right(other.right) {}
+	~Node() {}
+
+	Node& operator=(const Node& other) {
+		if (this != &other) {
+			this->data = other.data;
+			this->parent = other.parent;
+			this->left = other.left;
+			this->right = other.right;
+		}
+		return (*this);
+	}
 
 };
 
