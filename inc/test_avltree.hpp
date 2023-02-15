@@ -24,8 +24,6 @@ void test_interactive() {
 	// avl_int.insert(50);
 	// avl_int.insert(49);
 	// avl_int.insert(47);
-	// avl_int.printTree();
-	// std::cout << std::endl;
 
 	// // pre inserting 2
 	// avl_int.insert(58);
@@ -38,49 +36,62 @@ void test_interactive() {
 	// avl_int.insert(50);
 	// avl_int.insert(66);
 	// avl_int.insert(14);
+
+	// // pre inserting 3
+	// avl_int.insert(1);
+	// avl_int.insert(2);
+	// avl_int.insert(3);
+	// avl_int.insert(4);
+	// avl_int.insert(5);
+	// avl_int.insert(10);
+
+	// // display tree if pre inserting values
 	// avl_int.printTree();
 	// std::cout << std::endl;
 
-	// pre inserting 3
-	avl_int.insert(1);
-	avl_int.insert(2);
-	avl_int.insert(3);
-	avl_int.insert(4);
-	avl_int.insert(5);
-	avl_int.insert(10); // d 4 causing problems
-	avl_int.printTree();
-
 	std::string action;
-
+	std::cout << std::endl << LIGHTGRAY << "---" << RESET << std::endl;
 	std::cout << BOLD << LIGHTGREEN << "> " << RESET;
 	while (std::cin >> action && action != "q") {
 		if (action == "h") {
-			std::cout << LIGHTBLUE << "Actions: (i)nsert, (d)elete, (s)earch, (h)elp, (q)uit" << RESET << std::endl;
-			std::cout << BOLD << LIGHTGREEN << "\n> " << RESET;
+			std::cout << LIGHTGRAY << "---" << RESET << std::endl;
+			std::cout << LIGHTBLUE << "Actions: (i)nsert, (d)elete, (s)earch, (h)elp, (e)xit" << RESET << std::endl;
+			std::cout << LIGHTGRAY << "---" << RESET << std::endl;
+			std::cout << BOLD << LIGHTGREEN << "> " << RESET;
 			continue ;
 		}
 		if (action != "i" && action != "d" && action != "s"){
-			std::cout << LIGHTRED << "Please try again!" << RESET << std::endl;
-			std::cout << BOLD << LIGHTGREEN << "\n> " << RESET;
+			std::cout << LIGHTGRAY << "---" << RESET << std::endl;
+			std::cout << LIGHTRED << "Invalid argument. Please try again!" << RESET << std::endl;
+			std::cout<< LIGHTGRAY << "---" << RESET << std::endl;
+			std::cout << BOLD << LIGHTGREEN << "> " << RESET;
 			continue ;
 		}
-
 		std::cout << LIGHTGREEN << "> " << RESET;
 		int val;
 		std::cin >> val;
-		std::cout << std::endl;
-		if (action == "i") avl_int.insert(val);
-		else if (action == "d") avl_int.deleteNode(val);
+		std::cout << std::endl << LIGHTGRAY << "---" << RESET << std::endl;
+		if (action == "i") {
+			std::cout << LIGHTBLUE << "inserting " << val << " ..." << RESET << std::endl;
+			avl_int.insert(val);
+		}
+		else if (action == "d") {
+			std::cout << LIGHTBLUE << "deleting " << val << " ..." << RESET << std::endl;
+			avl_int.deleteNode(val);
+		}
 		else {
 			ft::AVLTree<int>::node_pointer ptr = avl_int.search(val);
-			std::cout << LIGHTBLUE << "Searching " << val << " ...: " << RESET;
+			std::cout << LIGHTBLUE << "searching " << val << " ...: " << RESET;
 			if (ptr) std::cout << BOLD << LIGHTGREEN << "FOUND!" << std::endl;
 			else std::cout << BOLD << LIGHTRED << "NOT FOUND!" << std::endl;
 		}
+		std::cout << LIGHTGRAY << "~" << RESET << std::endl;
 		avl_int.printTree();
-		std::cout << BOLD << LIGHTGREEN << "\n> " << RESET;
+		std::cout << std::endl << LIGHTGRAY << "---" << RESET << std::endl;
+		std::cout << BOLD << LIGHTGREEN << "> " << RESET;
 	}
-	std::cout << LIGHTMAGENTA << "exit Interactive Mode" << RESET << std::endl;
+	std::cout << LIGHTGRAY << "---" << RESET << std::endl;
+	std::cout << LIGHTMAGENTA << "exit Interactive Mode" << RESET << std::endl << std::endl;
 }
 
 // old interactive mode:
