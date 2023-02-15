@@ -25,17 +25,17 @@ void test_interactive() {
 	// avl_int.insert(49);
 	// avl_int.insert(47);
 
-	// // pre inserting 2
-	// avl_int.insert(58);
-	// avl_int.insert(46);
-	// avl_int.insert(43);
-	// avl_int.insert(634);
-	// avl_int.insert(11);
-	// avl_int.insert(10);
-	// avl_int.insert(55);
-	// avl_int.insert(50);
-	// avl_int.insert(66);
-	// avl_int.insert(14);
+	// pre inserting 2
+	avl_int.insert(58);
+	avl_int.insert(46);
+	avl_int.insert(43);
+	avl_int.insert(634);
+	avl_int.insert(11);
+	avl_int.insert(10);
+	avl_int.insert(55);
+	avl_int.insert(50);
+	avl_int.insert(66);
+	avl_int.insert(14);
 
 	// // pre inserting 3
 	// avl_int.insert(1);
@@ -45,9 +45,9 @@ void test_interactive() {
 	// avl_int.insert(5);
 	// avl_int.insert(10);
 
-	// // display tree if pre inserting values
-	// avl_int.printTree();
-	// std::cout << std::endl;
+	// display tree if pre inserting values
+	avl_int.printTree();
+	std::cout << std::endl;
 
 	std::string action;
 	std::cout << std::endl << LIGHTGRAY << "---" << RESET << std::endl;

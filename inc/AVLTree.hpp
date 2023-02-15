@@ -185,6 +185,8 @@ class AVLTree {
 				if (prev) {
 					removeChild(prev, curr);
 				}
+				else 
+					this->_root = NULL;
 			}
 			
 			// case 2: node has one child
@@ -216,7 +218,7 @@ class AVLTree {
 			if (deletedNode) {
 				if (deletedNode->parent)
 					updateBalance(deletedNode->parent);
-				else
+				else if (this->_root)
 					updateBalance(this->_root);
 				delete deletedNode;
 			}
