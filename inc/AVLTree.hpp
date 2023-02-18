@@ -138,7 +138,7 @@ class AVLTree {
 
 			while (x != NULL) {
 				y = x;
-				if (curr->data < x->data)
+				if (this->_comp(curr->data, x->data))
 					x = x->left;
 				else
 					x = x->right;
@@ -148,7 +148,7 @@ class AVLTree {
 			curr->parent = y;
 			if (y == NULL)
 				this->_root = curr;
-			else if (curr->data < y->data)
+			else if (this->_comp(curr->data, y->data))
 				y->left = curr;
 			else
 				y->right = curr;
@@ -211,11 +211,14 @@ class AVLTree {
 		}
 
 		node_pointer searchHelper(node_pointer curr, value_type& key) const {
-			while (curr && curr->data != key) {
-				if (key < curr->data)
+			while (curr) {
+				// if (key < curr->data)
+				if (this->_comp(key, curr->data))
 					curr = curr->left;
-				else
+				else if (this->_comp(curr->data, key))
 					curr = curr->right;
+				else
+					break;
 			}
 			return (curr);
 		}
