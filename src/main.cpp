@@ -6,13 +6,14 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/15 16:02:01 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/18 22:59:19 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vector>
 #include "vector.hpp"
 #include "stack.hpp"
+#include "map.hpp"
 #include "utility.hpp"
 
 #include "Node.hpp"
@@ -77,25 +78,35 @@ int main() {
 	// std::cout << pr.first << ": " << pr.second << std::endl;
 
 	ft::AVLTree<int> avl_int;
-	avl_int.insert(50);
-	avl_int.insert(30);
-	avl_int.insert(70);
-	avl_int.insert(23);
-	avl_int.insert(42);
-	avl_int.insert(17);
-	avl_int.insert(35);
-	avl_int.insert(33);
-	avl_int.insert(37);
-	avl_int.insert(48);
-	avl_int.insert(90);
-	avl_int.printTree();
+	// avl_int.insert(50);
+	// avl_int.insert(30);
+	// avl_int.insert(70);
+	// avl_int.insert(23);
+	// avl_int.insert(42);
+	// avl_int.insert(17);
+	// avl_int.insert(35);
+	// avl_int.insert(33);
+	// avl_int.insert(37);
+	// avl_int.insert(48);
+	// avl_int.insert(90);
+	// avl_int.printTree();
 
-	std::cout << "MIN: " << avl_int.min_node(avl_int.getRoot())->data << std::endl;
-	std::cout << "MAX: " << avl_int.max_node(avl_int.getRoot())->data << std::endl;
-	std::cout << "PRE - 37: " << avl_int.predecessor(avl_int.search(37))->data << std::endl;
-	std::cout << "SUC - 37: " << avl_int.successor(avl_int.search(37))->data << std::endl;
+	// std::cout << "MIN: " << avl_int.min_node(avl_int.getRoot())->data << std::endl;
+	// std::cout << "MAX: " << avl_int.max_node(avl_int.getRoot())->data << std::endl;
+	// std::cout << "PRE - 37: " << avl_int.predecessor(avl_int.search(37))->data << std::endl;
+	// std::cout << "SUC - 37: " << avl_int.successor(avl_int.search(37))->data << std::endl;
 
 	// test_interactive();
+
+	ft::AVLTree<int>::node n1(20);
+	ft::AVLTree<int>::node n2(15);
+
+	avl_int.compareNodes(&n1, &n2);
+
+	ft::map<int, char> m;
+	ft::pair<const int, char> p1(4, 'H');
+	ft::pair<const int, char> p2(2, 'N');
+	m.comparePairs(p1, p2);
 
 	return (0);
 }

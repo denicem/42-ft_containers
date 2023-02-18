@@ -11,7 +11,10 @@
 
 namespace ft {
 
-template < typename T >
+template <	typename T,
+			class Compare = std::less<T>,
+			class Alloc = std::allocator<T>
+		 >
 class AVLTree {
 	public:
 		/*
@@ -21,11 +24,27 @@ class AVLTree {
 		typedef ft::Node<value_type>		node;
 		typedef typename node::node_pointer	node_pointer;
 
+		typedef Compare						key_compare;
+
+		// class value_compare { // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+		// friend class AVLTree;
+
+		// protected:
+		// 	Compare comp;
+		// 	value_compare(Compare c) : comp(c) {} // constructed with map's comparison object
+		// public:
+		// 	typedef bool result_type;
+		// 	typedef value_type first_argument_type;
+		// 	typedef value_type second_argument_type;
+		// 	bool operator()(const value_type &x, const value_type &y) const { return comp(x, y); }
+		// };
+
 	private:
 		node_pointer _root;
+		key_compare _comp;
 	
 	public:
-		AVLTree(): _root(NULL) {}
+		AVLTree(): _root(NULL), _comp(key_compare()) {}
 		AVLTree(const AVLTree& other): _root(other._root) {} // NOTE: not sure about this yet!
 
 		node_pointer getRoot() const { return (this->_root); }
@@ -301,6 +320,14 @@ class AVLTree {
 	public:
 		void printTree() const {
 			this->print2D(this->_root, 0, "");
+		}
+
+		void compareNodes(node_pointer n1, node_pointer n2) {
+			if (_comp.operator()(n1->data, n2->data))
+				std::cout << "n1 < n2";
+			else
+				std::cout << "n1 > n2";
+			std::cout << std::endl;
 		}
 };
 
