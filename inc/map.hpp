@@ -54,7 +54,7 @@ class map {
 			typedef bool result_type;
 			typedef value_type first_argument_type;
 			typedef value_type second_argument_type;
-			bool operator()(const value_type &x, const value_type &y) const { return comp(x.second, y.second); }
+			bool operator()(const value_type &x, const value_type &y) const { return comp(x.first, y.first); }
 			bool operator()(const key_type& key, const value_type &y) const { return comp(key, y.first); }
 			bool operator()(const value_type &x, const key_type& key) const { return comp(x.first, key); }
 	};
@@ -75,7 +75,7 @@ class map {
 	*/
 	public:
 		// empty/default constructor
-		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _tree() { (void) comp; (void) alloc; }
+		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _tree(tree_type()) { (void) comp; (void) alloc; }
 		// range constructor
 		// template <class InputIterator>  map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) {}
 		// copy constructor
@@ -83,12 +83,18 @@ class map {
 
 		// ~map() {}
 
+		void insert(const value_type& val) {
+			this->_tree.insert(val);
+		}
+
 		void comparePairs(value_type& p1, value_type& p2) {
 			node n1(p1);
 			node n2(p2);
 
 			this->_tree.compareNodes(&n1, &n2);
 		}
+
+		void printMap() const { this->_tree.printTree(); }
 };
 
 } // END NAMESPACE FT

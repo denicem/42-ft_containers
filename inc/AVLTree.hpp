@@ -11,6 +11,11 @@
 
 namespace ft {
 
+// template < class Type >
+// struct rebind {
+// 	typedef std::allocator<Type> other;
+// };
+
 template <	typename T,
 			class Compare = std::less<T>,
 			class Alloc = std::allocator<T>
@@ -25,6 +30,8 @@ class AVLTree {
 		typedef typename node::node_pointer	node_pointer;
 
 		typedef Compare						key_compare;
+		typedef Alloc						allocator_type;
+		typedef typename allocator_type::template rebind<node>::other	node_allocator_type;
 
 		// class value_compare { // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
 		// friend class AVLTree;
@@ -40,11 +47,17 @@ class AVLTree {
 		// };
 
 	private:
-		node_pointer _root;
 		key_compare _comp;
+		allocator_type _alloc;
+		node_allocator_type _node_alloc;
+		node_pointer _root;
 	
 	public:
-		AVLTree(): _root(NULL), _comp(key_compare()) {}
+		AVLTree(const key_compare& comp = key_compare(),
+				const allocator_type& alloc = allocator_type(),
+				const node_allocator_type& node_alloc = node_allocator_type())
+		: _comp(comp), _alloc(alloc), _node_alloc(node_alloc), _root() {}
+
 		AVLTree(const AVLTree& other): _root(other._root) {} // NOTE: not sure about this yet!
 
 		node_pointer getRoot() const { return (this->_root); }
@@ -129,9 +142,11 @@ class AVLTree {
 				updateBalance(curr->parent);
 		}
 
-		void insert(value_type key) {
+		void insert(value_type key) { // TODO: return type: ft::pair<iterator, bool> -> implement iterator first!!
 			// PART 1: Ordinary BST insert
-			node_pointer curr = new node(key);
+			// node_pointer curr = new node(key);
+			node_pointer curr = this->_node_alloc.allocate(1);
+			this->_node_alloc.construct(curr, node(key)); // NOTE: still not sure about this though ... :/
 
 			node_pointer y = NULL;
 			node_pointer x = this->_root;
@@ -280,7 +295,9 @@ class AVLTree {
 					updateBalance(deletedNode->parent);
 				else if (this->_root)
 					updateBalance(this->_root);
-				delete deletedNode;
+				this->_node_alloc.destroy(deletedNode); // NOTE: still not sure about this though ... :/
+				this->_node_alloc.deallocate(deletedNode, 1);
+				// delete deletedNode;
 			}
 			else
 				std::cout << "Key not found." << std::endl;

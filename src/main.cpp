@@ -96,16 +96,23 @@ int main() {
 	// std::cout << "PRE - 37: " << avl_int.predecessor(avl_int.search(37))->data << std::endl;
 	// std::cout << "SUC - 37: " << avl_int.successor(avl_int.search(37))->data << std::endl;
 
-	test_interactive();
+	// test_interactive();
 
 	// ft::AVLTree<int>::node n1(20);
 	// ft::AVLTree<int>::node n2(15);
 
 	// avl_int.compareNodes(&n1, &n2);
 
-	// ft::map<int, char> m;
-	// ft::pair<const int, char> p1(4, 'H');
-	// ft::pair<const int, char> p2(2, 'N');
+	ft::map<int, std::string> m;
+	ft::pair<const int, std::string> p1(4, "HN");
+	ft::pair<const int, std::string> p2(2, "NH");
+	ft::pair<const int, std::string> p3(7, "DNC");
+	ft::pair<const int, std::string> p4(9, "Romyyy");
+	m.insert(p1);
+	m.insert(p2);
+	m.insert(p3);
+	m.insert(p4);
+	m.printMap();
 	// m.comparePairs(p1, p2);
 
 	return (0);
