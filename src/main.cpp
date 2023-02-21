@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/21 16:20:00 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:07:19 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,10 @@ int main() {
 	ft::pair<const int, std::string> p3(7, "DNC");
 	ft::pair<const int, std::string> p4(9, "Romyyy");
 	ft::pair<const int, std::string> p5(13, "Chrisss");
-	m.insert(p5);
+	ft::pair<ft::map<int, std::string>::iterator, bool> insert_val = m.insert(p5);
+	std::cout << (insert_val.second ? "INSERTED" : "ALREADY INSERTED") << std::endl;
+	insert_val = m.insert(p5);
+	std::cout << (insert_val.second ? "INSERTED" : "ALREADY INSERTED") << std::endl;
 	m.insert(p1);
 	m.insert(p2);
 	m.insert(p3);
@@ -153,7 +156,11 @@ int main() {
 	for (; it != ite; ++it)
 		std::cout << (*it).first << ": " << (*it).second << std::endl;
 
-	// m.printMap();
+	m[9] = "HEHEHE";
+	// std::cout << m[9] << std::endl;
+
+
+	m.printMap();
 
 	return (0);
 }

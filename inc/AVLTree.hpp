@@ -161,21 +161,21 @@ class AVLTree {
 		void rebalance(node_pointer curr) {
 			if (getBalanceFactor(curr) > 0) {
 				if (getBalanceFactor(curr->right) < 0) {
-					std::cout << "right left rotate" << std::endl;
+					// std::cout << "right left rotate" << std::endl;
 					rightRotate(curr->right);
 					leftRotate(curr);
 				} else {
-					std::cout << "left rotate" << std::endl;
+					// std::cout << "left rotate" << std::endl;
 					leftRotate(curr);
 				}
 			} 
 			else if (getBalanceFactor(curr) < 0) {
 				if (getBalanceFactor(curr->left) > 0) {
-					std::cout << "left right rotate" << std::endl;
+					// std::cout << "left right rotate" << std::endl;
 					leftRotate(curr->left);
 					rightRotate(curr);
 				} else {
-					std::cout << "right rotate" << std::endl;
+					// std::cout << "right rotate" << std::endl;
 					rightRotate(curr);
 				}
 			}
@@ -183,17 +183,19 @@ class AVLTree {
 
 		void updateBalance(node_pointer curr) {
 			if (getBalanceFactor(curr) < -1 || getBalanceFactor(curr) > 1) {
-				std::cout << "Rebalancing needed." << std::endl;
+				// std::cout << "Rebalancing needed." << std::endl;
 				this->rebalance(curr);
 			}
 			if (curr->parent != NULL)
 				updateBalance(curr->parent);
 		}
 
-		void insert(value_type key) { // TODO: return type: ft::pair<iterator, bool> -> implement iterator first!!
+		ft::pair<iterator, bool> insert(const value_type& key) {
 			// PART 1: Ordinary BST insert
-			// node_pointer curr = new node(key);
-			node_pointer curr = this->_node_alloc.allocate(1);
+			node_pointer curr = this->search(key);
+			if (curr)
+				return (ft::pair<iterator, bool>(iterator(curr), false));
+			curr = this->_node_alloc.allocate(1);
 			this->_node_alloc.construct(curr, node(key)); // NOTE: still not sure about this though ... :/
 
 			node_pointer y = NULL;
@@ -219,6 +221,7 @@ class AVLTree {
 			// PART 2: re-balance the node if necessary
 			++this->_size;
 			this->updateBalance(curr);
+			return (ft::pair<iterator, bool>(iterator(curr), true));
 		}
 
 		// find the node with the minimum key

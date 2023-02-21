@@ -39,6 +39,7 @@ class map {
 		// typedef ft::MapIterator<const_iterator> 				const_reverse_iterator;
 		// typedef typename iterator_traits<iterator>::difference_type	difference_type;
 		// typedef typename iterator_traits<iterator>::size_type		size_type;
+		typedef typename allocator_type::size_type size_type;
 
 	
 		/*
@@ -86,8 +87,15 @@ class map {
 
 		// ~map() {}
 
-		void insert(const value_type& val) {
-			this->_tree.insert(val);
+		size_type size() const { return (this->_tree.size()); }
+
+		mapped_type& operator[](const key_type& k) {
+			ft::pair<iterator, bool> res = this->insert(value_type(k, mapped_type()));
+			return ( (res.first)->second );
+		}
+
+		ft::pair<iterator, bool> insert(const value_type& val) {
+			return (this->_tree.insert(val));
 		}
 
 		// ft::pair<iterator, bool> insert(const value_type& val) {
