@@ -63,7 +63,7 @@ class map {
 		typedef typename tree_type::node node;
 		typedef typename tree_type::node_pointer node_pointer;
 
-		typedef typename tree_type::iterator		tree_iterator;
+		typedef typename tree_type::iterator		iterator;
 		// typedef typename tree_type::const_iterator	const_iterator;
 
 	/*
@@ -90,6 +90,10 @@ class map {
 			this->_tree.insert(val);
 		}
 
+		// ft::pair<iterator, bool> insert(const value_type& val) {
+			
+		// }
+
 		void comparePairs(value_type& p1, value_type& p2) {
 			node n1(p1);
 			node n2(p2);
@@ -99,40 +103,9 @@ class map {
 
 		void printMap() const { this->_tree.printTree(); }
 
-		typedef class MapIterator {
-			public:
-				typedef bidirectional_iterator_tag iterator_category;
-				typedef typename tree_iterator::value_type value_type;
-				typedef typename tree_iterator::difference_type difference_type;
-				typedef typename tree_iterator::reference reference;
-				typedef typename tree_iterator::pointer pointer;
-			protected:
-				tree_iterator _tree_it;
-			
-			public:
-				MapIterator(): _tree_it() {}
-				explicit MapIterator(const tree_iterator& tree_it): _tree_it(tree_it) {}
-				MapIterator(const MapIterator& other): _tree_it(other._tree_it) {}
-				
-				MapIterator& operator=(const MapIterator& other) { if (this != &other) this->_tree_it = other._tree_it; return (*this); }
-				
-				tree_iterator base() const { return (this->_tree_it); }
-				reference operator*() const { return (*(this->_tree_it)); }
-				pointer operator->() const { return ( &(*(this->_tree_it)) ); }
-
-				MapIterator& operator++() { ++(this->_tree_it); return (*this); }
-				MapIterator operator++(int) { tree_iterator tmp = this->_tree_it; ++(this->_tree_it); return (MapIterator(tmp)); }
-				MapIterator& operator--() { --(this->_tree_it); return (*this); }
-				MapIterator operator--(int) { tree_iterator tmp = this->_tree_it; --(this->_tree_it); return (MapIterator(tmp)); }
-
-				friend bool operator==(const MapIterator& lhs, const MapIterator& rhs) { return (lhs.base() == rhs.base()); }
-				friend bool operator!=(const MapIterator& lhs, const MapIterator& rhs) { return (!(lhs == rhs)); }
-
-		} iterator; // END CLASS MAP_ITERATOR
-
 	public:
-		iterator begin() { return (iterator(this->_tree.begin())); }
-		iterator end() { return (iterator(this->_tree.end())); }
+		iterator begin() { return (this->_tree.begin()); }
+		iterator end() { return (this->_tree.end()); }
 };
 
 } // END NAMESPACE FT

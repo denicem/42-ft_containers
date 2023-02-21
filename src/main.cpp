@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/18 23:24:52 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:20:00 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@
 
 // #include "test_general.hpp"
 // #include "test_vector.hpp"
+
+// struct cmpByStringLength {
+//     bool operator()(const std::string& a, const std::string& b) const {
+//         return a.length() < b.length();
+//     }
+// };
 
 
 int main() {
@@ -107,11 +113,35 @@ int main() {
 
 	// avl_int.compareNodes(&n1, &n2);
 
+
+	// std::cout << (*it).first << ": " << (*it).second << std::endl;
+	// ++it;
+	// std::cout << (*it).first << ": " << (*it).second << std::endl;
+
+	// ft::map<std::string, std::string, cmpByStringLength> m_str;
+	// ft::pair<const std::string, std::string> str_p1("E", "BBBBB");
+	// ft::pair<const std::string, std::string> str_p2("DD", "BBBB");
+	// ft::pair<const std::string, std::string> str_p3("CCC", "BBB");
+	// ft::pair<const std::string, std::string> str_p4("BBBB", "BB");
+	// ft::pair<const std::string, std::string> str_p5("AAAAA", "B");
+	// m_str.insert(str_p1);
+	// m_str.insert(str_p2);
+	// m_str.insert(str_p3);
+	// m_str.insert(str_p4);
+	// m_str.insert(str_p5);
+	// ft::map<std::string, std::string, cmpByStringLength>::iterator it = m_str.begin();
+	// ft::map<std::string, std::string, cmpByStringLength>::iterator ite = m_str.end();
+
+	// for (; it != ite; ++it)
+	// 	std::cout << (*it).first << ": " << (*it).second << std::endl;
+
 	ft::map<int, std::string> m;
 	ft::pair<const int, std::string> p1(4, "HN");
 	ft::pair<const int, std::string> p2(2, "NH");
 	ft::pair<const int, std::string> p3(7, "DNC");
 	ft::pair<const int, std::string> p4(9, "Romyyy");
+	ft::pair<const int, std::string> p5(13, "Chrisss");
+	m.insert(p5);
 	m.insert(p1);
 	m.insert(p2);
 	m.insert(p3);
@@ -123,9 +153,7 @@ int main() {
 	for (; it != ite; ++it)
 		std::cout << (*it).first << ": " << (*it).second << std::endl;
 
-	// std::cout << (*it).first << ": " << (*it).second << std::endl;
-	// ++it;
-	// std::cout << (*it).first << ": " << (*it).second << std::endl;
+	// m.printMap();
 
 	return (0);
 }
