@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/21 17:07:19 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:27:30 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int main() {
 	insert_val = m.insert(p5);
 	std::cout << (insert_val.second ? "INSERTED" : "ALREADY INSERTED") << std::endl;
 	m.insert(p1);
-	m.insert(p2);
+	ft::map<int, std::string>::iterator insert_res = m.insert(m.begin(), p2);
 	m.insert(p3);
 	m.insert(p4);
 	// m.printMap();
@@ -161,6 +161,7 @@ int main() {
 
 
 	m.printMap();
+	std::cout << insert_res->first << ": " << insert_res->second << std::endl;
 
 	return (0);
 }

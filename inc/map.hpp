@@ -93,14 +93,30 @@ class map {
 			ft::pair<iterator, bool> res = this->insert(value_type(k, mapped_type()));
 			return ( (res.first)->second );
 		}
+		/* -------------------------------------------------------------------------- */
+		/*                                  MODIFIERS                                 */
+		/* -------------------------------------------------------------------------- */
 
+		/* --------------------------------- INSERTS -------------------------------- */
+		/* ----------------------------- SINGLE ELEMENT ----------------------------- */
 		ft::pair<iterator, bool> insert(const value_type& val) {
 			return (this->_tree.insert(val));
 		}
 
-		// ft::pair<iterator, bool> insert(const value_type& val) {
-			
-		// }
+		/* -------------------------------- WITH HINT ------------------------------- */
+		iterator insert(iterator pos, const value_type& val) {
+			(void) pos;
+			ft::pair<iterator, bool> res = this->insert(val);
+			return (res.first);
+		}
+
+		/* ---------------------------------- RANGE --------------------------------- */
+		template < class InputIterator > // TODO: test if it works
+		void insert(InputIterator first, InputIterator last) {
+			for (; first != last; ++first)
+				this->insert(*first);
+		}
+		/* -------------------------------------------------------------------------- */
 
 		void comparePairs(value_type& p1, value_type& p2) {
 			node n1(p1);
