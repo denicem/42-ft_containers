@@ -10,6 +10,34 @@
 #include <iostream>
 #include <string>
 
+void test_avltree_playground() {
+	// ft::AVLTree<int> avl_int;
+	// avl_int.insert(50);
+	// avl_int.insert(30);
+	// avl_int.insert(70);
+	// avl_int.insert(23);
+	// avl_int.insert(42);
+	// avl_int.insert(17);
+	// avl_int.insert(35);
+	// avl_int.insert(33);
+	// avl_int.insert(37);
+	// avl_int.insert(48);
+	// avl_int.insert(90);
+	// avl_int.printTree();
+
+	// std::cout << "MIN: " << avl_int.min_node(avl_int.getRoot())->data << std::endl;
+	// std::cout << "MAX: " << avl_int.max_node(avl_int.getRoot())->data << std::endl;
+	// std::cout << "PRE - 37: " << avl_int.predecessor(avl_int.search(37))->data << std::endl;
+	// std::cout << "SUC - 37: " << avl_int.successor(avl_int.search(37))->data << std::endl;
+
+	// test_interactive();
+
+	// ft::AVLTree<int>::node n1(20);
+	// ft::AVLTree<int>::node n2(15);
+
+	// avl_int.compareNodes(&n1, &n2);
+}
+
 void pre_insert_interactive(ft::AVLTree<int>& avl_int) {
 	// // pre inserting
 	// avl_int.insert(40);
