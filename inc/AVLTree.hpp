@@ -410,6 +410,20 @@ class AVLTree {
 	public:
 		iterator begin() { return ( this->empty() ? this->end() : iterator(this->min_node(this->_root)) ); }
 		iterator end() { return ( iterator(this->max_node(this->_root)->right) ); }
+
+		template < typename Key >
+		iterator find(Key key) {
+			node_pointer curr = this->_root;
+				while (curr) {
+				if (this->_comp(key, curr->data))
+					curr = curr->left;
+				else if (this->_comp(curr->data, key))
+					curr = curr->right;
+				else
+					break;
+			}
+			return (iterator(curr));
+		}
 };
 
 } // END NAMESPACE FT

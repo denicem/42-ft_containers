@@ -85,14 +85,34 @@ class map {
 		// copy constructor
 		// map (const map& x) {}
 
+		// map& operator=(const map& x) {}
+
 		// ~map() {}
 
 		size_type size() const { return (this->_tree.size()); }
 
+		/* -------------------------------------------------------------------------- */
+		/*                               ELEMENT ACCESS                               */
+		/* -------------------------------------------------------------------------- */
 		mapped_type& operator[](const key_type& k) {
 			ft::pair<iterator, bool> res = this->insert(value_type(k, mapped_type()));
 			return ( (res.first)->second );
 		}
+
+		mapped_type& at(const key_type& k){
+			iterator success = this->_tree.find(k);
+			if (success == this->end())
+				throw std::out_of_range("ft::out_of_range");
+			return (success->second);
+		}
+
+		// const mapped_type& at(const key_type& k) const{
+		// 	iterator success = this->_tree.find(k);
+		// 	if (success == this->end())
+		// 		throw std::out_of_range("ft::out_of_range");
+		// 	return (success->second);
+		// }
+
 		/* -------------------------------------------------------------------------- */
 		/*                                  MODIFIERS                                 */
 		/* -------------------------------------------------------------------------- */

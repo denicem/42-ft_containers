@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/21 17:27:30 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/21 21:50:45 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,12 +156,16 @@ int main() {
 	for (; it != ite; ++it)
 		std::cout << (*it).first << ": " << (*it).second << std::endl;
 
-	m[9] = "HEHEHE";
-	// std::cout << m[9] << std::endl;
+	// m[9] = "HEHEHE";
+	try {
+		std::cout << "|" << m.at(8) << "|" << std::endl;
+	} catch (std::out_of_range& e) {
+		std::cout << e.what() << std::endl;
+	}
 
 
 	m.printMap();
-	std::cout << insert_res->first << ": " << insert_res->second << std::endl;
+	// std::cout << insert_res->first << ": " << insert_res->second << std::endl;
 
 	return (0);
 }
