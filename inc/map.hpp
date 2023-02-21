@@ -41,27 +41,30 @@ class map {
 		// typedef typename iterator_traits<iterator>::size_type		size_type;
 
 	
-	/*
-	** ----------------------- VALUE COMPARE -----------------------
-	*/
-	class value_compare { // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
-		friend class ft::AVLTree<value_type, value_compare, allocator_type>;
+		/*
+		** ----------------------- VALUE COMPARE -----------------------
+		*/
+		class value_compare { // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+			friend class ft::AVLTree<value_type, value_compare, allocator_type>;
 
-		protected:
-			Compare comp;
-			value_compare(Compare c = key_compare()) : comp(c) {} // constructed with map's comparison object
-		public:
-			typedef bool result_type;
-			typedef value_type first_argument_type;
-			typedef value_type second_argument_type;
-			bool operator()(const value_type &x, const value_type &y) const { return comp(x.first, y.first); }
-			bool operator()(const key_type& key, const value_type &y) const { return comp(key, y.first); }
-			bool operator()(const value_type &x, const key_type& key) const { return comp(x.first, key); }
-	};
+			protected:
+				Compare comp;
+				value_compare(Compare c = key_compare()) : comp(c) {} // constructed with map's comparison object
+			public:
+				typedef bool result_type;
+				typedef value_type first_argument_type;
+				typedef value_type second_argument_type;
+				bool operator()(const value_type &x, const value_type &y) const { return comp(x.first, y.first); }
+				bool operator()(const key_type& key, const value_type &y) const { return comp(key, y.first); }
+				bool operator()(const value_type &x, const key_type& key) const { return comp(x.first, key); }
+		};
 
 		typedef ft::AVLTree<value_type, value_compare, allocator_type> tree_type;
 		typedef typename tree_type::node node;
 		typedef typename tree_type::node_pointer node_pointer;
+
+		typedef typename tree_type::iterator		tree_iterator;
+		// typedef typename tree_type::const_iterator	const_iterator;
 
 	/*
 	** --------------------------- MEMBER VARIABLES ---------------------------
@@ -95,6 +98,41 @@ class map {
 		}
 
 		void printMap() const { this->_tree.printTree(); }
+
+		typedef class MapIterator {
+			public:
+				typedef bidirectional_iterator_tag iterator_category;
+				typedef typename tree_iterator::value_type value_type;
+				typedef typename tree_iterator::difference_type difference_type;
+				typedef typename tree_iterator::reference reference;
+				typedef typename tree_iterator::pointer pointer;
+			protected:
+				tree_iterator _tree_it;
+			
+			public:
+				MapIterator(): _tree_it() {}
+				explicit MapIterator(const tree_iterator& tree_it): _tree_it(tree_it) {}
+				MapIterator(const MapIterator& other): _tree_it(other._tree_it) {}
+				
+				MapIterator& operator=(const MapIterator& other) { if (this != &other) this->_tree_it = other._tree_it; return (*this); }
+				
+				tree_iterator base() const { return (this->_tree_it); }
+				reference operator*() const { return (*(this->_tree_it)); }
+				pointer operator->() const { return ( &(*(this->_tree_it)) ); }
+
+				MapIterator& operator++() { ++(this->_tree_it); return (*this); }
+				MapIterator operator++(int) { tree_iterator tmp = this->_tree_it; ++(this->_tree_it); return (MapIterator(tmp)); }
+				MapIterator& operator--() { --(this->_tree_it); return (*this); }
+				MapIterator operator--(int) { tree_iterator tmp = this->_tree_it; --(this->_tree_it); return (MapIterator(tmp)); }
+
+				friend bool operator==(const MapIterator& lhs, const MapIterator& rhs) { return (lhs.base() == rhs.base()); }
+				friend bool operator!=(const MapIterator& lhs, const MapIterator& rhs) { return (!(lhs == rhs)); }
+
+		} iterator; // END CLASS MAP_ITERATOR
+
+	public:
+		iterator begin() { return (iterator(this->_tree.begin())); }
+		iterator end() { return (iterator(this->_tree.end())); }
 };
 
 } // END NAMESPACE FT

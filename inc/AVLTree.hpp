@@ -3,6 +3,7 @@
 
 #include "test_general.hpp"
 #include "Node.hpp"
+// #include "tree_iterator.hpp"
 
 #define COUNT 10
 
@@ -32,31 +33,78 @@ class AVLTree {
 		typedef Compare						key_compare;
 		typedef Alloc						allocator_type;
 		typedef typename allocator_type::template rebind<node>::other	node_allocator_type;
+		typedef typename allocator_type::pointer pointer;
+		typedef typename allocator_type::const_pointer const_pointer;
+		typedef typename allocator_type::reference reference;
+		typedef typename allocator_type::const_reference const_reference;
 
-		// class value_compare { // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
-		// friend class AVLTree;
+		typedef typename node_allocator_type::size_type	size_type;
+		typedef typename node_allocator_type::difference_type	difference_type;
 
-		// protected:
-		// 	Compare comp;
-		// 	value_compare(Compare c) : comp(c) {} // constructed with map's comparison object
-		// public:
-		// 	typedef bool result_type;
-		// 	typedef value_type first_argument_type;
-		// 	typedef value_type second_argument_type;
-		// 	bool operator()(const value_type &x, const value_type &y) const { return comp(x, y); }
-		// };
+		class TreeIterator {
+			public:
+				typedef bidirectional_iterator_tag	iterator_category;
+				typedef AVLTree::value_type			value_type;
+				typedef AVLTree::pointer		pointer;
+				typedef AVLTree::const_pointer	const_pointer;
+				typedef AVLTree::reference		reference;
+				typedef AVLTree::const_reference	const_reference;
+				typedef AVLTree::difference_type	difference_type;
+				// typedef TreeIterator<const value_type>	const_iterator;
+
+			private:
+				node_pointer _ptr;
+
+			public:
+				// constructors and destructor + assigment operator overload
+				TreeIterator(): _ptr(NULL) {}
+				TreeIterator(const TreeIterator& other): _ptr(other._ptr) {}
+				TreeIterator(const node_pointer &ptr): _ptr(ptr) {}
+				~TreeIterator() {}
+
+				TreeIterator& operator=(const TreeIterator& other) { if (this != &other) this->_ptr = other._ptr; return (*this); }
+
+				node_pointer base() const { return (this->_ptr); }
+
+				// a == b
+				// a != b
+				friend bool operator==(const TreeIterator lhs, const TreeIterator rhs) { return (lhs._ptr == rhs._ptr); }
+				friend bool operator!=(const TreeIterator lhs, const TreeIterator rhs) { return (lhs._ptr != rhs._ptr); }
+
+				// *a
+				// a->m
+				reference operator*() const { return (this->_ptr->data); }
+				pointer operator->() { return (&(operator*())); }
+
+				// ++a
+				// a++
+				// *a++
+				TreeIterator& operator++() { if (!this->_ptr) return (*this); _ptr = successor(_ptr); return (*this); }
+				TreeIterator& operator++(int) { TreeIterator tmp = *this; ++*this; return (tmp); }
+
+				// --a
+				// a--
+				// *a--
+				TreeIterator& operator--() { if (!this->_ptr) return (*this); _ptr = successor(_ptr); return (*this); }
+				TreeIterator& operator--(int) { TreeIterator tmp = *this; --*this; return (tmp); }
+
+		}; // END CLASS TREE_ITERATOR
+
+		typedef TreeIterator		iterator;
+		// typedef ft::TreeIterator	const_iterator;
 
 	private:
 		key_compare _comp;
 		allocator_type _alloc;
 		node_allocator_type _node_alloc;
 		node_pointer _root;
+		size_type _size;
 	
 	public:
 		AVLTree(const key_compare& comp = key_compare(),
 				const allocator_type& alloc = allocator_type(),
 				const node_allocator_type& node_alloc = node_allocator_type())
-		: _comp(comp), _alloc(alloc), _node_alloc(node_alloc), _root() {}
+		: _comp(comp), _alloc(alloc), _node_alloc(node_alloc), _root(), _size(0) {}
 
 		AVLTree(const AVLTree& other): _root(other._root) {} // NOTE: not sure about this yet!
 
@@ -169,11 +217,12 @@ class AVLTree {
 				y->right = curr;
 
 			// PART 2: re-balance the node if necessary
+			++this->_size;
 			this->updateBalance(curr);
 		}
 
 		// find the node with the minimum key
-		node_pointer min_node(node_pointer curr) {
+		static node_pointer min_node(node_pointer curr) {
 			while (curr->left != NULL) {
 				curr = curr->left;
 			}
@@ -181,14 +230,14 @@ class AVLTree {
 		}
 
 		// find the node with the maximum key
-		node_pointer max_node(node_pointer curr) {
+		static node_pointer max_node(node_pointer curr) {
 			while (curr->right != NULL) {
 				curr = curr->right;
 			}
 			return (curr);
 		}
 
-		node_pointer successor(node_pointer x) {
+		static node_pointer successor(node_pointer x) {
 			// if the right subtree is not null,
 			// the successor is the leftmost node in the
 			// right subtree
@@ -208,7 +257,7 @@ class AVLTree {
 		}
 
 		// find the predecessor of a given node
-		node_pointer predecessor(node_pointer x) {
+		static node_pointer predecessor(node_pointer x) {
 			// if the left subtree is not null,
 			// the predecessor is the rightmost node in the 
 			// left subtree
@@ -297,6 +346,7 @@ class AVLTree {
 					updateBalance(this->_root);
 				this->_node_alloc.destroy(deletedNode); // NOTE: still not sure about this though ... :/
 				this->_node_alloc.deallocate(deletedNode, 1);
+				--this->_size;
 				// delete deletedNode;
 			}
 			else
@@ -349,6 +399,14 @@ class AVLTree {
 				std::cout << "n1 > n2";
 			std::cout << std::endl;
 		}
+
+	public:
+		size_type size() const { return (this->_size); }
+		bool empty() const { return (!this->_size); }
+
+	public:
+		iterator begin() { return ( this->empty() ? this->end() : iterator(this->min_node(this->_root)) ); }
+		iterator end() { return ( iterator(this->max_node(this->_root)->right) ); }
 };
 
 } // END NAMESPACE FT

@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include <vector>
+#include <stack>
+#include <map>
+
 #include "vector.hpp"
 #include "stack.hpp"
 #include "map.hpp"
@@ -26,6 +29,7 @@
 
 // #include "test_general.hpp"
 // #include "test_vector.hpp"
+
 
 int main() {
 	std::cout << "Hello ft_containers." << std::endl << std::endl;
@@ -112,8 +116,16 @@ int main() {
 	m.insert(p2);
 	m.insert(p3);
 	m.insert(p4);
-	m.printMap();
+	// m.printMap();
 	// m.comparePairs(p1, p2);
+	ft::map<int, std::string>::iterator it = m.begin();
+	ft::map<int, std::string>::iterator ite = m.end();
+	for (; it != ite; ++it)
+		std::cout << (*it).first << ": " << (*it).second << std::endl;
+
+	// std::cout << (*it).first << ": " << (*it).second << std::endl;
+	// ++it;
+	// std::cout << (*it).first << ": " << (*it).second << std::endl;
 
 	return (0);
 }
