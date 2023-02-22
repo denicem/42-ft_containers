@@ -169,13 +169,15 @@ class map {
 		/* -------------------------------------------------------------------------- */
 
 		/* ---------------------------------- ERASE --------------------------------- */
-		// void erase(iterator position) {}
+		void erase(iterator position) {
+			this->_tree.deleteNode(position->data); 
+		}
 		// size_type erase(const key_type& k) {}
 		// void erase(iterator first, iterator last) {}
 		/* -------------------------------------------------------------------------- */
 
 		// void swap(map& x) {}
-		// void clear();
+		void clear() { this->_tree.clear(); }
 
 		/* -------------------------------------------------------------------------- */
 		/*                                  OBSERVERS                                 */

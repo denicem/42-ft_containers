@@ -253,6 +253,13 @@ class AVLTree {
 				parent->right = NULL;
 		}
 
+		void destroyNode(node_pointer curr) {
+			if (curr) {
+				this->_alloc.destroy(&(curr->data)); // NOTE: still not sure about this though ... :/
+				this->_node_alloc.deallocate(curr, 1);
+			}
+		}
+
 		node_pointer deleteNodeHelper(node_pointer curr, value_type key) {
 			curr = searchHelper(curr, key);
 			if (!curr) return (NULL);
@@ -300,13 +307,27 @@ class AVLTree {
 				else if (this->_root)
 					updateBalance(this->_root);
 				// this->_node_alloc.destroy(deletedNode); // NOTE: still not sure about this though ... :/
-				this->_alloc.destroy(&(deletedNode->data)); // NOTE: still not sure about this though ... :/
-				this->_node_alloc.deallocate(deletedNode, 1);
+				// this->_alloc.destroy(&(deletedNode->data)); // NOTE: still not sure about this though ... :/
+				// this->_node_alloc.deallocate(deletedNode, 1);
+				this->destroyNode(deletedNode);
 				--this->_size;
 				// delete deletedNode;
 			}
 			else
 				std::cout << "Key not found." << std::endl;
+		}
+
+		void clearHelper(node_pointer curr) {
+			if (!curr)
+				return ;
+			clearHelper(curr->right);
+			clearHelper(curr->left);
+			destroyNode(curr);
+		}
+
+		void clear() {
+			clearHelper(this->_root);
+			this->_root = NULL;
 		}
 
 	private:
