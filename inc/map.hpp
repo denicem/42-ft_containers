@@ -170,7 +170,7 @@ class map {
 
 		/* ---------------------------------- ERASE --------------------------------- */
 		void erase(iterator position) {
-			this->_tree.deleteNode(position->data); 
+			this->_tree.deleteNode(*position);
 		}
 		// size_type erase(const key_type& k) {}
 		// void erase(iterator first, iterator last) {}

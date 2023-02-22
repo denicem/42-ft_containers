@@ -384,8 +384,8 @@ class AVLTree {
 	public:
 		iterator begin() { return ( this->empty() ? this->end() : iterator(this->min_node(this->_root)) ); }
 		const_iterator begin() const { return ( this->empty() ? this->end() : const_iterator(this->min_node(this->_root)) ); }
-		iterator end() { return ( iterator(this->max_node(this->_root)->right) ); }
-		const_iterator end() const { return ( const_iterator(this->max_node(this->_root)->right) ); }
+		iterator end() { if (this->empty()) return (NULL); return ( iterator(this->max_node(this->_root)->right) ); } // TODO: find better solution for protection
+		const_iterator end() const { if (this->empty()) return (NULL); return ( const_iterator(this->max_node(this->_root)->right) ); }
 
 		reverse_iterator rbegin() { return (reverse_iterator(end())); }
 		const_reverse_iterator rbegin() const { return (const_reverse_iterator(end())); }

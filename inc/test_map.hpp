@@ -33,11 +33,14 @@ void test_map_playground() {
 	// 	std::cout << (*it).first << ": " << (*it).second << std::endl;
 
 	ft::map<int, std::string> m;
-	ft::pair<const int, std::string> p1(4, "HN");
-	ft::pair<const int, std::string> p2(2, "NH");
-	ft::pair<const int, std::string> p3(7, "DNC");
-	ft::pair<const int, std::string> p4(9, "Romyyy");
-	ft::pair<const int, std::string> p5(13, "Chrisss");
+
+	ft::map<int, std::string>::iterator empty_it = m.begin();
+
+	ft::pair<int, std::string> p1(4, "HN");
+	ft::pair<int, std::string> p2(2, "NH");
+	ft::pair<int, std::string> p3(7, "DNC");
+	ft::pair<int, std::string> p4(9, "Romyyy");
+	ft::pair<int, std::string> p5(13, "Chrisss");
 	ft::pair<ft::map<int, std::string>::iterator, bool> insert_val = m.insert(p5);
 	std::cout << (insert_val.second ? "INSERTED" : "ALREADY INSERTED") << std::endl;
 	insert_val = m.insert(p5);
@@ -78,8 +81,11 @@ void test_map_playground() {
 	// std::cout << (*rit1).first << ": " << (*rit1).second << std::endl;
 	// std::cout << (*rit1) << std::endl;
 	// std::cout << "hehe" << std::endl;
-
+	m.printMap();
+	// m.erase(m.begin());
 	// std::cout << insert_res->first << ": " << insert_res->second << std::endl;
+	m.clear();
+	m.erase(m.begin());
 	m.printMap();
 }
 
