@@ -260,6 +260,11 @@ class AVLTree {
 			}
 		}
 
+		void copyData(node_pointer dest, node_pointer src) {
+			this->_alloc.destroy(&(dest->data));
+			this->_alloc.construct(&(dest->data), value_type(src->data));
+		}
+
 		node_pointer deleteNodeHelper(node_pointer curr, value_type key) {
 			curr = searchHelper(curr, key);
 			if (!curr) return (NULL);
@@ -268,31 +273,37 @@ class AVLTree {
 
 			// case 1: leaf node
 			if (!curr->left && !curr->right) {
-				if (prev) {
+				std::cout << "case 1" << std::endl;
+				if (prev)
 					removeChild(prev, curr);
-				}
 				else 
 					this->_root = NULL;
 			}
 			
 			// case 2: node has one child
 			else if (!curr->right) {
+				std::cout << "case 2: left child" << std::endl;
 				node_pointer tmp = curr->left;
-				curr->data = tmp->data;
+				copyData(curr, tmp);
 				curr->left = NULL;
 				curr = tmp;
 			}
 			else if (!curr->left) {
+				std::cout << "case 2: right child" << std::endl;
 				node_pointer tmp = curr->right;
-				curr->data = tmp->data;
+				copyData(curr, tmp);
 				curr->right = NULL;
 				curr = tmp;
 			}
 
 			// case 3: node has two children
 			else {
+				std::cout << "case 3" << std::endl;
 				node_pointer tmp = min_node(curr->right);
-				curr->data = tmp->data;
+				copyData(curr, tmp);
+				// curr->data = tmp->data;
+				// this->_alloc.destroy(&(curr->data));
+				// this->_alloc.construct(&(curr->data), value_type(tmp->data));
 				curr = deleteNodeHelper(curr->right, curr->data);
 			}
 
@@ -306,12 +317,8 @@ class AVLTree {
 					updateBalance(deletedNode->parent);
 				else if (this->_root)
 					updateBalance(this->_root);
-				// this->_node_alloc.destroy(deletedNode); // NOTE: still not sure about this though ... :/
-				// this->_alloc.destroy(&(deletedNode->data)); // NOTE: still not sure about this though ... :/
-				// this->_node_alloc.deallocate(deletedNode, 1);
 				this->destroyNode(deletedNode);
 				--this->_size;
-				// delete deletedNode;
 			}
 			else
 				std::cout << "Key not found." << std::endl;

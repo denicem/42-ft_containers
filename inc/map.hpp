@@ -90,7 +90,7 @@ class map {
 		// map (const map& x) {}
 
 		/* ------------------------------- DESTRUCTOR ------------------------------- */
-		// ~map() {}
+		~map() { this->_tree.clear(); }
 
 		/* --------------------------- ASSIGNMENT OPERATOR -------------------------- */
 		// map& operator=(const map& x) {}
@@ -170,6 +170,8 @@ class map {
 
 		/* ---------------------------------- ERASE --------------------------------- */
 		void erase(iterator position) {
+			if (position == end())
+				return ;
 			this->_tree.deleteNode(*position);
 		}
 		// size_type erase(const key_type& k) {}

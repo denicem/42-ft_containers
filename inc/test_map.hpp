@@ -84,8 +84,10 @@ void test_map_playground() {
 	m.printMap();
 	// m.erase(m.begin());
 	// std::cout << insert_res->first << ": " << insert_res->second << std::endl;
-	m.clear();
+	// m.clear();
+	m.erase(m.find(9));
 	m.erase(m.begin());
+	std::cout << "after" << std::endl;
 	m.printMap();
 }
 
