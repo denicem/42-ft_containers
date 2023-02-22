@@ -59,6 +59,27 @@ void test_map_playground() {
 	} catch (std::out_of_range& e) {
 		std::cout << e.what() << std::endl;
 	}
+
+	ft::map<int, std::string>::iterator it1 = m.begin();
+	ft::map<int, std::string>::const_iterator cit1 = m.begin();
+
+	std::cout << (*it1).first << ": " << (*it1).second << std::endl;
+	std::cout << (*cit1).first << ": " << (*cit1).second << std::endl;
+
+	(*it1).second = "JOJI";
+
+	std::cout << (*it1).first << ": " << (*it1).second << std::endl;
+	std::cout << (*cit1).first << ": " << (*cit1).second << std::endl;
+	std::cout << (*cit1) << std::endl;
+
+	// ft::map<int, std::string>::reverse_iterator rit1 = m.rbegin();
+	// ++rit1;
+	// ++rit1;
+	// std::cout << (*rit1).first << ": " << (*rit1).second << std::endl;
+	// std::cout << (*rit1) << std::endl;
+	// std::cout << "hehe" << std::endl;
+
+	// std::cout << insert_res->first << ": " << insert_res->second << std::endl;
 	m.printMap();
 	// std::cout << insert_res->first << ": " << insert_res->second << std::endl;
 }

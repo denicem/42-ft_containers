@@ -3,7 +3,8 @@
 
 #include "test_general.hpp"
 #include "Node.hpp"
-// #include "tree_iterator.hpp"
+#include "tree_iterator.hpp"
+#include "reverse_iterator.hpp"
 
 #define COUNT 10
 
@@ -29,6 +30,7 @@ class AVLTree {
 		typedef T							value_type;
 		typedef ft::Node<value_type>		node;
 		typedef typename node::node_pointer	node_pointer;
+		typedef typename node::const_node_pointer	const_node_pointer;
 
 		typedef Compare						key_compare;
 		typedef Alloc						allocator_type;
@@ -41,57 +43,10 @@ class AVLTree {
 		typedef typename node_allocator_type::size_type	size_type;
 		typedef typename node_allocator_type::difference_type	difference_type;
 
-		class TreeIterator {
-			public:
-				typedef bidirectional_iterator_tag	iterator_category;
-				typedef AVLTree::value_type			value_type;
-				typedef AVLTree::pointer		pointer;
-				typedef AVLTree::const_pointer	const_pointer;
-				typedef AVLTree::reference		reference;
-				typedef AVLTree::const_reference	const_reference;
-				typedef AVLTree::difference_type	difference_type;
-				// typedef TreeIterator<const value_type>	const_iterator;
-
-			private:
-				node_pointer _ptr;
-
-			public:
-				// constructors and destructor + assigment operator overload
-				TreeIterator(): _ptr(NULL) {}
-				TreeIterator(const TreeIterator& other): _ptr(other._ptr) {}
-				TreeIterator(const node_pointer &ptr): _ptr(ptr) {}
-				~TreeIterator() {}
-
-				TreeIterator& operator=(const TreeIterator& other) { if (this != &other) this->_ptr = other._ptr; return (*this); }
-
-				node_pointer base() const { return (this->_ptr); }
-
-				// a == b
-				// a != b
-				friend bool operator==(const TreeIterator lhs, const TreeIterator rhs) { return (lhs._ptr == rhs._ptr); }
-				friend bool operator!=(const TreeIterator lhs, const TreeIterator rhs) { return (lhs._ptr != rhs._ptr); }
-
-				// *a
-				// a->m
-				reference operator*() const { return (this->_ptr->data); }
-				pointer operator->() { return (&(operator*())); }
-
-				// ++a
-				// a++
-				// *a++
-				TreeIterator& operator++() { if (!this->_ptr) return (*this); _ptr = successor(_ptr); return (*this); }
-				TreeIterator& operator++(int) { TreeIterator tmp = *this; ++*this; return (tmp); }
-
-				// --a
-				// a--
-				// *a--
-				TreeIterator& operator--() { if (!this->_ptr) return (*this); _ptr = successor(_ptr); return (*this); }
-				TreeIterator& operator--(int) { TreeIterator tmp = *this; --*this; return (tmp); }
-
-		}; // END CLASS TREE_ITERATOR
-
-		typedef TreeIterator		iterator;
-		// typedef ft::TreeIterator	const_iterator;
+		typedef ft::TreeIterator<AVLTree, value_type> iterator;
+		typedef ft::TreeIterator<AVLTree, const value_type> const_iterator;
+		typedef ft::ReverseIterator<iterator> reverse_iterator;
+		typedef ft::ReverseIterator<const_iterator> const_reverse_iterator;
 
 	private:
 		key_compare _comp;
@@ -409,7 +364,14 @@ class AVLTree {
 
 	public:
 		iterator begin() { return ( this->empty() ? this->end() : iterator(this->min_node(this->_root)) ); }
+		const_iterator begin() const { return ( this->empty() ? this->end() : const_iterator(this->min_node(this->_root)) ); }
 		iterator end() { return ( iterator(this->max_node(this->_root)->right) ); }
+		const_iterator end() const { return ( const_iterator(this->max_node(this->_root)->right) ); }
+
+		reverse_iterator rbegin() { return (reverse_iterator(end())); }
+		const_reverse_iterator rbegin() const { return (const_reverse_iterator(end())); }
+		reverse_iterator rend() { return (reverse_iterator(begin())); }
+		const_reverse_iterator rend() const { return (const_reverse_iterator(begin())); }
 
 		template < typename Key >
 		iterator find(Key key) {

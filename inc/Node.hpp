@@ -8,6 +8,7 @@ struct Node {
 	typedef T					value_type;
 	typedef value_type*			pointer;
 	typedef Node<value_type>*	node_pointer;
+	typedef const node_pointer	const_node_pointer;
 
 	value_type data;
 	node_pointer parent;

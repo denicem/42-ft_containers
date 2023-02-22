@@ -31,7 +31,7 @@ class map {
 		typedef typename allocator_type::const_reference	const_reference;
 		typedef typename allocator_type::pointer			pointer;
 		typedef typename allocator_type::const_pointer		const_pointer;
-		
+
 		typedef typename allocator_type::size_type size_type;
 
 	
@@ -58,8 +58,10 @@ class map {
 		typedef typename tree_type::node node;
 		typedef typename tree_type::node_pointer node_pointer;
 
-		typedef typename tree_type::iterator		iterator;
-		// typedef typename tree_type::const_iterator	const_iterator;
+		typedef typename tree_type::iterator				iterator;
+		typedef typename tree_type::const_iterator			const_iterator;
+		typedef typename tree_type::reverse_iterator		reverse_iterator;
+		typedef typename tree_type::const_reverse_iterator	const_reverse_iterator;
 
 	/* -------------------------------------------------------------------------- */
 	/*                              MEMBER VARIABLES                              */
@@ -100,14 +102,14 @@ class map {
 
 	public:
 		iterator begin() { return (this->_tree.begin()); }
-		// const_iterator begin() const {}
+		const_iterator begin() const { return (this->_tree.begin()); }
 		iterator end() { return (this->_tree.end()); }
-		// const_iterator end() const {}
+		const_iterator end() const { return (this->_tree.end()); }
 
-		// reverse_iterator rbegin() {}
-		// const_reverse_iterator rbegin() const {}
-		// reverse_iterator rend() {}
-		// const_reverse_iterator rend() const {}
+		reverse_iterator rbegin() { return (this->_tree.rbegin()); }
+		const_reverse_iterator rbegin() const { return (this->_tree.rbegin()); }
+		reverse_iterator rend() { return (this->_tree.rend()); }
+		const_reverse_iterator rend() const { return (this->_tree.rend()); }
 
 		/* -------------------------------------------------------------------------- */
 		/*                                  CAPACITY                                  */
