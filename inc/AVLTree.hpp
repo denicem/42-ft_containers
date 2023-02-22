@@ -13,11 +13,6 @@
 
 namespace ft {
 
-// template < class Type >
-// struct rebind {
-// 	typedef std::allocator<Type> other;
-// };
-
 template <	typename T,
 			class Compare = std::less<T>,
 			class Alloc = std::allocator<T>
@@ -151,7 +146,9 @@ class AVLTree {
 			if (curr)
 				return (ft::pair<iterator, bool>(iterator(curr), false));
 			curr = this->_node_alloc.allocate(1);
-			this->_node_alloc.construct(curr, node(key)); // NOTE: still not sure about this though ... :/
+			this->_alloc.construct(&(curr->data), value_type(key));
+			// curr->data = k;
+			// this->_node_alloc.construct(curr, node(key)); // NOTE: still not sure about this though ... :/
 
 			node_pointer y = NULL;
 			node_pointer x = this->_root;
@@ -302,7 +299,8 @@ class AVLTree {
 					updateBalance(deletedNode->parent);
 				else if (this->_root)
 					updateBalance(this->_root);
-				this->_node_alloc.destroy(deletedNode); // NOTE: still not sure about this though ... :/
+				// this->_node_alloc.destroy(deletedNode); // NOTE: still not sure about this though ... :/
+				this->_alloc.destroy(&(deletedNode->data)); // NOTE: still not sure about this though ... :/
 				this->_node_alloc.deallocate(deletedNode, 1);
 				--this->_size;
 				// delete deletedNode;

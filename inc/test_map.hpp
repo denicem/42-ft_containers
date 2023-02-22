@@ -81,7 +81,6 @@ void test_map_playground() {
 
 	// std::cout << insert_res->first << ": " << insert_res->second << std::endl;
 	m.printMap();
-	// std::cout << insert_res->first << ": " << insert_res->second << std::endl;
 }
 
 void test_pair_playground() {
