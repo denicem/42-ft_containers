@@ -146,8 +146,6 @@ class AVLTree {
 				return (ft::pair<iterator, bool>(iterator(curr), false));
 			curr = this->_node_alloc.allocate(1);
 			this->_alloc.construct(&(curr->data), value_type(key));
-			// curr->data = k;
-			// this->_node_alloc.construct(curr, node(key)); // NOTE: still not sure about this though ... :/
 
 			node_pointer y = NULL;
 			node_pointer x = this->_root;
@@ -175,25 +173,8 @@ class AVLTree {
 			return (ft::pair<iterator, bool>(iterator(curr), true));
 		}
 
-		// find the node with the minimum key
-		static node_pointer min_node(node_pointer curr) {
-			while (curr->left != NULL) {
-				curr = curr->left;
-			}
-			return (curr);
-		}
-
-		// find the node with the maximum key
-		static node_pointer max_node(node_pointer curr) {
-			while (curr->right != NULL) {
-				curr = curr->right;
-			}
-			return (curr);
-		}
-
 		node_pointer searchHelper(node_pointer curr, value_type& key) const {
 			while (curr) {
-				// if (key < curr->data)
 				if (this->_comp(key, curr->data))
 					curr = curr->left;
 				else if (this->_comp(curr->data, key))
@@ -217,7 +198,7 @@ class AVLTree {
 
 		void destroyNode(node_pointer curr) {
 			if (curr) {
-				this->_alloc.destroy(&(curr->data)); // NOTE: still not sure about this though ... :/
+				this->_alloc.destroy(&(curr->data));
 				this->_node_alloc.deallocate(curr, 1);
 			}
 		}
@@ -263,9 +244,6 @@ class AVLTree {
 				std::cout << "case 3" << std::endl;
 				node_pointer tmp = min_node(curr->right);
 				copyData(curr, tmp);
-				// curr->data = tmp->data;
-				// this->_alloc.destroy(&(curr->data));
-				// this->_alloc.construct(&(curr->data), value_type(tmp->data));
 				curr = deleteNodeHelper(curr->right, curr->data);
 			}
 
@@ -351,10 +329,10 @@ class AVLTree {
 		bool empty() const { return (!this->_size); }
 
 	public:
-		iterator begin() { return ( this->empty() ? this->end() : iterator(this->min_node(this->_root)) ); }
-		const_iterator begin() const { return ( this->empty() ? this->end() : const_iterator(this->min_node(this->_root)) ); }
-		iterator end() { if (this->empty()) return (NULL); return ( iterator(this->max_node(this->_root)->right) ); } // TODO: find better solution for protection
-		const_iterator end() const { if (this->empty()) return (NULL); return ( const_iterator(this->max_node(this->_root)->right) ); }
+		iterator begin() { return ( this->empty() ? this->end() : iterator(min_node(this->_root)) ); }
+		const_iterator begin() const { return ( this->empty() ? this->end() : const_iterator(min_node(this->_root)) ); }
+		iterator end() { if (this->empty()) return (NULL); return ( iterator(max_node(this->_root)->right) ); } // TODO: find better solution for protection
+		const_iterator end() const { if (this->empty()) return (NULL); return ( const_iterator(max_node(this->_root)->right) ); }
 
 		reverse_iterator rbegin() { return (reverse_iterator(end())); }
 		const_reverse_iterator rbegin() const { return (const_reverse_iterator(end())); }
