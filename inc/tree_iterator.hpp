@@ -10,10 +10,6 @@ namespace ft {
 template < typename Tree, typename T >
 class TreeIterator {
 	public:
-		// typedef ft::AVLTree<T>						tree_type;
-		// typedef typename tree_type::node			node;
-		// typedef typename tree_type::node_pointer	node_pointer;
-
 		typedef bidirectional_iterator_tag	iterator_category;
 		typedef T				value_type;
 		typedef value_type*		pointer;
