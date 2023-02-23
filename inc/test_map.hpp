@@ -27,11 +27,9 @@ void test_map_playground() {
 	// m.printMap();
 	ft::map<int, std::string>::const_iterator it = m.begin();
 	ft::map<int, std::string>::const_iterator ite = m.end();
-	// for (; it != ite; ++it) {
-	// 	std::cout << *it << std::endl;
-	// }
-	++it;
-	std::cout << *it << std::endl;
+	for (; it != ite; ++it) {
+		std::cout << *it << std::endl;
+	}
 
 
 	// ft::map<int, std::string> m_cpy(m);

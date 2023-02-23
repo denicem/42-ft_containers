@@ -8,7 +8,7 @@ struct Node {
 	typedef T					value_type;
 	typedef value_type*			pointer;
 	typedef Node<value_type>*	node_pointer;
-	typedef const node_pointer	const_node_pointer;
+	typedef Node<const value_type>*	const_node_pointer;
 
 	value_type data;
 	node_pointer parent;
@@ -28,8 +28,65 @@ struct Node {
 		}
 		return (*this);
 	}
-
 };
+
+// find the node with the minimum key
+template < class NodePointer >
+NodePointer min_node(NodePointer curr) {
+	while (curr->left != NULL) {
+		curr = curr->left;
+	}
+	return (curr);
+}
+
+// find the node with the maximum key
+template < class NodePointer >
+NodePointer max_node(NodePointer curr) {
+	while (curr->right != NULL) {
+		curr = curr->right;
+	}
+	return (curr);
+}
+
+// find the predecessor of a given node
+template < class NodePointer >
+NodePointer predecessor(NodePointer x) {
+	// if the left subtree is not null,
+	// the predecessor is the rightmost node in the 
+	// left subtree
+	if (x->left != NULL) {
+		return (max_node(x->left));
+	}
+
+	NodePointer y = x->parent;
+	while (y != NULL && x == y->left) {
+		x = y;
+		y = y->parent;
+	}
+
+	return (y);
+}
+
+// find the successor of a given node
+template < class NodePointer >
+NodePointer successor(NodePointer x) {
+	// if the right subtree is not null,
+	// the successor is the leftmost node in the
+	// right subtree
+	if (x->right != NULL) {
+		return (min_node(x->right));
+	}
+
+	// else it is the lowest ancestor of x whose
+	// left child is also an ancestor of x.
+	NodePointer y = x->parent;
+	while (y != NULL && x == y->right) {
+		x = y;
+		y = y->parent;
+	}
+
+	return (y);
+}
 
 } // END NAMESPACE FT
 
