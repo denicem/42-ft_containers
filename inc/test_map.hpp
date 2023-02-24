@@ -114,10 +114,8 @@ void test_map_playground() {
 }
 
 void test_pair_playground() {
-	// ft::pair<std::string, int> pr = ft::make_pair(std::string("Hello"), 42);
-	// ft::pair<std::string, int> pr = ft::make_pair("Hello", 42); // NOTE: this works in the std:: version why?
-	// ft::pair<std::string, int> pr = ft::make_pair(std::string("Hello"), 42);
-	// std::cout << pr.first << ": " << pr.second << std::endl;
+	ft::pair<std::string, int> pr = ft::make_pair("Hello", 42);
+	std::cout << pr.first << ": " << pr.second << std::endl;
 }
 
 #endif
