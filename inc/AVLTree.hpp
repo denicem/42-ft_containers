@@ -63,11 +63,19 @@ class AVLTree {
 		AVLTree(const AVLTree& other): _comp(other._comp), _alloc(other._alloc), _node_alloc(other._node_alloc), _size(0) {
 			initSentinel();
 			_root = this->_null;
-			const_iterator first = other.begin();
-			const_iterator last = other.end();
-			for (; first != last; ++first) {
-				this->insert(*first);
+
+			const_iterator o_it = other.begin();
+			const_iterator o_ite = other.end();
+
+			for (; o_it != o_ite; ++o_it) {
+				value_type tmp(*o_it);
+				this->insert(tmp);
 			}
+			// const_iterator first = other.begin(); // NOTE: testing purpose: maybe this method is faster performance wise.
+			// const_iterator last = other.end();
+			// for (; first != last; ++first) {
+			// 	this->insert(*first);
+			// }
 		}
 
 		~AVLTree() {
@@ -413,17 +421,8 @@ class AVLTree {
 	public:
 		iterator begin() { return ( this->empty() ? this->end() : iterator(min_node(this->_root)) ); }
 		const_iterator begin() const { return ( this->empty() ? this->end() : iterator(min_node(this->_root)) ); }
-		// iterator end() { if (this->empty()) return (iterator(this->_null)); return ( iterator(max_node(this->_root)->right) ); } // TODO: find better solution for protection
-		iterator end() {
-			// if (this->empty())
-				return (iterator(this->_null));
-			// node_pointer lol = max_node(this->_root);
-			// if (lol->right->parent == this->_null->parent)
-			// 	std::cout << "BE SENTIMENTAL GOODDAMNIT!!!!" << std::endl;
-			// std::cout << "|" << lol->data << "|" << std::endl;
-			// return ( iterator(max_node(this->_root)->right) );
-		}
-		const_iterator end() const { if (this->empty()) return (iterator(this->_null)); return ( iterator(max_node(this->_root)->right) ); }
+		iterator end() { return (iterator(this->_null)); }
+		const_iterator end() const { return (iterator(this->_null)); }
 
 		reverse_iterator rbegin() { return (reverse_iterator(end())); }
 		const_reverse_iterator rbegin() const { return (const_reverse_iterator(end())); }
@@ -443,6 +442,20 @@ class AVLTree {
 					break;
 			}
 			return (iterator(curr));
+		}
+
+		template < typename Key >
+		node_pointer searchKey(Key key) {
+			node_pointer curr = this->_root;
+				while (curr != this->_null) {
+				if (this->_comp(key, curr->data))
+					curr = curr->left;
+				else if (this->_comp(curr->data, key))
+					curr = curr->right;
+				else
+					break;
+			}
+			return (curr);
 		}
 };
 

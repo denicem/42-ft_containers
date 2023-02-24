@@ -172,10 +172,10 @@ class map {
 			return (res.first);
 		}
 		// range
-		template < class InputIterator > // TODO: test if it works
+		template < class InputIterator >
 		void insert(InputIterator first, InputIterator last) {
 			for (; first != last; ++first)
-				this->insert(*first);
+				this->_tree.insert(*first);
 		}
 		/* -------------------------------------------------------------------------- */
 

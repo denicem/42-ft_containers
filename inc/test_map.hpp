@@ -32,7 +32,7 @@ void test_map_playground() {
 	m.insert(p6);
 	m.insert(p8);
 	std::cout << "Map size: " << m.size() << std::endl;
-	// m.printMap();
+	m.printMap();
 	// ft::map<int, std::string>::const_iterator it = m.begin();
 	// ft::map<int, std::string>::const_iterator ite = m.end();
 	// for (; it != ite; ++it) {
@@ -77,10 +77,16 @@ void test_map_playground() {
 	// std::cout << "Map range size: " << m_range.size() << std::endl;
 	// m_range.printMap();
 
-	ft::map<int, std::string> m_assign = m;
-	std::cout << "Map assign size: " << m_assign.size() << std::endl;
-	m_assign.printMap();
+	// ft::map<int, std::string> m_assign = m;
+	// std::cout << "Map assign size: " << m_assign.size() << std::endl;
+	// m_assign.printMap();
 
+	// ft::map<int, std::string>::const_iterator first = m.begin();
+	// ft::map<int, std::string>::const_iterator last = m.end();
+	// ft::map<int, std::string> m_insert_range;
+	// m_insert_range.insert(first, last);
+	// std::cout << "Map insert_range size: " << m_insert_range.size() << std::endl;
+	// m_insert_range.printMap();
 	
 }
 
