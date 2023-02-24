@@ -100,7 +100,11 @@ class map {
 		~map() {}
 
 		/* --------------------------- ASSIGNMENT OPERATOR -------------------------- */
-		// map& operator=(const map& x) {}
+		map& operator=(const map& x) {
+			if (this != &x)
+				this->_tree = x._tree;
+			return (*this);
+		}
 
 
 		/* -------------------------------------------------------------------------- */

@@ -76,6 +76,28 @@ class AVLTree {
 			this->_node_alloc.deallocate(this->_null, 1);
 		}
 
+		AVLTree& operator=(const AVLTree& other) {
+			if (this != &other) {
+				this->clear();
+
+				this->_comp = other._comp;
+				this->_alloc = other._alloc;
+				this->_node_alloc = other._node_alloc;
+				
+				this->initSentinel();
+				this->_root = this->_null;
+
+				const_iterator o_it = other.begin();
+				const_iterator o_ite = other.end();
+
+				for (; o_it != o_ite; ++o_it) {
+					value_type tmp(*o_it);
+					this->insert(tmp);
+				}
+			}
+			return (*this);
+		}
+
 		void initSentinel() {
 			this->_null = this->_node_alloc.allocate(1);
 			this->_alloc.construct(&(this->_null->data), value_type());

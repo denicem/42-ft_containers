@@ -49,16 +49,21 @@ void test_map_playground() {
 	// std::cout << "Map copy size: " << m_cpy.size() << std::endl;
 	// m_cpy.printMap();
 
-	ft::map<int, std::string>::const_iterator first = m.begin();
-	ft::map<int, std::string>::const_iterator last = m.end();
-	++first;
-	++first;
-	--last;
-	--last;
-	--last;
-	ft::map<int, std::string> m_range(first, last);
-	std::cout << "Map range size: " << m_range.size() << std::endl;
-	m_range.printMap();
+	// ft::map<int, std::string>::const_iterator first = m.begin();
+	// ft::map<int, std::string>::const_iterator last = m.end();
+	// ++first;
+	// ++first;
+	// --last;
+	// --last;
+	// --last;
+	// ft::map<int, std::string> m_range(first, last);
+	// std::cout << "Map range size: " << m_range.size() << std::endl;
+	// m_range.printMap();
+
+	ft::map<int, std::string> m_assign = m;
+	std::cout << "Map assign size: " << m_assign.size() << std::endl;
+	m_assign.printMap();
+
 	
 }
 
