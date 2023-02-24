@@ -46,6 +46,7 @@ class AVLTree {
 		key_compare _comp;
 		allocator_type _alloc;
 		node_allocator_type _node_alloc;
+		node_pointer _null;
 		node_pointer _root;
 		size_type _size;
 	
@@ -53,9 +54,21 @@ class AVLTree {
 		AVLTree(const key_compare& comp = key_compare(),
 				const allocator_type& alloc = allocator_type(),
 				const node_allocator_type& node_alloc = node_allocator_type())
-		: _comp(comp), _alloc(alloc), _node_alloc(node_alloc), _root(), _size(0) {}
+		: _comp(comp), _alloc(alloc), _node_alloc(node_alloc), _size(0)
+		{
+			this->initSentinel();
+			this->_root = NULL;
+		}
 
 		AVLTree(const AVLTree& other): _root(other._root) {} // NOTE: not sure about this yet!
+
+		void initSentinel() {
+			this->_null = this->_node_alloc.allocate(1);
+			this->_alloc.construct(&(this->_null->data), value_type());
+			this->_null->parent = this->_null;
+			this->_null->left = this->_null;
+			this->_null->right = this->_null;
+		}
 
 		node_pointer getRoot() const { return (this->_root); }
 
