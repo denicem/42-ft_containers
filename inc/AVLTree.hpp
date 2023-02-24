@@ -472,6 +472,8 @@ class AVLTree {
 			ft::swap(this->_root, other._root);
 			ft::swap(this->_size, other._size);
 		}
+
+		allocator_type get_allocator() const { return (this->_alloc); }
 };
 
 } // END NAMESPACE FT

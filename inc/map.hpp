@@ -232,7 +232,7 @@ class map {
 		/*                                  ALLOCATOR                                 */
 		/* -------------------------------------------------------------------------- */
 
-		// allocator_type get_allocator() const {}
+		allocator_type get_allocator() const { return(this->_tree.get_allocator()); }
 
 		/* -------------------------- END MEMBER FUNCTIONS -------------------------- */
 
