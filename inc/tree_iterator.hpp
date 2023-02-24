@@ -13,7 +13,7 @@ class TreeIterator {
 		typedef bidirectional_iterator_tag	iterator_category;
 		typedef T				value_type;
 		typedef value_type*		pointer;
-		typedef const pointer	const_pointer;
+		typedef const value_type*	const_pointer;
 		typedef value_type&		reference;
 		typedef const value_type&	const_reference;
 		typedef std::ptrdiff_t	difference_type;
