@@ -57,10 +57,16 @@ class AVLTree {
 		: _comp(comp), _alloc(alloc), _node_alloc(node_alloc), _size(0)
 		{
 			this->initSentinel();
-			this->_root = NULL;
+			this->_root = this->_null;
 		}
 
 		AVLTree(const AVLTree& other): _root(other._root) {} // NOTE: not sure about this yet!
+
+		~AVLTree() {
+			this->clear();
+			this->_alloc.destroy(&(this->_null->data));
+			this->_node_alloc.deallocate(this->_null, 1);
+		}
 
 		void initSentinel() {
 			this->_null = this->_node_alloc.allocate(1);
@@ -68,6 +74,7 @@ class AVLTree {
 			this->_null->parent = this->_null;
 			this->_null->left = this->_null;
 			this->_null->right = this->_null;
+			this->_null->_null = this->_null;
 		}
 
 		node_pointer getRoot() const { return (this->_root); }
@@ -79,7 +86,8 @@ class AVLTree {
 		}
 
 		int getHeight(node_pointer curr) const {
-			if (curr == NULL)
+			// if (curr == NULL)
+			if (curr == this->_null)
 				return (0);
 			return ( 1 + std::max( getHeight(curr->right), getHeight(curr->left) ) );
 		}
@@ -87,11 +95,13 @@ class AVLTree {
 		void leftRotate(node_pointer x) {
 			node_pointer y = x->right;
 			x->right = y->left;
-			if (y->left != NULL) {
+			// if (y->left != NULL) {
+			if (y->left != this->_null) {
 				y->left->parent = x;
 			}
 			y->parent = x->parent;
-			if (x->parent == NULL) {
+			// if (x->parent == NULL) {
+			if (x->parent == this->_null) {
 				this->_root = y;
 			} else if (x == x->parent->left) {
 				x->parent->left = y;
@@ -105,11 +115,13 @@ class AVLTree {
 		void rightRotate(node_pointer x) {
 			node_pointer y = x->left;
 			x->left = y->right;
-			if (y->right != NULL) {
+			// if (y->right != NULL) {
+			if (y->right != this->_null) {
 				y->right->parent = x;
 			}
 			y->parent = x->parent;
-			if (x->parent == NULL) {
+			// if (x->parent == NULL) {
+			if (x->parent == this->_null) {
 				this->_root = y;
 			} else if (x == x->parent->right) {
 				x->parent->right = y;
@@ -148,22 +160,29 @@ class AVLTree {
 				// std::cout << "Rebalancing needed." << std::endl;
 				this->rebalance(curr);
 			}
-			if (curr->parent != NULL)
+			// if (curr->parent != NULL)
+			if (curr->parent != this->_null)
 				updateBalance(curr->parent);
 		}
 
 		ft::pair<iterator, bool> insert(const value_type& key) {
 			// PART 1: Ordinary BST insert
 			node_pointer curr = this->search(key);
-			if (curr)
+			if (curr && curr != this->_null)
 				return (ft::pair<iterator, bool>(iterator(curr), false));
 			curr = this->_node_alloc.allocate(1);
 			this->_alloc.construct(&(curr->data), value_type(key));
+			curr->parent = this->_null;
+			curr->left = this->_null;
+			curr->right = this->_null;
+			curr->_null = this->_null;
 
-			node_pointer y = NULL;
+			// node_pointer y = NULL;
+			node_pointer y = this->_null;
 			node_pointer x = this->_root;
 
-			while (x != NULL) {
+			// while (x != NULL) {
+			while (x != this->_null) {
 				y = x;
 				if (this->_comp(curr->data, x->data))
 					x = x->left;
@@ -173,8 +192,11 @@ class AVLTree {
 
 			// y is parent of x
 			curr->parent = y;
-			if (y == NULL)
+			// if (y == NULL)
+			if (y == this->_null) {
 				this->_root = curr;
+				// this->_root->parent = this->_null;
+			}
 			else if (this->_comp(curr->data, y->data))
 				y->left = curr;
 			else
@@ -183,11 +205,12 @@ class AVLTree {
 			// PART 2: re-balance the node if necessary
 			++this->_size;
 			this->updateBalance(curr);
+			this->_null->parent = max_node(this->_root);
 			return (ft::pair<iterator, bool>(iterator(curr), true));
 		}
 
 		node_pointer searchHelper(node_pointer curr, value_type& key) const {
-			while (curr) {
+			while (curr && curr != this->_null) {
 				if (this->_comp(key, curr->data))
 					curr = curr->left;
 				else if (this->_comp(curr->data, key))
@@ -204,9 +227,11 @@ class AVLTree {
 
 		void removeChild(node_pointer& parent, node_pointer& child) {
 			if (parent->left == child)
-				parent->left = NULL;
+				// parent->left = NULL;
+				parent->left = this->_null;
 			else if (parent->right == child)
-				parent->right = NULL;
+				// parent->right = NULL;
+				parent->right = this->_null;
 		}
 
 		void destroyNode(node_pointer curr) {
@@ -223,32 +248,39 @@ class AVLTree {
 
 		node_pointer deleteNodeHelper(node_pointer curr, value_type key) {
 			curr = searchHelper(curr, key);
-			if (!curr) return (NULL);
+			// if (!curr) return (NULL);
+			if (curr == this->_null) return (curr);
 
 			node_pointer prev = curr->parent;
 
 			// case 1: leaf node
-			if (!curr->left && !curr->right) {
+			// if (!curr->left && !curr->right) {
+			if (curr->left == this->_null && curr->right == this->_null) {
 				std::cout << "case 1" << std::endl;
-				if (prev)
+				if (prev != this->_null)
 					removeChild(prev, curr);
 				else 
-					this->_root = NULL;
+					// this->_root = NULL;
+					this->_root = this->_null;
 			}
 			
 			// case 2: node has one child
-			else if (!curr->right) {
+			// else if (!curr->right) {
+			else if (curr->right == this->_null) {
 				std::cout << "case 2: left child" << std::endl;
 				node_pointer tmp = curr->left;
 				copyData(curr, tmp);
-				curr->left = NULL;
+				// curr->left = NULL;
+				curr->left = this->_null;
 				curr = tmp;
 			}
-			else if (!curr->left) {
+			// else if (!curr->left) {
+			else if (curr->left == this->_null) {
 				std::cout << "case 2: right child" << std::endl;
 				node_pointer tmp = curr->right;
 				copyData(curr, tmp);
-				curr->right = NULL;
+				// curr->right = NULL;
+				curr->right = this->_null;
 				curr = tmp;
 			}
 
@@ -265,10 +297,13 @@ class AVLTree {
 
 		void deleteNode (value_type key) {
 			node_pointer deletedNode = deleteNodeHelper(this->_root, key);
-			if (deletedNode) {
-				if (deletedNode->parent)
+			// if (deletedNode) {
+			if (deletedNode != this->_null) {
+				// if (deletedNode->parent)
+				if (deletedNode->parent != this->_null)
 					updateBalance(deletedNode->parent);
-				else if (this->_root)
+				// else if (this->_root)
+				else if (this->_root != this->_null)
 					updateBalance(this->_root);
 				this->destroyNode(deletedNode);
 				--this->_size;
@@ -278,7 +313,8 @@ class AVLTree {
 		}
 
 		void clearHelper(node_pointer curr) {
-			if (!curr)
+			// if (!curr)
+			if (curr != this->_null)
 				return ;
 			clearHelper(curr->right);
 			clearHelper(curr->left);
@@ -287,7 +323,8 @@ class AVLTree {
 
 		void clear() {
 			clearHelper(this->_root);
-			this->_root = NULL;
+			// this->_root = NULL;
+			this->_root = this->_null;
 		}
 
 	private:
@@ -304,7 +341,8 @@ class AVLTree {
 
 		void print2D(node_pointer curr, int space, std::string dir, int color = 0) const {
 			// Base case
-			if (curr == NULL)
+			// if (curr == NULL)
+			if (curr == this->_null)
 				return ;
 
 			// Increase distance between levels
@@ -355,7 +393,8 @@ class AVLTree {
 		template < typename Key >
 		iterator find(Key key) {
 			node_pointer curr = this->_root;
-				while (curr) {
+				// while (curr) {
+				while (curr != this->_null) {
 				if (this->_comp(key, curr->data))
 					curr = curr->left;
 				else if (this->_comp(curr->data, key))

@@ -24,11 +24,16 @@ void test_map_playground() {
 	m.insert(p2);
 	m.insert(p4);
 	std::cout << "Map size: " << m.size() << std::endl;
-	// m.printMap();
+	m.printMap();
 	ft::map<int, std::string>::const_iterator it = m.begin();
 	ft::map<int, std::string>::const_iterator ite = m.end();
 	for (; it != ite; ++it) {
 		std::cout << *it << std::endl;
+	}
+	ft::map<int, std::string>::reverse_iterator rit = m.rbegin();
+	ft::map<int, std::string>::reverse_iterator rite = m.rend();
+	for (; rit != rite; ++rit) {
+		std::cout << *rit << std::endl;
 	}
 
 

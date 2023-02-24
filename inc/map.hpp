@@ -90,7 +90,7 @@ class map {
 		// map (const map& x) {}
 
 		/* ------------------------------- DESTRUCTOR ------------------------------- */
-		~map() { this->_tree.clear(); }
+		~map() {}
 
 		/* --------------------------- ASSIGNMENT OPERATOR -------------------------- */
 		// map& operator=(const map& x) {}
