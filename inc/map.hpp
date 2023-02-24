@@ -86,8 +86,9 @@ class map {
 		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _tree(tree_type()) { (void) comp; (void) alloc; }
 		// range constructor
 		// template <class InputIterator>  map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) {}
+		
 		// copy constructor
-		// map (const map& x) {}
+		map (const map& x): _tree(x._tree) {}
 
 		/* ------------------------------- DESTRUCTOR ------------------------------- */
 		~map() {}

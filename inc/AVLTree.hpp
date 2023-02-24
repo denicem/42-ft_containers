@@ -60,7 +60,15 @@ class AVLTree {
 			this->_root = this->_null;
 		}
 
-		AVLTree(const AVLTree& other): _root(other._root) {} // NOTE: not sure about this yet!
+		AVLTree(const AVLTree& other): _comp(other._comp), _alloc(other._alloc), _node_alloc(other._node_alloc), _size(0) {
+			initSentinel();
+			_root = this->_null;
+			const_iterator first = other.begin();
+			const_iterator last = other.end();
+			for (; first != last; ++first) {
+				this->insert(*first);
+			}
+		}
 
 		~AVLTree() {
 			this->clear();
@@ -382,9 +390,18 @@ class AVLTree {
 
 	public:
 		iterator begin() { return ( this->empty() ? this->end() : iterator(min_node(this->_root)) ); }
-		const_iterator begin() const { return ( this->empty() ? this->end() : const_iterator(min_node(this->_root)) ); }
-		iterator end() { if (this->empty()) return (this->_null); return ( iterator(max_node(this->_root)->right) ); } // TODO: find better solution for protection
-		const_iterator end() const { if (this->empty()) return (this->_null); return ( const_iterator(max_node(this->_root)->right) ); }
+		const_iterator begin() const { return ( this->empty() ? this->end() : iterator(min_node(this->_root)) ); }
+		// iterator end() { if (this->empty()) return (iterator(this->_null)); return ( iterator(max_node(this->_root)->right) ); } // TODO: find better solution for protection
+		iterator end() {
+			// if (this->empty())
+				return (iterator(this->_null));
+			// node_pointer lol = max_node(this->_root);
+			// if (lol->right->parent == this->_null->parent)
+			// 	std::cout << "BE SENTIMENTAL GOODDAMNIT!!!!" << std::endl;
+			// std::cout << "|" << lol->data << "|" << std::endl;
+			// return ( iterator(max_node(this->_root)->right) );
+		}
+		const_iterator end() const { if (this->empty()) return (iterator(this->_null)); return ( iterator(max_node(this->_root)->right) ); }
 
 		reverse_iterator rbegin() { return (reverse_iterator(end())); }
 		const_reverse_iterator rbegin() const { return (const_reverse_iterator(end())); }
