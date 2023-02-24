@@ -58,6 +58,9 @@ NodePointer predecessor(NodePointer x) {
 	// the predecessor is the rightmost node in the 
 	// left subtree
 	// if (x->left != NULL) {
+	if (x == x->_null)
+		return (x->parent);
+
 	if (x->left != x->_null) {
 		return (max_node(x->left));
 	}
@@ -79,6 +82,8 @@ NodePointer successor(NodePointer x) {
 	// the successor is the leftmost node in the
 	// right subtree
 	// if (x->right != NULL) {
+	if (x == x->_null)
+		return (x->parent);
 	if (x->right != x->_null) {
 		return (min_node(x->right));
 	}
