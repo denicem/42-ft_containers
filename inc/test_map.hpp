@@ -44,6 +44,23 @@ void test_map_playground() {
 	// 	std::cout << *rit << std::endl;
 	// }
 
+	// testing erase
+	// m.erase(m.begin());
+	// m.erase(m.find(7));
+	// m.erase(1);
+	// m.erase(-2);
+	// ft::map<int, std::string>::iterator e_it = m.begin();
+	// ft::map<int, std::string>::iterator e_ite = m.end();
+	// ++e_it;
+	// ++e_it;
+	// ++e_it;
+	// --e_ite;
+	// --e_ite;
+	// m.erase(e_it, e_ite);
+	// std::cout << "\n\n----\n\n";
+	// std::cout << "Map size: " << m.size() << std::endl;
+	// m.printMap();
+
 
 	// ft::map<int, std::string> m_cpy(m);
 	// std::cout << "Map copy size: " << m_cpy.size() << std::endl;

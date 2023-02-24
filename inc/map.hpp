@@ -185,8 +185,21 @@ class map {
 				return ;
 			this->_tree.deleteNode(*position);
 		}
-		// size_type erase(const key_type& k) {}
-		// void erase(iterator first, iterator last) {}
+		size_type erase(const key_type& k) {
+			node_pointer curr = this->_tree.searchKey(k);
+			if (curr == curr->_null)
+				return (0);
+			this->_tree.deleteNode(curr->data);
+			return (1);
+		}
+		void erase(iterator first, iterator last) {
+			while (first != last) {
+				iterator next = first;
+				++next;
+				this->_tree.deleteNode(*first);
+				first = next;
+			}
+		}
 		/* -------------------------------------------------------------------------- */
 
 		// void swap(map& x) {}
