@@ -216,10 +216,9 @@ class map {
 		/*                                   LOOKUP                                   */
 		/* -------------------------------------------------------------------------- */
 
-		iterator find(const key_type& k) { return (this->_tree.find(k)); }
-		// const_iterator find(const key_type& k) const {}
-
-		size_type count(const key_type& k) const { return (this->_tree.find(k) != NULL ? 1 : 0); }
+		iterator find(const key_type& k) { return (iterator(this->_tree.searchKey(k))); }
+		const_iterator find(const key_type& k) const { return (const_iterator(this->_tree.searchKey(k))); }
+		size_type count(const key_type& k) const { return (this->_tree.find(k) != end() ? 1 : 0); }
 
 		// iterator lower_bound(const key_type& k) {}
 		// const_iterator lower_bound(const key_type& k) const {}

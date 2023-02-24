@@ -62,18 +62,19 @@ void test_map_playground() {
 	// m.printMap();
 
 	// testing clear()
-	m.clear();
-	std::cout << "\n\n----\n";
-	std::cout << "Map size: " << m.size() << std::endl;
-	m.printMap();
-	std::cout << "----\n\n";
+	// m.clear();
+	// std::cout << "\n\n----\n";
+	// std::cout << "Map size: " << m.size() << std::endl;
+	// m.printMap();
+	// std::cout << "----\n\n";
 
 
-
+	// testing copy constructor
 	// ft::map<int, std::string> m_cpy(m);
 	// std::cout << "Map copy size: " << m_cpy.size() << std::endl;
 	// m_cpy.printMap();
 
+	// testing range constructor
 	// ft::map<int, std::string>::const_iterator first = m.begin();
 	// ft::map<int, std::string>::const_iterator last = m.end();
 	// ++first;
@@ -85,17 +86,31 @@ void test_map_playground() {
 	// std::cout << "Map range size: " << m_range.size() << std::endl;
 	// m_range.printMap();
 
+	// testing assigment operator
 	// ft::map<int, std::string> m_assign = m;
 	// std::cout << "Map assign size: " << m_assign.size() << std::endl;
 	// m_assign.printMap();
 
+	// testing range insert
 	// ft::map<int, std::string>::const_iterator first = m.begin();
 	// ft::map<int, std::string>::const_iterator last = m.end();
 	// ft::map<int, std::string> m_insert_range;
 	// m_insert_range.insert(first, last);
 	// std::cout << "Map insert_range size: " << m_insert_range.size() << std::endl;
 	// m_insert_range.printMap();
+
+	// testing find, count
+	// ft::map<int, std::string>::iterator find_it = m.find(9);
+	// // ft::map<int, std::string>::iterator find_it = m.find(8);
+	// if (find_it == m.end())
+	// 	std::cout << "NOT FOUND" << std::endl;
+	// else
+	// 	std::cout << *find_it << std::endl;
+	// std::cout << "Count: " << m.count(9) << std::endl;
+	// std::cout << "Count: " << m.count(8) << std::endl;
 	
+
+	// m.printMap();
 }
 
 void test_pair_playground() {

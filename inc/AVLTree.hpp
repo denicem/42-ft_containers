@@ -435,7 +435,7 @@ class AVLTree {
 		const_reverse_iterator rend() const { return (const_reverse_iterator(begin())); }
 
 		template < typename Key >
-		iterator find(Key key) {
+		iterator find(Key key) const {
 			node_pointer curr = this->_root;
 				// while (curr) {
 				while (curr != this->_null) {
@@ -450,7 +450,7 @@ class AVLTree {
 		}
 
 		template < typename Key >
-		node_pointer searchKey(Key key) {
+		node_pointer searchKey(Key key) const {
 			node_pointer curr = this->_root;
 				while (curr != this->_null) {
 				if (this->_comp(key, curr->data))
