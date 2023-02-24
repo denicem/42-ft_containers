@@ -3,6 +3,13 @@
 
 namespace ft {
 
+template < class T >
+void swap(T& a, T& b) {
+	T tmp = a;
+	a = b;
+	b = tmp;
+}
+
 /* true if all the elements in the range [first1,last1) compare equal to those of the range starting at first2, and false otherwise.*/
 template <class InputIterator1, class InputIterator2>
 bool equal (InputIterator1 first1, InputIterator1 last1, InputIterator2 first2 ) {

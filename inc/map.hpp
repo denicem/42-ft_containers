@@ -202,7 +202,7 @@ class map {
 		}
 		/* -------------------------------------------------------------------------- */
 
-		// void swap(map& x) {}
+		void swap(map& x) { this->_tree.swap(x._tree); }
 		void clear() { this->_tree.clear(); }
 
 		/* -------------------------------------------------------------------------- */
@@ -252,6 +252,11 @@ class map {
 		void printMap() const { this->_tree.printTree(); }
 
 }; // END CLASS MAP
+
+template <class Key, class T, class Compare, class Allocator>
+void	swap(map<Key, T, Compare, Allocator>& lhs, map<Key, T, Compare, Allocator>& rhs) {
+	lhs.swap(rhs);
+}
 
 } // END NAMESPACE FT
 

@@ -5,6 +5,7 @@
 #include "Node.hpp"
 #include "tree_iterator.hpp"
 #include "reverse_iterator.hpp"
+#include "algorithm.hpp"
 
 #define COUNT 10
 
@@ -461,6 +462,15 @@ class AVLTree {
 					break;
 			}
 			return (curr);
+		}
+
+		void swap(AVLTree& other) {
+			ft::swap(this->_comp, other._comp);
+			ft::swap(this->_alloc, other._alloc);
+			ft::swap(this->_node_alloc, other._node_alloc);
+			ft::swap(this->_null, other._null);
+			ft::swap(this->_root, other._root);
+			ft::swap(this->_size, other._size);
 		}
 };
 

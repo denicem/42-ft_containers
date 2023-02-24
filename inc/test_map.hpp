@@ -11,28 +11,28 @@
 
 void test_map_playground() {
 
-	ft::map<int, std::string> m;
+	// ft::map<int, std::string> m;
 
-	ft::pair<int, std::string> p1(4, "HN");
-	ft::pair<int, std::string> p2(2, "NH");
-	ft::pair<int, std::string> p3(7, "DNC");
-	ft::pair<int, std::string> p4(9, "Romyyy");
-	ft::pair<int, std::string> p5(13, "Chrisss");
-	ft::pair<int, std::string> p6(15, "Neff");
-	ft::pair<int, std::string> p7(5, "Fabibi");
-	ft::pair<int, std::string> p8(20, "Flooo");
-	ft::pair<int, std::string> p9(-2, "Mooo");
-	m.insert(p1);
-	m.insert(p5);
-	m.insert(p3);
-	m.insert(p2);
-	m.insert(p4);
-	m.insert(p9);
-	m.insert(p7);
-	m.insert(p6);
-	m.insert(p8);
-	std::cout << "Map size: " << m.size() << std::endl;
-	m.printMap();
+	// ft::pair<int, std::string> p1(4, "HN");
+	// ft::pair<int, std::string> p2(2, "NH");
+	// ft::pair<int, std::string> p3(7, "DNC");
+	// ft::pair<int, std::string> p4(9, "Romyyy");
+	// ft::pair<int, std::string> p5(13, "Chrisss");
+	// ft::pair<int, std::string> p6(15, "Neff");
+	// ft::pair<int, std::string> p7(5, "Fabibi");
+	// ft::pair<int, std::string> p8(20, "Flooo");
+	// ft::pair<int, std::string> p9(-2, "Mooo");
+	// m.insert(p1);
+	// m.insert(p5);
+	// m.insert(p3);
+	// m.insert(p2);
+	// m.insert(p4);
+	// m.insert(p9);
+	// m.insert(p7);
+	// m.insert(p6);
+	// m.insert(p8);
+	// std::cout << "Map size: " << m.size() << std::endl;
+	// m.printMap();
 	// ft::map<int, std::string>::const_iterator it = m.begin();
 	// ft::map<int, std::string>::const_iterator ite = m.end();
 	// for (; it != ite; ++it) {
@@ -109,6 +109,41 @@ void test_map_playground() {
 	// std::cout << "Count: " << m.count(9) << std::endl;
 	// std::cout << "Count: " << m.count(8) << std::endl;
 	
+	// testing swap
+	ft::map<int, std::string> m1;
+	ft::map<int, std::string> m2;
+
+	ft::pair<int, std::string> p1(4, "HN");
+	ft::pair<int, std::string> p2(2, "NH");
+	ft::pair<int, std::string> p3(7, "DNC");
+	ft::pair<int, std::string> p4(9, "Romyyy");
+	ft::pair<int, std::string> p5(13, "Chrisss");
+	ft::pair<int, std::string> p6(15, "Neff");
+	ft::pair<int, std::string> p7(5, "Fabibi");
+	ft::pair<int, std::string> p8(20, "Flooo");
+	ft::pair<int, std::string> p9(-2, "Mooo");
+	m1.insert(p1);
+	m2.insert(p5);
+	m1.insert(p3);
+	m2.insert(p2);
+	m1.insert(p4);
+	m2.insert(p9);
+	m1.insert(p7);
+	m2.insert(p6);
+	m1.insert(p8);
+	std::cout << "Map1 size: " << m1.size() << std::endl;
+	m1.printMap();
+	std::cout << "Map2 size: " << m2.size() << std::endl;
+	m2.printMap();
+
+	std::cout << "swapping ... " << std::endl;
+	swap(m1, m2);
+
+	std::cout << "Map1 size: " << m1.size() << std::endl;
+	m1.printMap();
+	std::cout << "Map2 size: " << m2.size() << std::endl;
+	m2.printMap();
+
 
 	// m.printMap();
 }
