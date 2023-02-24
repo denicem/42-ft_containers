@@ -61,6 +61,14 @@ void test_map_playground() {
 	// std::cout << "Map size: " << m.size() << std::endl;
 	// m.printMap();
 
+	// testing clear()
+	m.clear();
+	std::cout << "\n\n----\n";
+	std::cout << "Map size: " << m.size() << std::endl;
+	m.printMap();
+	std::cout << "----\n\n";
+
+
 
 	// ft::map<int, std::string> m_cpy(m);
 	// std::cout << "Map copy size: " << m_cpy.size() << std::endl;

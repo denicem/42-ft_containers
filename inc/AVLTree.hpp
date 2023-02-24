@@ -403,6 +403,10 @@ class AVLTree {
 
 	public:
 		void printTree() const {
+			if (this->empty()) {
+				std::cout << BOLD << "EMPTY!!!!@#$" << RESET << std::endl;
+				return ;
+			}
 			this->print2D(this->_root, 0, "");
 		}
 
