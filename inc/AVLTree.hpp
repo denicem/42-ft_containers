@@ -314,7 +314,7 @@ class AVLTree {
 
 		void clearHelper(node_pointer curr) {
 			// if (!curr)
-			if (curr != this->_null)
+			if (curr == this->_null)
 				return ;
 			clearHelper(curr->right);
 			clearHelper(curr->left);
@@ -325,6 +325,7 @@ class AVLTree {
 			clearHelper(this->_root);
 			// this->_root = NULL;
 			this->_root = this->_null;
+			this->_size = 0;
 		}
 
 	private:
@@ -382,8 +383,8 @@ class AVLTree {
 	public:
 		iterator begin() { return ( this->empty() ? this->end() : iterator(min_node(this->_root)) ); }
 		const_iterator begin() const { return ( this->empty() ? this->end() : const_iterator(min_node(this->_root)) ); }
-		iterator end() { if (this->empty()) return (NULL); return ( iterator(max_node(this->_root)->right) ); } // TODO: find better solution for protection
-		const_iterator end() const { if (this->empty()) return (NULL); return ( const_iterator(max_node(this->_root)->right) ); }
+		iterator end() { if (this->empty()) return (this->_null); return ( iterator(max_node(this->_root)->right) ); } // TODO: find better solution for protection
+		const_iterator end() const { if (this->empty()) return (this->_null); return ( const_iterator(max_node(this->_root)->right) ); }
 
 		reverse_iterator rbegin() { return (reverse_iterator(end())); }
 		const_reverse_iterator rbegin() const { return (const_reverse_iterator(end())); }

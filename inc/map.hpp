@@ -136,12 +136,12 @@ class map {
 			return (success->second);
 		}
 
-		// const mapped_type& at(const key_type& k) const{
-		// 	iterator success = this->_tree.find(k);
-		// 	if (success == this->end())
-		// 		throw std::out_of_range("ft::out_of_range");
-		// 	return (success->second);
-		// }
+		const mapped_type& at(const key_type& k) const{
+			iterator success = this->_tree.find(k);
+			if (success == this->end())
+				throw std::out_of_range("ft::out_of_range");
+			return (success->second);
+		}
 
 		/* -------------------------------------------------------------------------- */
 		/*                                  MODIFIERS                                 */
