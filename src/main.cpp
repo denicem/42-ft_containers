@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/24 18:01:47 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/24 22:44:56 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int main() {
 	// test_interactive();
 	// test_pair_playground();
 	test_map_playground();
-	system("leaks ft_containers");
+	// system("leaks ft_containers");
 
 	return (0);
 }

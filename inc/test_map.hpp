@@ -18,34 +18,47 @@ void test_map_playground() {
 	ft::pair<int, std::string> p3(7, "DNC");
 	ft::pair<int, std::string> p4(9, "Romyyy");
 	ft::pair<int, std::string> p5(13, "Chrisss");
+	ft::pair<int, std::string> p6(15, "Neff");
+	ft::pair<int, std::string> p7(5, "Fabibi");
+	ft::pair<int, std::string> p8(20, "Flooo");
+	ft::pair<int, std::string> p9(-2, "Mooo");
 	m.insert(p1);
 	m.insert(p5);
 	m.insert(p3);
 	m.insert(p2);
 	m.insert(p4);
+	m.insert(p9);
+	m.insert(p7);
+	m.insert(p6);
+	m.insert(p8);
 	std::cout << "Map size: " << m.size() << std::endl;
-	m.printMap();
-	ft::map<int, std::string>::const_iterator it = m.begin();
-	ft::map<int, std::string>::const_iterator ite = m.end();
-	for (; it != ite; ++it) {
-		std::cout << *it << std::endl;
-	}
-	ft::map<int, std::string>::reverse_iterator rit = m.rbegin();
-	ft::map<int, std::string>::reverse_iterator rite = m.rend();
-	for (; rit != rite; ++rit) {
-		std::cout << *rit << std::endl;
-	}
+	// m.printMap();
+	// ft::map<int, std::string>::const_iterator it = m.begin();
+	// ft::map<int, std::string>::const_iterator ite = m.end();
+	// for (; it != ite; ++it) {
+	// 	std::cout << *it << std::endl;
+	// }
+	// ft::map<int, std::string>::reverse_iterator rit = m.rbegin();
+	// ft::map<int, std::string>::reverse_iterator rite = m.rend();
+	// for (; rit != rite; ++rit) {
+	// 	std::cout << *rit << std::endl;
+	// }
 
 
 	// ft::map<int, std::string> m_cpy(m);
-	// std::cout << "Map copy size: " << m.size() << std::endl;
-	// m.printMap();
+	// std::cout << "Map copy size: " << m_cpy.size() << std::endl;
+	// m_cpy.printMap();
 
-	// ft::map<int, std::string>::const_iterator first = m.begin();
-	// ft::map<int, std::string>::const_iterator last = m.end();
-	// ft::map<int, std::string> m_range(first, last);
-	// std::cout << "Map range size: " << m.size() << std::endl;
-	// m.printMap();
+	ft::map<int, std::string>::const_iterator first = m.begin();
+	ft::map<int, std::string>::const_iterator last = m.end();
+	++first;
+	++first;
+	--last;
+	--last;
+	--last;
+	ft::map<int, std::string> m_range(first, last);
+	std::cout << "Map range size: " << m_range.size() << std::endl;
+	m_range.printMap();
 	
 }
 
