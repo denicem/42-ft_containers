@@ -128,7 +128,7 @@ class map {
 
 		bool empty() const { return (this->_tree.empty()); }
 		size_type size() const { return (this->_tree.size()); }
-		// size_type max_size() const {}
+		size_type max_size() const { return (this->_tree.max_size()); }
 
 		/* -------------------------------------------------------------------------- */
 		/*                               ELEMENT ACCESS                               */
