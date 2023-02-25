@@ -168,18 +168,27 @@ void test_map_playground() {
 
 	ft::map<int, char> intchar;
 
-	for (int i = 0; i < 10000; ++i)
+	for (int i = 0; i < 1000; ++i)
 		intchar[i] = 97 + (i % 26);
 	std::cout << "Map intchar size: " << intchar.size() << std::endl;
 	
 	ft::map<int, char>::iterator ic_it = intchar.begin();
-	ft::map<int, char>::iterator ic_ite = intchar.end();
-
+	ft::map<int, char>::iterator ic_ite = intchar.begin();
+	std::advance(ic_ite, 1);
 	intchar.erase(ic_it, ic_ite);
+	std::cout << "^Map intchar size: " << intchar.size() << std::endl;
+
+	ic_it = intchar.begin();
+	ic_ite = intchar.begin();
+	std::advance(ic_it, 24);
+	std::advance(ic_ite, 30);
+	intchar.erase(ic_it, ic_ite);
+	std::cout << "^Map intchar size: " << intchar.size() << std::endl;
+
 	// for (; ic_it != ic_ite; ++ic_it)
 	// 	std::cout << *ic_it << std::endl;
 
-	std::cout << "^Map intchar size: " << intchar.size() << std::endl;
+	// std::cout << "^Map intchar size: " << intchar.size() << std::endl;
 	// intchar.printMap();
 
 	// m.printMap();
