@@ -11,28 +11,28 @@
 
 void test_map_playground() {
 
-	ft::map<int, std::string> m;
+	// ft::map<int, std::string> m;
 
-	ft::pair<int, std::string> p1(4, "HN");
-	ft::pair<int, std::string> p2(2, "NH");
-	ft::pair<int, std::string> p3(7, "DNC");
-	ft::pair<int, std::string> p4(9, "Romyyy");
-	ft::pair<int, std::string> p5(13, "Chrisss");
-	ft::pair<int, std::string> p6(15, "Neff");
-	ft::pair<int, std::string> p7(5, "Fabibi");
-	ft::pair<int, std::string> p8(20, "Flooo");
-	ft::pair<int, std::string> p9(-2, "Mooo");
-	m.insert(p1);
-	m.insert(p5);
-	m.insert(p3);
-	m.insert(p2);
-	m.insert(p4);
-	m.insert(p9);
-	m.insert(p7);
-	m.insert(p6);
-	m.insert(p8);
-	std::cout << "Map size: " << m.size() << std::endl;
-	m.printMap();
+	// ft::pair<int, std::string> p1(4, "HN");
+	// ft::pair<int, std::string> p2(2, "NH");
+	// ft::pair<int, std::string> p3(7, "DNC");
+	// ft::pair<int, std::string> p4(9, "Romyyy");
+	// ft::pair<int, std::string> p5(13, "Chrisss");
+	// ft::pair<int, std::string> p6(15, "Neff");
+	// ft::pair<int, std::string> p7(5, "Fabibi");
+	// ft::pair<int, std::string> p8(20, "Flooo");
+	// ft::pair<int, std::string> p9(-2, "Mooo");
+	// m.insert(p1);
+	// m.insert(p5);
+	// m.insert(p3);
+	// m.insert(p2);
+	// m.insert(p4);
+	// m.insert(p9);
+	// m.insert(p7);
+	// m.insert(p6);
+	// m.insert(p8);
+	// std::cout << "Map size: " << m.size() << std::endl;
+	// m.printMap();
 	// ft::map<int, std::string>::const_iterator it = m.begin();
 	// ft::map<int, std::string>::const_iterator ite = m.end();
 	// for (; it != ite; ++it) {
@@ -165,6 +165,22 @@ void test_map_playground() {
 	// std::cout << "equal_range: " << *(er.first) << " - " << *(er.second) << std::endl;
 	// (er.first)->second = "JOJI"; // testing const_iterator
 	// (er.second)->second = "JOJI"; // testing const_iterator
+
+	ft::map<int, char> intchar;
+
+	for (int i = 0; i < 10000; ++i)
+		intchar[i] = 97 + (i % 26);
+	std::cout << "Map intchar size: " << intchar.size() << std::endl;
+	
+	ft::map<int, char>::iterator ic_it = intchar.begin();
+	ft::map<int, char>::iterator ic_ite = intchar.end();
+
+	intchar.erase(ic_it, ic_ite);
+	// for (; ic_it != ic_ite; ++ic_it)
+	// 	std::cout << *ic_it << std::endl;
+
+	std::cout << "^Map intchar size: " << intchar.size() << std::endl;
+	// intchar.printMap();
 
 	// m.printMap();
 }

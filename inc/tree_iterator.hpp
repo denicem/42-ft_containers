@@ -51,7 +51,7 @@ class TreeIterator {
 		}
 		TreeIterator operator++(int) {
 			TreeIterator tmp = *this;
-			++this;
+			++(*this);
 			return (tmp);
 		}
 
@@ -62,7 +62,7 @@ class TreeIterator {
 		}
 		TreeIterator operator--(int) {
 			TreeIterator tmp = *this;
-			--this;
+			--(*this);
 			return (tmp);
 		}
 };

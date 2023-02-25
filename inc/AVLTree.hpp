@@ -88,11 +88,14 @@ class AVLTree {
 		AVLTree& operator=(const AVLTree& other) {
 			if (this != &other) {
 				this->clear();
+				this->_alloc.destroy(&(this->_null->data));
+				this->_node_alloc.deallocate(this->_null, 1);
 
 				this->_comp = other._comp;
 				this->_alloc = other._alloc;
 				this->_node_alloc = other._node_alloc;
 				
+
 				this->initSentinel();
 				this->_root = this->_null;
 
@@ -345,6 +348,7 @@ class AVLTree {
 				else if (this->_root != this->_null)
 					updateBalance(this->_root);
 				this->destroyNode(deletedNode);
+				this->_null->parent = max_node(this->_root);
 				--this->_size;
 			}
 			// else

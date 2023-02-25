@@ -33,6 +33,7 @@ class map {
 		typedef typename allocator_type::const_pointer		const_pointer;
 
 		typedef typename allocator_type::size_type size_type;
+		typedef typename allocator_type::size_type difference_type;
 
 	
 		/* -------------------------------------------------------------------------- */
@@ -40,6 +41,7 @@ class map {
 		/* -------------------------------------------------------------------------- */
 
 		class value_compare { // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+			friend class map;
 			friend class ft::AVLTree<value_type, value_compare, allocator_type>;
 
 			protected:
@@ -210,14 +212,14 @@ class map {
 		/* -------------------------------------------------------------------------- */
 
 		key_compare key_comp() const { return (key_compare()); }
-		value_compare value_comp() const { return (value_comp()); }
+		value_compare value_comp() const { return (value_compare()); }
 
 		/* -------------------------------------------------------------------------- */
 		/*                                   LOOKUP                                   */
 		/* -------------------------------------------------------------------------- */
 
 		iterator find(const key_type& k) { return (iterator(this->_tree.searchKey(k))); }
-		const_iterator find(const key_type& k) const { return (const_iterator(this->_tree.searchKey(k))); }
+		const_iterator find(const key_type& k) const { return (iterator(this->_tree.searchKey(k))); }
 		size_type count(const key_type& k) const { return (this->_tree.find(k) != end() ? 1 : 0); }
 
 		// lower_bound
@@ -234,8 +236,8 @@ class map {
 		}
 		const_iterator lower_bound(const key_type& k) const {
 			value_compare comp = this->_tree.getKeyComp();
-			iterator it = this->begin();
-			iterator ite = this->end();
+			const_iterator it = this->begin();
+			const_iterator ite = this->end();
 
 			for (; it != ite; ++it) {
 				if (!comp(*it, k))
@@ -258,8 +260,8 @@ class map {
 		}
 		const_iterator upper_bound(const key_type& k) const {
 			value_compare comp = this->_tree.getKeyComp();
-			iterator it = this->begin();
-			iterator ite = this->end();
+			const_iterator it = this->begin();
+			const_iterator ite = this->end();
 
 			for (; it != ite; ++it) {
 				if (comp(k, *it))
