@@ -295,7 +295,7 @@ class AVLTree {
 			// case 1: leaf node
 			// if (!curr->left && !curr->right) {
 			if (curr->left == this->_null && curr->right == this->_null) {
-				std::cout << "case 1" << std::endl;
+				// std::cout << "case 1" << std::endl;
 				if (prev != this->_null)
 					removeChild(prev, curr);
 				else 
@@ -306,7 +306,7 @@ class AVLTree {
 			// case 2: node has one child
 			// else if (!curr->right) {
 			else if (curr->right == this->_null) {
-				std::cout << "case 2: left child" << std::endl;
+				// std::cout << "case 2: left child" << std::endl;
 				node_pointer tmp = curr->left;
 				copyData(curr, tmp);
 				// curr->left = NULL;
@@ -315,7 +315,7 @@ class AVLTree {
 			}
 			// else if (!curr->left) {
 			else if (curr->left == this->_null) {
-				std::cout << "case 2: right child" << std::endl;
+				// std::cout << "case 2: right child" << std::endl;
 				node_pointer tmp = curr->right;
 				copyData(curr, tmp);
 				// curr->right = NULL;
@@ -325,7 +325,7 @@ class AVLTree {
 
 			// case 3: node has two children
 			else {
-				std::cout << "case 3" << std::endl;
+				// std::cout << "case 3" << std::endl;
 				node_pointer tmp = min_node(curr->right);
 				copyData(curr, tmp);
 				curr = deleteNodeHelper(curr->right, curr->data);
@@ -347,8 +347,8 @@ class AVLTree {
 				this->destroyNode(deletedNode);
 				--this->_size;
 			}
-			else
-				std::cout << "Key not found." << std::endl;
+			// else
+			// 	std::cout << "Key not found." << std::endl;
 		}
 
 		void clearHelper(node_pointer curr) {
