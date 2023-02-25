@@ -474,6 +474,7 @@ class AVLTree {
 		}
 
 		allocator_type get_allocator() const { return (this->_alloc); }
+		key_compare getKeyComp() const { return (this->_comp); }
 };
 
 } // END NAMESPACE FT

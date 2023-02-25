@@ -220,13 +220,70 @@ class map {
 		const_iterator find(const key_type& k) const { return (const_iterator(this->_tree.searchKey(k))); }
 		size_type count(const key_type& k) const { return (this->_tree.find(k) != end() ? 1 : 0); }
 
-		// iterator lower_bound(const key_type& k) {}
-		// const_iterator lower_bound(const key_type& k) const {}
-		// iterator upper_bound(const key_type& k) {}
-		// const_iterator upper_bound(const key_type& k) const {}
+		// lower_bound
+		iterator lower_bound(const key_type& k) {
+			value_compare comp = this->_tree.getKeyComp();
+			iterator it = this->begin();
+			iterator ite = this->end();
 
-		// ft::pair<const_iterator, const_iterator> equal_range (const key_type& k) const {}
-		// ft::pair<iterator, iterator> equal_range (const key_type& k) const {}
+			for (; it != ite; ++it) {
+				if (!comp(*it, k))
+					break ;
+			}
+			return (it);
+		}
+		const_iterator lower_bound(const key_type& k) const {
+			value_compare comp = this->_tree.getKeyComp();
+			iterator it = this->begin();
+			iterator ite = this->end();
+
+			for (; it != ite; ++it) {
+				if (!comp(*it, k))
+					break ;
+			}
+			return (it);
+		}
+
+		// upper_bound
+		iterator upper_bound(const key_type& k) {
+			value_compare comp = this->_tree.getKeyComp();
+			iterator it = this->begin();
+			iterator ite = this->end();
+
+			for (; it != ite; ++it) {
+				if (comp(k, *it))
+					break ;
+			}
+			return (it);
+		}
+		const_iterator upper_bound(const key_type& k) const {
+			value_compare comp = this->_tree.getKeyComp();
+			iterator it = this->begin();
+			iterator ite = this->end();
+
+			for (; it != ite; ++it) {
+				if (comp(k, *it))
+					break ;
+			}
+			return (it);
+		}
+
+		ft::pair<iterator, iterator> equal_range (const key_type& k) {
+			ft::pair<iterator, iterator> res;
+			iterator first = this->lower_bound(k);
+			iterator second = this->upper_bound(k);
+
+			res = ft::make_pair(first, second);
+			return (res);
+		}
+		ft::pair<const_iterator, const_iterator> equal_range (const key_type& k) const {
+			ft::pair<const_iterator, const_iterator> res;
+			const_iterator first = this->lower_bound(k);
+			const_iterator second = this->upper_bound(k);
+
+			res = ft::make_pair(first, second);
+			return (res);
+		}
 
 		/* -------------------------------------------------------------------------- */
 		/*                                  ALLOCATOR                                 */
