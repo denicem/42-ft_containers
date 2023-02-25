@@ -312,6 +312,32 @@ class map {
 
 }; // END CLASS MAP
 
+template < class Key, class T, class Compare, class Allocator >
+bool operator==(const map<Key, T, Compare, Allocator>& lhs, const map<Key, T, Compare, Allocator>& rhs) {
+	return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+}
+template < class Key, class T, class Compare, class Allocator >
+bool operator!=(const map<Key, T, Compare, Allocator>& lhs, const map<Key, T, Compare, Allocator>& rhs) {
+	return !(lhs == rhs);
+}
+template < class Key, class T, class Compare, class Allocator >
+bool operator<(const map<Key, T, Compare, Allocator>& lhs, const map<Key, T, Compare, Allocator>& rhs) {
+	return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+}
+template < class Key, class T, class Compare, class Allocator >
+bool operator<=(const map<Key, T, Compare, Allocator>& lhs, const map<Key, T, Compare, Allocator>& rhs) {
+	return !(lhs > rhs);
+}
+template < class Key, class T, class Compare, class Allocator >
+bool operator>(const map<Key, T, Compare, Allocator>& lhs, const map<Key, T, Compare, Allocator>& rhs) {
+	return (rhs < lhs);
+}
+template < class Key, class T, class Compare, class Allocator >
+bool operator>=(const map<Key, T, Compare, Allocator>& lhs, const map<Key, T, Compare, Allocator>& rhs) {
+	return !(lhs < rhs);
+}
+
+
 template <class Key, class T, class Compare, class Allocator>
 void	swap(map<Key, T, Compare, Allocator>& lhs, map<Key, T, Compare, Allocator>& rhs) {
 	lhs.swap(rhs);
