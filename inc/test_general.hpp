@@ -17,7 +17,15 @@
 #define __assert_fail(e, file, line) (std::cout << "Testing " << UNDERLINED << e << RESET << RED << " failed " << RESET << BOLD << "@ " << file << ":" << line << RESET << std::endl, void())
 #define __assert_success(e, file, line) (std::cout << "Testing " << UNDERLINED << e << RESET << GREEN << " passed " << RESET << BOLD << "@ " << file << ":" << line << RESET << std::endl, void())
 
-// #define TIME(func) 
+#define PRINT_TIMING(func) \
+{ \
+	clock_t t; \
+	t = clock(); \
+	func; \
+	t = clock() - t; \
+	double tt = ((double)(t) / CLOCKS_PER_SEC); \
+	std::cout << tt << "s" << std::endl; \
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////

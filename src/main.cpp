@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/26 16:54:27 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/26 17:55:22 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #include "Vect3.hpp"
 
 #include "test_general.hpp"
-#include "test_vector.hpp"
+// #include "test_vector.hpp"
 #include "test_avltree.hpp"
 #include "test_map.hpp"
 
@@ -75,8 +75,10 @@ int main() {
 	// test_map_playground();
 	// system("leaks ft_containers");
 
-	measureTime(&testStdMap, &testFtMap);
-	measureTime(&testStdVector, &testFtVector);
+	// measureTime(&testStdMap, &testFtMap);
+	// measureTime(&testStdVector, &testFtVector);
+	PRINT_TIMING(testFtMap());
+	PRINT_TIMING(testStdMap());
 
 	return (0);
 }
