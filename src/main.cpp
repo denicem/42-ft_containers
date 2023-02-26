@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/25 22:02:22 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/26 16:54:27 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,31 @@
 #include "test_avltree.hpp"
 #include "test_map.hpp"
 
+#define ELEMENTS 1000
+
 void testStdMap() {
 	std::map<int, char> intchar;
-	for (int i = 0; i < 10000; ++i)
+	for (int i = 0; i < ELEMENTS; ++i)
 		intchar[i] = 97 + (i % 26);
 }
 
 void testFtMap() {
 	ft::map<int, char> intchar;
-	for (int i = 0; i < 10000; ++i)
+	for (int i = 0; i < ELEMENTS; ++i)
 		intchar[i] = 97 + (i % 26);
 }
 
+void testStdVector() {
+	std::vector<int> nbrs;
+	for (int i = 0; i < ELEMENTS; ++i)
+		nbrs.push_back(97 + (i % 26));
+}
+
+void testFtVector() {
+	ft::vector<int> nbrs;
+	for (int i = 0; i < ELEMENTS; ++i)
+		nbrs.push_back(97 + (i % 26));
+}
 
 int main() {
 	std::cout << "Hello ft_containers." << std::endl << std::endl;
@@ -63,6 +76,7 @@ int main() {
 	// system("leaks ft_containers");
 
 	measureTime(&testStdMap, &testFtMap);
+	measureTime(&testStdVector, &testFtVector);
 
 	return (0);
 }
