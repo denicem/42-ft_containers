@@ -6,25 +6,33 @@
 #    By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/15 01:48:13 by dmontema          #+#    #+#              #
-#    Updated: 2023/02/15 00:35:51 by dmontema         ###   ########.fr        #
+#    Updated: 2023/02/26 18:14:44 by dmontema         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	ft_containers
+STD_OUT	=	std.out
+FT_OUT	=	ft.out
 
 CC			=	c++
 
 SRC_DIR	=		./src
 SRCS	=		$(shell find $(SRC_DIR) -name "*.cpp")
+TEST_SRC_DIR	=	./tester
+TEST_SRCS		=	$(shell find $(TEST_SRC_DIR) -name "*.cpp")
 
 OBJ_DIR	=		./obj
 OBJS	=		$(patsubst $(SRC_DIR)%.cpp, $(OBJ_DIR)%.o, $(SRCS))
+TEST_OBJ_DIR	=		./test_obj
+TEST_OBJS	=	$(patsubst $(TEST_SRC_DIR)%.cpp, $(TEST_OBJ_DIR)%.o, $(TEST_SRCS))
 
 DEPS	=		$(OBJS:.o=.d)
 
-CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -g
+CFLAGS		=	-Wall -Wextra -Werror -std=c++98 #-g
 DEPS_FLAGS 	=	-MMD -MP
 INCLUDE		=	-I./inc/
+
+SEED = 213
 
 # **************************************************************************** #
 #	RULES																	   #
@@ -47,17 +55,43 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@$(CC) $(CFLAGS) $(INCLUDE) $(DEPS_FLAGS) -c $< -o $@
 	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)"
 
+test: $(TEST_OBJS)
+	@printf "$(BLUE)Linking objects to two binary files.$(RESET)\r"
+	@$(CC) $(CFLAGS) $(INCLUDE) $(TEST_OBJS) -o $(STD_OUT)
+	@$(CC) $(CFLAGS) $(INCLUDE) -D STL=0 $(TEST_OBJS) -o $(FT_OUT)
+	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)"
+	@printf "\t\t$(GREEN)$(BOLD)COMPLETE!$(RESET)\n\n"
+	@printf "\t\t$(MAGENTA)Name of executables: $(BOLD)$(MAGENTA_BG) $(STD_OUT) and $(FT_OUT) $(RESET)\n\n"
+
+diff: $(STD_OUT) $(FT_OUT)
+	@printf "$(BLUE)Executing std executable.$(RESET)\n"
+	@./$(STD_OUT) $(SEED) > std_out.txt
+	@printf "$(BLUE)Executing ft executable.$(RESET)\n"
+	@./$(FT_OUT) $(SEED) > ft_out.txt
+	@printf "$(BLUE)Creating diff file...$(RESET)\n"
+	@diff std_out.txt ft_out.txt > $(NAME).diff
+	@printf "\t\t$(GREEN)$(BOLD)COMPLETE!$(RESET)\n\n"
+
+$(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.cpp
+	@mkdir -p $(dir $@)
+	@printf "$(BLUE)$(BOLD)\rCompiling: $(CYAN)$(notdir $<)\r"
+	@$(CC) $(CFLAGS) $(INCLUDE) $(DEPS_FLAGS) -c $< -o $@
+	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)"
+
 # prep:
 # 	@mkdir -p $(OBJ_DIR)
 
 clean:
 	@printf "$(MAGENTA)Removing object files...\r$(RESET)"
 	@rm -rf $(OBJS) $(OBJ_DIR)
+	@rm -rf $(TEST_OBJS) $(TEST_OBJ_DIR)
+	@rm -rf std_out.txt ft_out.txt ft_containers.diff
 	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)"
 
 fclean: clean
 	@printf "$(MAGENTA)Removing binary file...\r$(RESET)"
 	@rm -rf $(NAME)
+	@rm -rf $(STD_OUT) $(FT_OUT)
 	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)\n"
 
 re: fclean all
