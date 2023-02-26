@@ -1,5 +1,5 @@
-#ifndef EVAL_VECTOR_TEST_HPP
-#define EVAL_VECTOR_TEST_HPP
+#ifndef EVAL_MAP_TEST_HPP
+#define EVAL_MAP_TEST_HPP
 
 #include "stl_mode.hpp"
 #include "test_general.hpp"

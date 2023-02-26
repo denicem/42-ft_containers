@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/26 22:13:59 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/26 22:46:15 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
 	PRINT_TIMING(test_vector_default_ctor());
 	PRINT_TIMING(test_vector_fill_ctor());
 	PRINT_TIMING(test_vector_range_ctor());
-	// PRINT_TIMING(test_map());
+	PRINT_TIMING(test_map());
 
 	return (0);
 }
