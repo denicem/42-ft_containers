@@ -6,7 +6,7 @@
 #    By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/15 01:48:13 by dmontema          #+#    #+#              #
-#    Updated: 2023/02/26 18:14:44 by dmontema         ###   ########.fr        #
+#    Updated: 2023/02/26 20:34:02 by dmontema         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,10 +55,12 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@$(CC) $(CFLAGS) $(INCLUDE) $(DEPS_FLAGS) -c $< -o $@
 	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)"
 
-test: $(TEST_OBJS)
+test: $(TEST_SRC_DIR) #$(TEST_OBJS)
 	@printf "$(BLUE)Linking objects to two binary files.$(RESET)\r"
-	@$(CC) $(CFLAGS) $(INCLUDE) $(TEST_OBJS) -o $(STD_OUT)
-	@$(CC) $(CFLAGS) $(INCLUDE) -D STL=0 $(TEST_OBJS) -o $(FT_OUT)
+# @$(CC) $(CFLAGS) $(INCLUDE) $(TEST_OBJS) -o $(STD_OUT)
+	@$(CC) $(CFLAGS) $(INCLUDE) $(TEST_SRCS) -o $(STD_OUT)
+# @$(CC) $(CFLAGS) $(INCLUDE) -D STL=0 $(TEST_OBJS) -o $(FT_OUT)
+	@$(CC) $(CFLAGS) $(INCLUDE) -D STL=0 $(TEST_SRCS) -o $(FT_OUT)
 	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)"
 	@printf "\t\t$(GREEN)$(BOLD)COMPLETE!$(RESET)\n\n"
 	@printf "\t\t$(MAGENTA)Name of executables: $(BOLD)$(MAGENTA_BG) $(STD_OUT) and $(FT_OUT) $(RESET)\n\n"
@@ -69,8 +71,9 @@ diff: $(STD_OUT) $(FT_OUT)
 	@printf "$(BLUE)Executing ft executable.$(RESET)\n"
 	@./$(FT_OUT) $(SEED) > ft_out.txt
 	@printf "$(BLUE)Creating diff file...$(RESET)\n"
-	@diff std_out.txt ft_out.txt > $(NAME).diff
+	@diff std_out.txt ft_out.txt > $(NAME).diff; [ $$? -eq 1 ]
 	@printf "\t\t$(GREEN)$(BOLD)COMPLETE!$(RESET)\n\n"
+	@printf "\t\t$(MAGENTA)Check out diff file: $(BOLD)$(MAGENTA_BG) $(NAME).diff $(RESET)\n\n"
 
 $(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.cpp
 	@mkdir -p $(dir $@)
@@ -95,6 +98,7 @@ fclean: clean
 	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)\n"
 
 re: fclean all
+re_test: fclean test
 
 # **************************************************************************** #
 #	TEXT MODIFIERS / FORMATITING CODES										   #

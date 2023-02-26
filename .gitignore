@@ -32,6 +32,8 @@
 # VSCode files
 .vscode
 
+# text files & diff files
+*.txt
+*.diff
+
 # specific files
-ft_containers-modular-tester.zip
-ft_containers-modular-tester/
