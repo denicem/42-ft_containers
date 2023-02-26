@@ -6,7 +6,7 @@
 #    By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/15 01:48:13 by dmontema          #+#    #+#              #
-#    Updated: 2023/02/26 20:34:02 by dmontema         ###   ########.fr        #
+#    Updated: 2023/02/26 21:18:53 by dmontema         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,13 +64,17 @@ test: $(TEST_SRC_DIR) #$(TEST_OBJS)
 	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)"
 	@printf "\t\t$(GREEN)$(BOLD)COMPLETE!$(RESET)\n\n"
 	@printf "\t\t$(MAGENTA)Name of executables: $(BOLD)$(MAGENTA_BG) $(STD_OUT) and $(FT_OUT) $(RESET)\n\n"
+	@make diff
 
 diff: $(STD_OUT) $(FT_OUT)
-	@printf "$(BLUE)Executing std executable.$(RESET)\n"
+	@printf "$(BLUE)Executing std executable.$(RESET)\r"
+	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)"
 	@./$(STD_OUT) $(SEED) > std_out.txt
-	@printf "$(BLUE)Executing ft executable.$(RESET)\n"
+	@printf "$(BLUE)Executing ft executable.$(RESET)\r"
+	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)"
 	@./$(FT_OUT) $(SEED) > ft_out.txt
-	@printf "$(BLUE)Creating diff file...$(RESET)\n"
+	@printf "$(BLUE)Creating diff file...$(RESET)\r"
+	@printf "$(SPACE)$(GREEN)[✓]\n$(RESET)"
 	@diff std_out.txt ft_out.txt > $(NAME).diff; [ $$? -eq 1 ]
 	@printf "\t\t$(GREEN)$(BOLD)COMPLETE!$(RESET)\n\n"
 	@printf "\t\t$(MAGENTA)Check out diff file: $(BOLD)$(MAGENTA_BG) $(NAME).diff $(RESET)\n\n"

@@ -7,6 +7,8 @@
 
 #include "format_codes.hpp"
 
+#define ELEMENTS 10000
+
 /* ----------------------------- debug printers ----------------------------- */
 # define PRINT_W_COLOR(color, text) std::cout << color << text << RESET << std::endl
 # define PRINT_POS std::cout << __FILE__ << ": " << __LINE__ << std::endl
@@ -24,7 +26,7 @@
 	func; \
 	t = clock() - t; \
 	double tt = ((double)(t) / CLOCKS_PER_SEC); \
-	std::cout << tt << "s" << std::endl; \
+	std::cout << #func << ": " << tt << "s" << std::endl; \
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////

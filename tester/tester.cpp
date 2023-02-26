@@ -6,11 +6,9 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/26 20:25:43 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/26 22:13:59 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#define ELEMENTS 100
 
 #include "Vect3.hpp"
 #include "test_general.hpp"
@@ -19,8 +17,8 @@
 
 #include "stl_mode.hpp"
 
-#include "eval_tests.hpp"
-
+#include "eval_vector_test.hpp"
+#include "eval_map_test.hpp"
 
 int main(int argc, char* argv[]) {
 	if (argc > 1)
@@ -30,8 +28,10 @@ int main(int argc, char* argv[]) {
 	else if (!STL)
 		std::cout << "FT version" << std::endl << std::endl;
 
-	// PRINT_TIMING(test_case());
-	PRINT_TIMING(test_map());
+	PRINT_TIMING(test_vector_default_ctor());
+	PRINT_TIMING(test_vector_fill_ctor());
+	PRINT_TIMING(test_vector_range_ctor());
+	// PRINT_TIMING(test_map());
 
 	return (0);
 }
