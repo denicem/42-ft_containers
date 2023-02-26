@@ -31,6 +31,18 @@
 #include "test_avltree.hpp"
 #include "test_map.hpp"
 
+void testStdMap() {
+	std::map<int, char> intchar;
+	for (int i = 0; i < 10000; ++i)
+		intchar[i] = 97 + (i % 26);
+}
+
+void testFtMap() {
+	ft::map<int, char> intchar;
+	for (int i = 0; i < 10000; ++i)
+		intchar[i] = 97 + (i % 26);
+}
+
 
 int main() {
 	std::cout << "Hello ft_containers." << std::endl << std::endl;
@@ -47,8 +59,10 @@ int main() {
 	// test_avltree_playground();
 	// test_interactive();
 	// test_pair_playground();
-	test_map_playground();
+	// test_map_playground();
 	// system("leaks ft_containers");
+
+	measureTime(&testStdMap, &testFtMap);
 
 	return (0);
 }

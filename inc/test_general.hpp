@@ -80,12 +80,12 @@ void measureTime(void (*func_std)(), void (*func_ft)()) {
 	}
 
 	std::cout << std::endl;
-	std::cout << "*** STD ver ***" << std::endl;
+	// std::cout << "*** STD ver ***" << std::endl;
 	clock_t start_std = clock();
 	func_std();
 	clock_t end_std = clock();
 
-	std::cout << "*** FT ver  ***" << std::endl;
+	// std::cout << "*** FT ver  ***" << std::endl;
 	clock_t start_ft = clock();
 	func_ft();
 	clock_t end_ft = clock();
@@ -94,10 +94,10 @@ void measureTime(void (*func_std)(), void (*func_ft)()) {
 	double duration_ft = static_cast<double>(end_ft - start_ft) / CLOCKS_PER_SEC;
 
 	std::cout << std::endl;
-	std::cout << "Duration std::vector:\t\t" << std::fixed << duration_std << " seconds." << std::endl;
-	std::cout << "Duration ft::vector:\t\t" << std::fixed << duration_ft << " seconds." << std::endl;
+	std::cout << "Duration std:: :\t\t" << std::fixed << duration_std << " seconds." << std::endl;
+	std::cout << "Duration ft::  :\t\t" << std::fixed << duration_ft << " seconds." << std::endl;
 	std::cout << std::endl;
-	std::cout << "Duration std::vector * 20:\t" << std::fixed << duration_std * 20 << " seconds." << std::endl;
+	std::cout << "Duration std:: * 20:\t\t" << std::fixed << duration_std * 20 << " seconds." << std::endl;
 	std::cout << std::endl;
 
 	// if (duration_std * 20 > duration_ft) // NOTE: is that correct, if duration_ft can be 20x slower than duration_std
