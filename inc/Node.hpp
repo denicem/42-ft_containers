@@ -44,7 +44,6 @@ NodePointer min_node(NodePointer curr) {
 // find the node with the maximum key
 template < class NodePointer >
 NodePointer max_node(NodePointer curr) {
-	// while (curr->right != NULL) {
 	while (curr->right != curr->_null) {
 		curr = curr->right;
 	}
@@ -57,7 +56,6 @@ NodePointer predecessor(NodePointer x) {
 	// if the left subtree is not null,
 	// the predecessor is the rightmost node in the 
 	// left subtree
-	// if (x->left != NULL) {
 	if (x == x->_null)
 		return (x->parent);
 
@@ -66,7 +64,6 @@ NodePointer predecessor(NodePointer x) {
 	}
 
 	NodePointer y = x->parent;
-	// while (y != NULL && x == y->left) {
 	while (y != y->_null && x == y->left) {
 		x = y;
 		y = y->parent;
@@ -81,7 +78,6 @@ NodePointer successor(NodePointer x) {
 	// if the right subtree is not null,
 	// the successor is the leftmost node in the
 	// right subtree
-	// if (x->right != NULL) {
 	if (x->right != x->_null) {
 		return (min_node(x->right));
 	}

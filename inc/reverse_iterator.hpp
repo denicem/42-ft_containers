@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 20:42:35 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/09 21:32:35 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/27 18:02:19 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ class ReverseIterator {
 		** ----------------------- CONSTRUCTORS & DESTRUCTOR -----------------------
 		*/
 		ReverseIterator(iter_type ptr = NULL): _ptr(ptr) {}
-		// ReverseIterator(iter_type it) it(_ptr) {}
 		template< typename T1 >
 		ReverseIterator(const ReverseIterator<T1>& other): _ptr(other.base()) {}
 		~ReverseIterator() {}
@@ -52,23 +51,6 @@ class ReverseIterator {
 		** ---------------------------- MEMBER FUNCTIONS ---------------------------
 		*/
 		iter_type base() const { return (this->_ptr); }
-
-		// ReverseIterator& operator=(const ReverseIterator& other) {
-		// 	if (this != &other)
-		// 		_ptr = other._ptr;
-		// 	return (*this);
-		// }
-		// template< typename T1 >
-		// ReverseIterator& operator=( ReverseIterator<T1>& other) {
-		// 	if (this != &other)
-		// 		_ptr = other._ptr;
-		// 	return (*this);
-		// }
-		// ReverseIterator& operator=(pointer ptr) {
-		// 	this->_ptr = ptr;
-		// 	return (*this);
-		// }
-		// ReverseIterator& operator=()
 
 	public:
 		/*
@@ -102,15 +84,11 @@ class ReverseIterator {
 
 			return (old);
 		}
-		// reverse_iterator 			operator-(difference_type n) const {return reverse_iterator(this->m_it + n);}
 		ReverseIterator& operator+=(const difference_type& n) {
 			this->_ptr -= n;
 			return (*this);
 		}
 		ReverseIterator operator+(const difference_type& n) const {
-			// ReverseIterator tmp(*this);
-			// tmp -= n;
-			// return (tmp);
 			return (ReverseIterator(this->_ptr - n));
 		}
 		ReverseIterator& operator-=(const difference_type& n) {
@@ -118,9 +96,6 @@ class ReverseIterator {
 			return (*this);
 		}
 		ReverseIterator operator-(const difference_type& n) const {
-			// ReverseIterator tmp(*this);
-			// tmp += n;
-			// return (tmp);
 			return (ReverseIterator(this->_ptr + n));
 		}
 };
@@ -147,9 +122,6 @@ bool operator>=(const ReverseIterator<Iter1>& lhs, const ReverseIterator<Iter2>&
 // ---------------------------- ARITHMETIC OPERATORS ---------------------------
 template< class Iter>
 ReverseIterator<Iter> operator+(typename ReverseIterator<Iter>::difference_type n, const ReverseIterator<Iter>& it) {
-	// ReverseIterator<Iter> tmp(it);
-	// tmp -= n;
-	// return (tmp);
 	return (ReverseIterator<Iter>(it.base() - n));
 }
 

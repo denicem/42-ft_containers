@@ -72,11 +72,6 @@ class AVLTree {
 				value_type tmp(*o_it);
 				this->insert(tmp);
 			}
-			// const_iterator first = other.begin(); // NOTE: testing purpose: maybe this method is faster performance wise.
-			// const_iterator last = other.end();
-			// for (; first != last; ++first) {
-			// 	this->insert(*first);
-			// }
 		}
 
 		~AVLTree() {
@@ -128,7 +123,6 @@ class AVLTree {
 		}
 
 		int getHeight(node_pointer curr) const {
-			// if (curr == NULL)
 			if (curr == this->_null)
 				return (0);
 			return ( 1 + std::max( getHeight(curr->right), getHeight(curr->left) ) );
@@ -137,12 +131,10 @@ class AVLTree {
 		void leftRotate(node_pointer x) {
 			node_pointer y = x->right;
 			x->right = y->left;
-			// if (y->left != NULL) {
 			if (y->left != this->_null) {
 				y->left->parent = x;
 			}
 			y->parent = x->parent;
-			// if (x->parent == NULL) {
 			if (x->parent == this->_null) {
 				this->_root = y;
 			} else if (x == x->parent->left) {
@@ -157,12 +149,10 @@ class AVLTree {
 		void rightRotate(node_pointer x) {
 			node_pointer y = x->left;
 			x->left = y->right;
-			// if (y->right != NULL) {
 			if (y->right != this->_null) {
 				y->right->parent = x;
 			}
 			y->parent = x->parent;
-			// if (x->parent == NULL) {
 			if (x->parent == this->_null) {
 				this->_root = y;
 			} else if (x == x->parent->right) {
@@ -177,21 +167,17 @@ class AVLTree {
 		void rebalance(node_pointer curr) {
 			if (getBalanceFactor(curr) > 0) {
 				if (getBalanceFactor(curr->right) < 0) {
-					// std::cout << "right left rotate" << std::endl;
 					rightRotate(curr->right);
 					leftRotate(curr);
 				} else {
-					// std::cout << "left rotate" << std::endl;
 					leftRotate(curr);
 				}
 			} 
 			else if (getBalanceFactor(curr) < 0) {
 				if (getBalanceFactor(curr->left) > 0) {
-					// std::cout << "left right rotate" << std::endl;
 					leftRotate(curr->left);
 					rightRotate(curr);
 				} else {
-					// std::cout << "right rotate" << std::endl;
 					rightRotate(curr);
 				}
 			}
@@ -199,10 +185,8 @@ class AVLTree {
 
 		void updateBalance(node_pointer curr) {
 			if (getBalanceFactor(curr) < -1 || getBalanceFactor(curr) > 1) {
-				// std::cout << "Rebalancing needed." << std::endl;
 				this->rebalance(curr);
 			}
-			// if (curr->parent != NULL)
 			if (curr->parent != this->_null)
 				updateBalance(curr->parent);
 		}
@@ -219,11 +203,9 @@ class AVLTree {
 			curr->right = this->_null;
 			curr->_null = this->_null;
 
-			// node_pointer y = NULL;
 			node_pointer y = this->_null;
 			node_pointer x = this->_root;
 
-			// while (x != NULL) {
 			while (x != this->_null) {
 				y = x;
 				if (this->_comp(curr->data, x->data))
@@ -234,11 +216,8 @@ class AVLTree {
 
 			// y is parent of x
 			curr->parent = y;
-			// if (y == NULL)
-			if (y == this->_null) {
+			if (y == this->_null)
 				this->_root = curr;
-				// this->_root->parent = this->_null;
-			}
 			else if (this->_comp(curr->data, y->data))
 				y->left = curr;
 			else
@@ -269,10 +248,8 @@ class AVLTree {
 
 		void removeChild(node_pointer& parent, node_pointer& child) {
 			if (parent->left == child)
-				// parent->left = NULL;
 				parent->left = this->_null;
 			else if (parent->right == child)
-				// parent->right = NULL;
 				parent->right = this->_null;
 		}
 
@@ -290,45 +267,34 @@ class AVLTree {
 
 		node_pointer deleteNodeHelper(node_pointer curr, value_type key) {
 			curr = searchHelper(curr, key);
-			// if (!curr) return (NULL);
 			if (curr == this->_null) return (curr);
 
 			node_pointer prev = curr->parent;
 
 			// case 1: leaf node
-			// if (!curr->left && !curr->right) {
 			if (curr->left == this->_null && curr->right == this->_null) {
-				// std::cout << "case 1" << std::endl;
 				if (prev != this->_null)
 					removeChild(prev, curr);
 				else 
-					// this->_root = NULL;
 					this->_root = this->_null;
 			}
 			
 			// case 2: node has one child
-			// else if (!curr->right) {
 			else if (curr->right == this->_null) {
-				// std::cout << "case 2: left child" << std::endl;
 				node_pointer tmp = curr->left;
 				copyData(curr, tmp);
-				// curr->left = NULL;
 				curr->left = this->_null;
 				curr = tmp;
 			}
-			// else if (!curr->left) {
 			else if (curr->left == this->_null) {
-				// std::cout << "case 2: right child" << std::endl;
 				node_pointer tmp = curr->right;
 				copyData(curr, tmp);
-				// curr->right = NULL;
 				curr->right = this->_null;
 				curr = tmp;
 			}
 
 			// case 3: node has two children
 			else {
-				// std::cout << "case 3" << std::endl;
 				node_pointer tmp = min_node(curr->right);
 				copyData(curr, tmp);
 				curr = deleteNodeHelper(curr->right, curr->data);
@@ -339,24 +305,18 @@ class AVLTree {
 
 		void deleteNode (value_type key) {
 			node_pointer deletedNode = deleteNodeHelper(this->_root, key);
-			// if (deletedNode) {
 			if (deletedNode != this->_null) {
-				// if (deletedNode->parent)
 				if (deletedNode->parent != this->_null)
 					updateBalance(deletedNode->parent);
-				// else if (this->_root)
 				else if (this->_root != this->_null)
 					updateBalance(this->_root);
 				this->destroyNode(deletedNode);
 				this->_null->parent = max_node(this->_root);
 				--this->_size;
 			}
-			// else
-			// 	std::cout << "Key not found." << std::endl;
 		}
 
 		void clearHelper(node_pointer curr) {
-			// if (!curr)
 			if (curr == this->_null)
 				return ;
 			clearHelper(curr->right);
@@ -366,7 +326,6 @@ class AVLTree {
 
 		void clear() {
 			clearHelper(this->_root);
-			// this->_root = NULL;
 			this->_root = this->_null;
 			this->_size = 0;
 		}
@@ -385,7 +344,6 @@ class AVLTree {
 
 		void print2D(node_pointer curr, int space, std::string dir, int color = 0) const {
 			// Base case
-			// if (curr == NULL)
 			if (curr == this->_null)
 				return ;
 
@@ -415,14 +373,6 @@ class AVLTree {
 			this->print2D(this->_root, 0, "");
 		}
 
-		void compareNodes(node_pointer n1, node_pointer n2) {
-			if (_comp.operator()(n1->data, n2->data))
-				std::cout << "n1 < n2";
-			else
-				std::cout << "n1 > n2";
-			std::cout << std::endl;
-		}
-
 	public:
 		bool empty() const { return (!this->_size); }
 		size_type size() const { return (this->_size); }
@@ -442,7 +392,6 @@ class AVLTree {
 		template < typename Key >
 		iterator find(Key key) const {
 			node_pointer curr = this->_root;
-				// while (curr) {
 				while (curr != this->_null) {
 				if (this->_comp(key, curr->data))
 					curr = curr->left;

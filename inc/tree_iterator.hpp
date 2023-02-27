@@ -26,7 +26,6 @@ class TreeIterator {
 		node_pointer _ptr;
 
 	public:
-		// constructors and destructor + assigment operator overload
 		TreeIterator(): _ptr(NULL) {}
 		TreeIterator(node_pointer ptr): _ptr(ptr) {}
 		TreeIterator(const TreeIterator& other): _ptr(other._ptr) {}

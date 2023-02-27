@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/27 16:34:50 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:56:48 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,6 @@
 #include "reverse_iterator.hpp"
 #include "algorithm.hpp"
 #include "type_traits.hpp"
-
-// TODO understand type_traits, enable_if and is_integral better
-// TODO rewrite realloc() - use std::allocator
-// TODO rewrite destructor - use std::allocator
-// TODO rewrite clear() - use destroy() from std::allocator
-
-// TODO implement reverse_iterator
-// TODO: understand iterator_traits
-
-// TODO rewrite push_back()
-// TODO rewrite assign()
-// TODO rewrite insert()
 
 namespace ft {
 
@@ -252,50 +240,36 @@ class vector {
 				(this->_alloc).destroy(this->_data + this->_size);
 			}
 		}
-
-	// private:
-	// 	void _insert_construct_end(size_type curr, size_type n) {
-	// 		for (size_type last_el = this->_size - 1; last_el >= curr; --last_el) {
-	// 			size_type new_last_el = last_el + n;
-	// 			// (this->_alloc).construct(this->_data + new_last_el, this->_data[last_el]);
-	// 			this->_data[new_last_el] = this->_data[last_el];
-	// 			// (this->_alloc).destroy(this->_data + last_el);
-	// 			if (!last_el)
-	// 				break ;
-	// 		}
-	// 	}
 	public:
 
-	// insert single element
-	iterator insert(iterator pos, const_reference val) {
-		size_type res = pos - begin();
-		this->insert(pos, 1, val);
-		return (iterator(this->_data + res));
-	}
-
-	// insert fill
-	void insert(iterator pos, size_type n, const_reference val) {
-		size_type index = pos - this->begin();
-		if (n) {
-			if (this->size() + n > this->capacity())
-				reserve(this->size() + n);
-			for (size_type i = this->_size; i > index; i--) {
-				this->_alloc.construct(this->_data + i + n - 1, *(this->_data + i -1));
-				this->_alloc.destroy(this->_data + i - 1);
-			}
-			for (size_type i = 0; i < n; i++) {
-				this->_alloc.construct(this->_data + index + i, val);
-				this->_size++;
+		// insert single element
+		iterator insert(iterator pos, const_reference val) {
+			size_type res = pos - begin();
+			this->insert(pos, 1, val);
+			return (iterator(this->_data + res));
+		}
+		// insert fill
+		void insert(iterator pos, size_type n, const_reference val) {
+			size_type index = pos - this->begin();
+			if (n) {
+				if (this->size() + n > this->capacity())
+					reserve(this->size() + n);
+				for (size_type i = this->_size; i > index; i--) {
+					this->_alloc.construct(this->_data + i + n - 1, *(this->_data + i -1));
+					this->_alloc.destroy(this->_data + i - 1);
+				}
+				for (size_type i = 0; i < n; i++) {
+					this->_alloc.construct(this->_data + index + i, val);
+					this->_size++;
+				}
 			}
 		}
-	}
-
-	// insert range
-	template <class InputIterator>
-	void insert(iterator pos, InputIterator first, InputIterator last, typename ft::enable_if< !ft::is_integral< InputIterator >::value >::type* = NULL) {
-		for (; first != last; ++first, ++pos)
-			pos = insert(pos, *first);
-	}
+		// insert range
+		template <class InputIterator>
+		void insert(iterator pos, InputIterator first, InputIterator last, typename ft::enable_if< !ft::is_integral< InputIterator >::value >::type* = NULL) {
+			for (; first != last; ++first, ++pos)
+				pos = insert(pos, *first);
+		}
 
 		iterator erase(iterator pos) {
 			iterator res = pos;
@@ -306,7 +280,6 @@ class vector {
 			this->pop_back();
 			return (res);
 		}
-
 		iterator erase(iterator first, iterator last) {
 			size_type n = last - first;
 			iterator it;
@@ -354,7 +327,6 @@ class vector {
 /*
 ** ----------------------- NON-MEMBER FUNCS OVERLOADS -----------------------
 */
-
 // ----------------------- RELATIONAL OPERATORS -----------------------
 
 template <class T, class Alloc>  

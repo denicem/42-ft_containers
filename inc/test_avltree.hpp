@@ -39,24 +39,24 @@ void test_avltree_playground() {
 }
 
 void pre_insert_interactive(ft::AVLTree<int>& avl_int) {
-	// // pre inserting
-	// avl_int.insert(40);
-	// avl_int.insert(45);
-	// avl_int.insert(50);
-	// avl_int.insert(49);
-	// avl_int.insert(47);
-
-	// pre inserting 2
-	avl_int.insert(58);
-	avl_int.insert(46);
-	avl_int.insert(43);
-	avl_int.insert(634);
-	avl_int.insert(11);
-	avl_int.insert(10);
-	avl_int.insert(55);
+	// pre inserting
+	avl_int.insert(40);
+	avl_int.insert(45);
 	avl_int.insert(50);
-	avl_int.insert(66);
-	avl_int.insert(14);
+	avl_int.insert(49);
+	avl_int.insert(47);
+
+	// // pre inserting 2
+	// avl_int.insert(58);
+	// avl_int.insert(46);
+	// avl_int.insert(43);
+	// avl_int.insert(634);
+	// avl_int.insert(11);
+	// avl_int.insert(10);
+	// avl_int.insert(55);
+	// avl_int.insert(50);
+	// avl_int.insert(66);
+	// avl_int.insert(14);
 
 	// // pre inserting 3
 	// avl_int.insert(1);
@@ -124,18 +124,5 @@ void test_interactive() {
 	std::cout << LIGHTGRAY << "---" << RESET << std::endl;
 	std::cout << LIGHTMAGENTA << "exit Interactive Mode" << RESET << std::endl << std::endl;
 }
-
-// old interactive mode:
-// int input;
-// while (std::cin >> input && input != 0) {
-// 	char mode;
-
-// 	std::cin >> mode;
-// 	if (mode == 'i')
-// 		avl_int.insert(input);
-// 	if (mode == 'd')
-// 	avl_int.deleteNode(input);
-// 	avl_int.print2D();
-// }
 
 #endif

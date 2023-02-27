@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 17:43:36 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/09 18:27:22 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:55:42 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ class Iterator {
 		/*
 		** ----------------------- CONSTRUCTORS & DESTRUCTOR -----------------------
 		*/
-		Iterator(pointer ptr = NULL): _ptr(ptr) {  }
-		// explicit Iterator(iterator_type it): _ptr(it._ptr) { "initialization constructor" << std::endl; }
+		Iterator(pointer ptr = NULL): _ptr(ptr) {}
 		template< typename T1 >
 		Iterator(const Iterator<T1>& other): _ptr(other.base()) {}
 		~Iterator() {}
@@ -122,32 +121,15 @@ class Iterator {
 			tmp -= n;
 			return (tmp);
 		}
-	bool operator==(const Iterator<const Iter>& other) { return (this->base() == other.base()); }
-	bool operator!=(const Iterator<const Iter>& other) { return (this->base() != other.base()); }
-	bool operator<(const Iterator<const Iter>& other) { return (this->base() < other.base()); }
-	bool operator<=(const Iterator<const Iter>& other) { return (this->base() <= other.base()); }
-	bool operator>(const Iterator<const Iter>& other) { return (this->base() > other.base()); }
-	bool operator>=(const Iterator<const Iter>& other) { return (this->base() >= other.base()); }
+
+		// ---------------------------- RELATIONAL OPERATORS ---------------------------
+		bool operator==(const Iterator<const Iter>& other) { return (this->base() == other.base()); }
+		bool operator!=(const Iterator<const Iter>& other) { return (this->base() != other.base()); }
+		bool operator<(const Iterator<const Iter>& other) { return (this->base() < other.base()); }
+		bool operator<=(const Iterator<const Iter>& other) { return (this->base() <= other.base()); }
+		bool operator>(const Iterator<const Iter>& other) { return (this->base() > other.base()); }
+		bool operator>=(const Iterator<const Iter>& other) { return (this->base() >= other.base()); }
 };
-
-/*
-** ---------------------------- NON-MEMBER FUNCTIONS ---------------------------
-** ---------------------------- NON-MEMBER OPERATORS ---------------------------
-*/
-
-// ---------------------------- RELATIONAL OPERATORS ---------------------------
-// template< class Iter >
-// bool operator==(const Iterator<Iter>& lhs, const Iterator<const Iter>& rhs) { return (lhs.base() == rhs.base()); }
-// template< class Iter >
-// bool operator!=(const Iterator<Iter>& lhs, const Iterator<const Iter>& rhs) { return (lhs.base() != rhs.base()); }
-// template< class Iter >
-// bool operator<(const Iterator<Iter>& lhs, const Iterator<const Iter>& rhs) { return (lhs.base() < rhs.base()); }
-// template< class Iter >
-// bool operator<=(const Iterator<Iter>& lhs, const Iterator<const Iter>& rhs) { return (lhs.base() <= rhs.base()); }
-// template< class Iter >
-// bool operator>(const Iterator<Iter>& lhs, const Iterator<const Iter>& rhs) { return (lhs.base() > rhs.base()); }
-// template< class Iter >
-// bool operator>=(const Iterator<Iter>& lhs, const Iterator<const Iter>& rhs) { return (lhs.base() >= rhs.base()); }
 
 // ---------------------------- ARITHMETIC OPERATORS ---------------------------
 template< class Iter>

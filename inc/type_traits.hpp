@@ -1,5 +1,5 @@
-#ifndef __FT_TYPE_TRAITS_HPP_
-# define __FT_TYPE_TRAITS_HPP_
+#ifndef FT_TYPE_TRAITS_HPP_
+#define FT_TYPE_TRAITS_HPP_
 
 namespace ft { // NAMESPACE FT
 
@@ -42,8 +42,6 @@ template <class T> struct __ft_is_integral						: public false_type {};
 		
 template < > struct __ft_is_integral <bool>						: public true_type {};
 template < > struct __ft_is_integral <char>						: public true_type {};
-// template < > struct __ft_is_integral <char16_t>					: public true_type {}; // NOTE: is defined in the C++11 standard
-// template < > struct __ft_is_integral <char32_t>					: public true_type {};
 template < > struct __ft_is_integral <wchar_t>					: public true_type {};
 template < > struct __ft_is_integral <signed char>				: public true_type {};
 template < > struct __ft_is_integral <short int>				: public true_type {};
@@ -60,6 +58,6 @@ class is_integral : public __ft_is_integral< T > {};
 
 /* ------------------------------------------------------------------------ */
 
-} // NAMESPACE FT
+} // END NAMESPACE FT
 
-#endif // __FT_TYPE_TRAITS_HPP_
+#endif
