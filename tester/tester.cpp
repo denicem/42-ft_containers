@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/27 17:00:19 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:43:49 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 #include "stl_mode.hpp"
 #include "eval_vector_test.hpp"
+#include "eval_stack_test.hpp"
 #include "eval_map_test.hpp"
 
 int main(int argc, char* argv[]) {
@@ -26,17 +27,17 @@ int main(int argc, char* argv[]) {
 	else if (!STL)
 		std::cout << "FT version" << std::endl << std::endl;
 
-	PRINT_TIMING(test_vector_default_ctor());
-	PRINT_TIMING(test_vector_fill_ctor());
-	PRINT_TIMING(test_vector_range_ctor());
-	PRINT_TIMING(test_vector_copy_ctor());
-	PRINT_TIMING(test_vector_assignment_operator());
-	PRINT_TIMING(test_vector_iterators());
-	PRINT_TIMING(test_vector_capacity());
-	PRINT_TIMING(test_vector_element_access());
-	PRINT_TIMING(test_vector_modifiers());
+	test_vector_default_ctor();
+	test_vector_fill_ctor();
+	test_vector_range_ctor();
+	test_vector_copy_ctor();
+	test_vector_assignment_operator();
+	test_vector_iterators();
+	test_vector_capacity();
+	test_vector_element_access();
+	test_vector_modifiers();
 
-	// PRINT_TIMING(test_map());
+	PRINT_TIMING(test_stack());
 
 	return (0);
 }
