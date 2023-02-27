@@ -304,13 +304,6 @@ class map {
 		/*                                    OTHER                                   */
 		/* -------------------------------------------------------------------------- */
 
-		void comparePairs(value_type& p1, value_type& p2) {
-			node n1(p1);
-			node n2(p2);
-
-			this->_tree.compareNodes(&n1, &n2);
-		}
-
 		void printMap() const { this->_tree.printTree(); }
 
 }; // END CLASS MAP

@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:27:59 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/27 17:51:19 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/27 19:15:38 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ int main(int argc, char* argv[]) {
 	test_vector_modifiers();
 
 	test_stack();
+
+	test_map_ctor();
+	test_map_insert();
+	test_map_erase();
+	test_map_element_access_lookup();
 
 	return (0);
 }
