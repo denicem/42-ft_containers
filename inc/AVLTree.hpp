@@ -376,7 +376,7 @@ class AVLTree {
 	public:
 		bool empty() const { return (!this->_size); }
 		size_type size() const { return (this->_size); }
-		size_type max_size() const { return (this->_alloc.max_size()); }
+		size_type max_size() const { return (this->_node_alloc.max_size()); }
 
 	public:
 		iterator begin() { return ( this->empty() ? this->end() : iterator(min_node(this->_root)) ); }

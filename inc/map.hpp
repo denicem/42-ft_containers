@@ -195,17 +195,9 @@ class map {
 			return (1);
 		}
 		void erase(iterator first, iterator last) {
-			// while (first != last) {
-			// 	iterator next = first;
-			// 	++next;
-			// 	this->_tree.deleteNode(*first);
-			// 	first = next;
-			// }
-			// ver 2
 			size_type size = this->_tree.size();
 			size_type actual_size = 0;
 			key_type keys[size];
-
 
 			for (size_type i = 0; first != last && i < size; ++first, ++i, ++actual_size)
 				keys[i] = first->first;
