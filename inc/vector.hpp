@@ -6,7 +6,7 @@
 /*   By: dmontema <dmontema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:17:12 by dmontema          #+#    #+#             */
-/*   Updated: 2023/02/09 23:47:54 by dmontema         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:34:50 by dmontema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,8 +178,7 @@ class vector {
 	*/
 	public:
 		size_type size() const { return (this->_size); }
-		size_type max_size() const { return ((this->_alloc).max_size());}
-		// size_type max_size() const {return ft::min<size_type>(this->_alloc.max_size(), std::numeric_limits<difference_type>::max()); }
+		size_type max_size() const {return std::min<size_type>(this->_alloc.max_size(), std::numeric_limits<difference_type>::max()); }
 
 		void resize (size_type n, value_type val = value_type()) {
 			if (n < this->_size) {
