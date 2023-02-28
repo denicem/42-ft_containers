@@ -14,6 +14,7 @@
 #define VECTOR_HPP
 
 #include <iostream>
+#include <limits>
 #include <memory>
 
 #include "iterator.hpp"
